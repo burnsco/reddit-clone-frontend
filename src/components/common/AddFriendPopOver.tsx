@@ -135,7 +135,6 @@ export default function AddFriendPopOver() {
 
                       <PopoverFooter
                         border="0"
-                        d="flex"
                         alignItems="center"
                         justifyContent="space-between"
                         pb={4}

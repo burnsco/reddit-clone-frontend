@@ -26,7 +26,7 @@ export default function NoAuthSideMenu() {
 
   if (loading) return <VisuallyHidden>loading</VisuallyHidden>
 
-  if (error) return <Alert>{error}</Alert>
+  if (error) return <Alert>{error.message}</Alert>
 
   return (
     <>

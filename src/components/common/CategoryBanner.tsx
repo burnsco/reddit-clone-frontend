@@ -45,7 +45,7 @@ export default function CategoryBanner() {
         h="full"
         alignItems="flex-end"
       >
-        <Box d="flex" alignItems="baseline">
+        <Box alignItems="baseline">
           <Badge borderRadius="full" px="2" colorScheme="teal">
             New
           </Badge>
@@ -61,13 +61,7 @@ export default function CategoryBanner() {
           </Box>
         </Box>
 
-        <Box
-          mt="1"
-          fontWeight="semibold"
-          as="h4"
-          lineHeight="tight"
-          isTruncated
-        >
+        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
           react
         </Box>
 
@@ -78,7 +72,7 @@ export default function CategoryBanner() {
           </Box>
         </Box>
 
-        <Box d="flex" mt="2" alignItems="center">
+        <Box mt="2" alignItems="center">
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             6 reviews
           </Box>

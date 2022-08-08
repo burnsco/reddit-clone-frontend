@@ -118,7 +118,7 @@ export default function CreatePostDrawer() {
     }
   }
 
-  const onDrop = useCallback((acceptedFile) => {
+  const onDrop = useCallback((acceptedFile: any) => {
     const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dmztdsduf/upload'
     const cloudinaryPreset = 'qapnebg6'
 

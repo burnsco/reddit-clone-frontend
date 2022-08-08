@@ -51,7 +51,7 @@ const AccountContent = (): JSX.Element => {
     { id: 'edit-user-about-field', field: 'about', title: 'About' },
   ]
 
-  const onDrop = useCallback((acceptedFile) => {
+  const onDrop = useCallback((acceptedFile: any) => {
     const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dmztdsduf/upload'
     const cloudinaryPreset = 'qapnebg6'
 

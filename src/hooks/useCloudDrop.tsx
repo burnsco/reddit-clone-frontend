@@ -6,7 +6,7 @@ function useCloudDrop() {
   const [imageUrl, setImageUrl] = useState(null)
   const [uploadProgress, setUploadProgress] = useState(0)
 
-  const onDrop = useCallback((acceptedFile) => {
+  const onDrop = useCallback((acceptedFile: any) => {
     const cloudinaryUrl = 'https://api.cloudinary.com/v1_1/dmztdsduf/upload'
     const cloudinaryPreset = 'qapnebg6'
 
