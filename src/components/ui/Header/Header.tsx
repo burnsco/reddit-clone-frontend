@@ -62,7 +62,13 @@ export default function Header() {
         boxShadow={headerShadow}
         width="full"
       >
-        <Flex w="100%" h="100%" px="4" align="center" justify="space-around">
+        <Flex
+          w="100%"
+          h="100%"
+          px={[0, 4, 8]}
+          align="center"
+          justify="space-around"
+        >
           {data?.me ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
         </Flex>
       </chakra.nav>

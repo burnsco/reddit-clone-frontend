@@ -13,8 +13,6 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** The Email scalar type represents E-Mail addresses compliant to RFC 822. */
-  Email: any;
 };
 
 export type AddUserInput = {
@@ -71,7 +69,8 @@ export type CommentMutationResponse = {
 };
 
 export type CreatePostInput = {
-  categoryId: Scalars['ID'];
+  categoryId: Scalars['String'];
+  categoryName: Scalars['String'];
   image?: InputMaybe<Scalars['String']>;
   imageH?: InputMaybe<Scalars['Int']>;
   imageW?: InputMaybe<Scalars['Int']>;
@@ -94,7 +93,7 @@ export type EditPostInput = {
 export type EditUserInput = {
   about?: InputMaybe<Scalars['String']>;
   avatar?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['Email']>;
+  email?: InputMaybe<Scalars['String']>;
   password?: InputMaybe<Scalars['String']>;
   username?: InputMaybe<Scalars['String']>;
 };
@@ -106,7 +105,7 @@ export type FieldError = {
 };
 
 export type LoginInput = {
-  email: Scalars['Email'];
+  email: Scalars['String'];
   password: Scalars['String'];
 };
 
@@ -122,6 +121,7 @@ export type Message = {
 
 export type MessageInput = {
   categoryId: Scalars['ID'];
+  categoryName: Scalars['String'];
   content: Scalars['String'];
 };
 
@@ -367,7 +367,7 @@ export type QueryUserArgs = {
 export type RegisterInput = {
   about?: InputMaybe<Scalars['String']>;
   avatar?: InputMaybe<Scalars['String']>;
-  email: Scalars['Email'];
+  email: Scalars['String'];
   password: Scalars['String'];
   username: Scalars['String'];
 };
@@ -395,7 +395,7 @@ export type User = {
   avatar?: Maybe<Scalars['String']>;
   chatRooms: Array<Category>;
   createdAt: Scalars['String'];
-  email: Scalars['Email'];
+  email: Scalars['String'];
   friends: Array<User>;
   id: Scalars['String'];
   online: Scalars['Boolean'];
@@ -459,7 +459,7 @@ export type PostDetailsFragment = { __typename?: 'Post', id: string, createdAt: 
 
 export type UserDetailsFragment = { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean };
 
-export type UserMeDetailsFragment = { __typename?: 'User', id: string, username: string, email: any, about?: string | null, online: boolean, avatar?: string | null };
+export type UserMeDetailsFragment = { __typename?: 'User', id: string, username: string, email: string, about?: string | null, online: boolean, avatar?: string | null };
 
 export type CreateSubredditMutationVariables = Exact<{
   data: CategoryInput;
@@ -522,14 +522,14 @@ export type EditUserMutationVariables = Exact<{
 }>;
 
 
-export type EditUserMutation = { __typename?: 'Mutation', editUser: { __typename?: 'UserMutationResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: string, username: string, about?: string | null, email: any, avatar?: string | null } | null } };
+export type EditUserMutation = { __typename?: 'Mutation', editUser: { __typename?: 'UserMutationResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: string, username: string, about?: string | null, email: string, avatar?: string | null } | null } };
 
 export type LoginMutationVariables = Exact<{
   data: LoginInput;
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserMutationResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: string, username: string, online: boolean, email: any } | null } };
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserMutationResponse', errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null, user?: { __typename?: 'User', id: string, username: string, online: boolean, email: string } | null } };
 
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
@@ -541,7 +541,7 @@ export type RegisterMutationVariables = Exact<{
 }>;
 
 
-export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserMutationResponse', user?: { __typename?: 'User', id: string, username: string, email: any, about?: string | null, online: boolean, avatar?: string | null } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserMutationResponse', user?: { __typename?: 'User', id: string, username: string, email: string, about?: string | null, online: boolean, avatar?: string | null } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 export type SendPrivateMessageMutationVariables = Exact<{
   data: PrivateMessageInput;
@@ -626,7 +626,7 @@ export type PostsQuery = { __typename?: 'Query', posts?: Array<{ __typename?: 'P
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, username: string, email: any, about?: string | null, online: boolean, avatar?: string | null } | null };
+export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: string, username: string, email: string, about?: string | null, online: boolean, avatar?: string | null } | null };
 
 export type MyChatRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -648,12 +648,12 @@ export type UserQueryVariables = Exact<{
 }>;
 
 
-export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, username: string, email: any, about?: string | null, online: boolean } | null };
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, username: string, email: string, about?: string | null, online: boolean } | null };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: string, username: string, online: boolean, email: any, about?: string | null }> | null };
+export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: string, username: string, online: boolean, email: string, about?: string | null }> | null };
 
 export type UpdateMetaQueryVariables = Exact<{
   category?: InputMaybe<Scalars['String']>;
@@ -672,7 +672,7 @@ export type CategoryChatSubSubscription = { __typename?: 'Subscription', newMess
 export type NewUserSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
-export type NewUserSubscription = { __typename?: 'Subscription', newUser: { __typename?: 'User', id: string, username: string, email: any } };
+export type NewUserSubscription = { __typename?: 'Subscription', newUser: { __typename?: 'User', id: string, username: string, email: string } };
 
 export const CategoryDetailsFragmentDoc = gql`
     fragment CategoryDetails on Category {

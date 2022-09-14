@@ -21,6 +21,7 @@ export default function ChatInput() {
     const response = await submitMessage({
       variables: {
         data: {
+          categoryName: values.categoryName,
           content: values.content,
           categoryId: selectedCategoryId,
         },

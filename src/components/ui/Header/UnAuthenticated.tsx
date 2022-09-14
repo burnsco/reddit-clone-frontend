@@ -21,7 +21,7 @@ function LogoSection() {
       aria-label="Home Header Link"
       align="center"
       h="full"
-      p="0.5"
+      p="3"
       flexGrow={1}
       display={{ base: 'flex' }}
     >
