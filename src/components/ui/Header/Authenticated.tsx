@@ -104,7 +104,7 @@ function HeaderIconsSection() {
               <MdSettings />
               <Box ml={3}>Friends</Box>
             </MenuItem>
-            <MenuItem onClick={() => router.push('/user/account')}>
+            <MenuItem onClick={() => router.push('/user/messages')}>
               <MdSettings />
               <Box ml={3}>Messages</Box>
             </MenuItem>
