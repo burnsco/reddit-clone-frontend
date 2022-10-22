@@ -2,7 +2,7 @@ import { Layout } from '@/components/ui/index'
 import { useMeQuery } from '@/generated/graphql'
 import {
   Avatar,
-  Box,
+  Container,
   Heading,
   Text,
   useColorModeValue,
@@ -17,7 +17,7 @@ export default function UserPage() {
 
   return (
     <Layout title="Me">
-      <Box bg={bg}>
+      <Container bg={bg}>
         <Heading>User</Heading>
         <Text>Username: {data?.me?.username} </Text>
         <Text>Email: {data?.me?.email}</Text>
@@ -27,7 +27,7 @@ export default function UserPage() {
         ) : (
           <Text>No Avatar Yet</Text>
         )}
-      </Box>
+      </Container>
     </Layout>
   )
 }
