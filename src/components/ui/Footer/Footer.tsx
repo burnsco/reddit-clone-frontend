@@ -25,6 +25,8 @@ export default function Footer() {
     ssr: false,
   })
 
+  const userHasFriends = data && data.myFriends && data.myFriends.length > 0
+
   const FriendsCount = () => {
     if (data && data.myFriends && data.myFriends.length > 0) {
       const onlineFriends = data.myFriends.map((friend) => friend.online).length
@@ -112,19 +114,23 @@ export default function Footer() {
     </Flex>
   )
 
-  return (
-    <chakra.header
-      pos="fixed"
-      bottom="0"
-      zIndex="1"
-      bg={bg}
-      left="0"
-      right="0"
-      width="full"
-    >
-      <chakra.div height="2.5rem" mx="auto" maxW="1200px" px={1}>
-        <FooterContent />
-      </chakra.div>
-    </chakra.header>
-  )
+  if (!userHasFriends) {
+    return null
+  } else {
+    return (
+      <chakra.footer
+        pos="fixed"
+        bottom="0"
+        zIndex="1"
+        bg={bg}
+        left="0"
+        right="0"
+        width="full"
+      >
+        <chakra.div height="2.5rem" mx="auto" maxW="1200px" px={1}>
+          <FooterContent />
+        </chakra.div>
+      </chakra.footer>
+    )
+  }
 }

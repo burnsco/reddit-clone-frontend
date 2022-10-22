@@ -36,8 +36,8 @@ const DynamicCreatePostDrawer = dynamic(
   () => import('@/components/common/Drawers/CreatePost')
 )
 
-const DynamicAddFriendDrawer = dynamic(
-  () => import('@/components/common/Drawers/AddFriendDrawer')
+const DynamicAddFriendPopOver = dynamic(
+  () => import('@/components/common/AddFriendPopOver')
 )
 
 export function LogoSection() {
@@ -71,7 +71,7 @@ function HeaderIconsSection() {
         <DynamicChatRoomDrawer />
         <DynamicCreatePostDrawer />
         <DynamicCreateCategoryDrawer />
-        <DynamicAddFriendDrawer />
+        <DynamicAddFriendPopOver />
       </ButtonGroup>
 
       <Menu isLazy>
