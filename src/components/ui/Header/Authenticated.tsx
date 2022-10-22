@@ -44,7 +44,6 @@ export function LogoSection() {
 
   return (
     <Flex
-      aria-label="Home Header Link"
       align="center"
       h="full"
       p="0.5"
@@ -118,7 +117,7 @@ function HeaderIconsSection() {
               }}
             >
               <AiOutlineLogout />
-              <Box>Logout</Box>
+              <Box ml="2">Logout</Box>
             </MenuItem>
           </MenuGroup>
         </MenuList>

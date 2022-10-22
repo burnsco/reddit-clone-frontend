@@ -1,4 +1,5 @@
 import SideMenuTest from '@/components/common/SideMenuTest'
+import FooterTest from '@/components/ui/Footer/FooterTest'
 import { Header } from '@/components/ui/Header'
 import { Box, Stack } from '@chakra-ui/react'
 import Head from 'next/head'
@@ -41,7 +42,7 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
         <meta name="theme-color" content="#1A1A1B" />
         <meta
           name="description"
-          content="A Reddit clone to learn typescript, graphql, testing and more."
+          content="social media site without all the fat."
         />
       </Head>
 
@@ -61,6 +62,7 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
               <SideMenuTest />
             </Box>
           </Stack>
+          <FooterTest />
         </Box>
       </>
     </>
