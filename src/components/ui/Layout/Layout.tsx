@@ -3,7 +3,6 @@ import { Header } from '@/components/ui/Header'
 import { Box, Stack } from '@chakra-ui/react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
-import Footer from '../Footer/Footer'
 
 const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
   children,
@@ -63,7 +62,6 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
             </Box>
           </Stack>
         </Box>
-        <Footer />
       </>
     </>
   )

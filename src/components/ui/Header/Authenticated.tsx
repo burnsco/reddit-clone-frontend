@@ -7,7 +7,6 @@ import {
   Box,
   ButtonGroup,
   Flex,
-  HStack,
   IconButton,
   Menu,
   MenuButton,
@@ -36,8 +35,8 @@ const DynamicCreatePostDrawer = dynamic(
   () => import('@/components/common/Drawers/CreatePost')
 )
 
-const DynamicAddFriendPopOver = dynamic(
-  () => import('@/components/common/AddFriendPopOver')
+const DynamicAddFriendDrawer = dynamic(
+  () => import('@/components/common/Drawers/AddFriend')
 )
 
 export function LogoSection() {
@@ -66,12 +65,12 @@ function HeaderIconsSection() {
 
   const [logout, { client }] = useLogoutMutation()
   return (
-    <HStack>
-      <ButtonGroup mr="2">
+    <>
+      <ButtonGroup>
         <DynamicChatRoomDrawer />
         <DynamicCreatePostDrawer />
         <DynamicCreateCategoryDrawer />
-        <DynamicAddFriendPopOver />
+        <DynamicAddFriendDrawer />
       </ButtonGroup>
 
       <Menu isLazy>
@@ -89,30 +88,29 @@ function HeaderIconsSection() {
           size="md"
         />
 
-        <MenuList opacity="0.7" bg={bg}>
+        <MenuList m={0} opacity="0.7" bg={bg}>
           <MenuGroup title={loggedInUser?.username} color="lightsteelblue">
             <MenuDivider />
             <MenuItem onClick={() => router.push('/user')}>
               <FaUserCircle />
-              <Box ml={3}>Profile</Box>
+              <Box ml="2">Profile</Box>
             </MenuItem>
             <MenuItem onClick={() => router.push('/user/account')}>
               <MdSettings />
-              <Box ml={3}>Account</Box>
+              <Box ml="2">Account</Box>
             </MenuItem>
             <MenuItem onClick={() => router.push('/user/account')}>
               <MdSettings />
-              <Box ml={3}>Friends</Box>
+              <Box ml="2">Friends</Box>
             </MenuItem>
             <MenuItem onClick={() => router.push('/user/messages')}>
               <MdSettings />
-              <Box ml={3}>Messages</Box>
+              <Box ml="2">Messages</Box>
             </MenuItem>
           </MenuGroup>
           <MenuDivider />
           <MenuGroup>
             <MenuItem
-              mr={2}
               onClick={async () => {
                 await logout()
                 await client.resetStore()
@@ -120,12 +118,12 @@ function HeaderIconsSection() {
               }}
             >
               <AiOutlineLogout />
-              <Box ml={3}>Logout</Box>
+              <Box>Logout</Box>
             </MenuItem>
           </MenuGroup>
         </MenuList>
       </Menu>
-    </HStack>
+    </>
   )
 }
 
@@ -142,7 +140,6 @@ export default function AuthenticatedHeader() {
       <IconButton
         size="md"
         fontSize="lg"
-        ml="3"
         aria-label={`Switch to ${text} mode`}
         variant="ghost"
         color="current"

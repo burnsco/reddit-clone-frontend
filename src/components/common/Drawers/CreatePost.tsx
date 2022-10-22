@@ -13,6 +13,7 @@ import {
   Button,
   Center,
   chakra,
+  Container,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -151,7 +152,7 @@ export default function CreatePostDrawer() {
     })
 
   if (loadingCategories) {
-    return <div>...loading</div>
+    return <Container>...loading</Container>
   }
 
   return (
