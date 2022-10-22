@@ -1,8 +1,9 @@
-import { Layout } from '@/components/ui/index'
+import { Container } from '@/components/common'
+import { Layout } from '@/components/ui'
+import { useMyPrivateMessagesQuery } from '@/generated/graphql'
 import { Heading, useColorModeValue, VisuallyHidden } from '@chakra-ui/react'
-import { useMyPrivateMessagesQuery } from '../../../generated/graphql'
 
-export default function UserPage() {
+export default function UserPrivateMessagesPage() {
   const { data, loading } = useMyPrivateMessagesQuery()
   const bg = useColorModeValue('white', '#1A1A1B')
 
@@ -11,23 +12,11 @@ export default function UserPage() {
 
   console.log(data)
 
-  if (!loading && data && data.myPrivateMessages) {
-    return (
-      <Layout title="private messages">
-        <Heading padding="5"> my private messages</Heading>
-        {/* <Box bg={bg}>
-        <Heading>User</Heading>
-        <Text>Username: {data?.me?.username} </Text>
-        <Text>Email: {data?.me?.email}</Text>
-        <Text>About Me: {data?.me?.about}</Text>
-        {data && data?.me?.avatar ? (
-          <Avatar src={data?.me.avatar} />
-        ) : (
-          <Text>No Avatar Yet</Text>
-        )}
-      </Box> */}
-      </Layout>
-    )
-  }
-  return null
+  return (
+    <Layout title="My Profile">
+      <Container>
+        <Heading>private messages</Heading>
+      </Container>
+    </Layout>
+  )
 }

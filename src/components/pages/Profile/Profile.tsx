@@ -36,7 +36,7 @@ const ProfilePage = () => {
 
   if (!loading) {
     return (
-      <Layout title="My Profile">
+      <Layout title={`${data?.me?.username} Profile` || 'User Profile'}>
         <Box shadow="sm" borderWidth="1px" rounded="md" p={4} bg={bg}>
           <Formik
             initialValues={{
