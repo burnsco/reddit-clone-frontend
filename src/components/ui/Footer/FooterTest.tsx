@@ -1,4 +1,8 @@
-import { useMyFriendsQuery } from '@/generated/graphql'
+import {
+  useMeQuery,
+  useMyFriendsQuery,
+  useMyPrivateMessagesQuery,
+} from '@/generated/graphql'
 import {
   Badge,
   Button,
@@ -11,10 +15,6 @@ import {
 } from '@chakra-ui/react'
 import { FaUserFriends } from 'react-icons/fa'
 import { ImSpinner } from 'react-icons/im'
-import {
-  useMeQuery,
-  useMyPrivateMessagesQuery,
-} from '../../../generated/graphql'
 
 export default function FooterTest() {
   const bg = useColorModeValue('white', '#202020')
@@ -73,8 +73,23 @@ export default function FooterTest() {
 
   console.log(me)
 
-  // an object of arrays (user "Bob", has all his messages in that array)
-  const mySortedPrivateMessages = {}
+  // ok start from the basic functions we can do
+  // lets try to re-create the chat function (rooms(categories) => chat messages)
+  // so that it is friends ==> messages subscription
+
+  const privateMessages = {
+    bob: [
+      {
+        id: 1,
+        createdAt: '13242',
+        body: 'hello man',
+        sentBy: 'bob',
+        sentTo: 'corey',
+      },
+    ],
+    susan: [],
+    frank: [],
+  }
 
   if (!userHasFriends) {
     return null

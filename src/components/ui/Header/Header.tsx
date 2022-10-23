@@ -1,6 +1,5 @@
 import { ThemedContainer } from '@/components/common/ThemedContainer'
 import { useMeQuery } from '@/generated/graphql'
-import useNewMessageSub from '@/hooks/useNewMessageSub'
 import useNewUserNotification from '@/hooks/useNewUserNotify'
 import {
   Badge,
@@ -22,17 +21,12 @@ export default function Header() {
 
   const toast = useToast()
   const newUser = useNewUserNotification()
-  const newMessage = useNewMessageSub('react')
 
   const headerBG = useColorModeValue('white', '#202020')
   const headerShadow = useColorModeValue('md', 'dark-lg')
   const colorScheme = useColorModeValue('green', 'orange')
 
   useSafeLayoutEffect(() => {
-    if (newMessage) {
-      console.log('testing new message sub')
-      console.log(newMessage)
-    }
     if (newUser) {
       console.log(newUser)
       toast({

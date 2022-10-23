@@ -1,0 +1,14 @@
+subscription NewPrivateMessage {
+  newPrivateMessage {
+    id
+    body
+    sentBy {
+      id
+      username
+    }
+    sentTo {
+      id
+      username
+    }
+  }
+}

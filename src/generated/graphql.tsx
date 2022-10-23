@@ -384,11 +384,6 @@ export type SubscriptionNewMessageArgs = {
   categoryId?: InputMaybe<Scalars['ID']>;
 };
 
-
-export type SubscriptionNewPrivateMessageArgs = {
-  userId: Scalars['ID'];
-};
-
 export type User = {
   __typename?: 'User';
   about?: Maybe<Scalars['String']>;
@@ -673,6 +668,11 @@ export type NewUserSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
 export type NewUserSubscription = { __typename?: 'Subscription', newUser: { __typename?: 'User', id: string, username: string, email: string } };
+
+export type NewPrivateMessageSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NewPrivateMessageSubscription = { __typename?: 'Subscription', newPrivateMessage: { __typename?: 'PrivateMessage', id: string, body: string, sentBy: { __typename?: 'User', id: string, username: string }, sentTo: { __typename?: 'User', id: string, username: string } } };
 
 export const CategoryDetailsFragmentDoc = gql`
     fragment CategoryDetails on Category {
@@ -2057,3 +2057,41 @@ export function useNewUserSubscription(baseOptions?: Apollo.SubscriptionHookOpti
       }
 export type NewUserSubscriptionHookResult = ReturnType<typeof useNewUserSubscription>;
 export type NewUserSubscriptionResult = Apollo.SubscriptionResult<NewUserSubscription>;
+export const NewPrivateMessageDocument = gql`
+    subscription NewPrivateMessage {
+  newPrivateMessage {
+    id
+    body
+    sentBy {
+      id
+      username
+    }
+    sentTo {
+      id
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useNewPrivateMessageSubscription__
+ *
+ * To run a query within a React component, call `useNewPrivateMessageSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useNewPrivateMessageSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNewPrivateMessageSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNewPrivateMessageSubscription(baseOptions?: Apollo.SubscriptionHookOptions<NewPrivateMessageSubscription, NewPrivateMessageSubscriptionVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useSubscription<NewPrivateMessageSubscription, NewPrivateMessageSubscriptionVariables>(NewPrivateMessageDocument, options);
+      }
+export type NewPrivateMessageSubscriptionHookResult = ReturnType<typeof useNewPrivateMessageSubscription>;
+export type NewPrivateMessageSubscriptionResult = Apollo.SubscriptionResult<NewPrivateMessageSubscription>;

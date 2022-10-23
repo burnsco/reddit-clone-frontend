@@ -1,6 +1,6 @@
 import { useCategoryChatSubSubscription } from '@/generated/graphql'
 
-function useNewUserNotification(categoryId: string) {
+function useNewChatMessageNotication(categoryId: string) {
   const { data } = useCategoryChatSubSubscription({ variables: { categoryId } })
 
   if (data?.newMessage) {
@@ -9,4 +9,4 @@ function useNewUserNotification(categoryId: string) {
   return null
 }
 
-export default useNewUserNotification
+export default useNewChatMessageNotication
