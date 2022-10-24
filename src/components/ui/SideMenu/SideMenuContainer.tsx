@@ -1,5 +1,5 @@
+import CategoriesAccordion from '@/components/ui/SideMenu/Categories'
 import FriendsSideMenuAccordion from '@/components/ui/SideMenu/Friends'
-import CategoriesAccordion from '@/components/ui/SideMenu/Subreddits'
 import { Accordion, Box, useColorModeValue } from '@chakra-ui/react'
 
 export default function SideMenuContainer() {

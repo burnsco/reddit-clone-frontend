@@ -1,5 +1,5 @@
 import { Accordion } from '@chakra-ui/react'
-import SubredditsAccordion from './Subreddits'
+import SubredditsAccordion from './Categories'
 
 export default function AuthorizedSideMenu() {
   return (

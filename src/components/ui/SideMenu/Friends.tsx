@@ -23,8 +23,6 @@ export default function FriendsSideMenuAccordion() {
 
   const linkbg = useColorModeValue('#ebedf0', '#3661ed')
 
-  const { category } = router.query
-
   const { data, loading, error } = useMyFriendsQuery()
 
   const FriendsCount = () => {
@@ -49,7 +47,7 @@ export default function FriendsSideMenuAccordion() {
     <AccordionItem>
       <h2>
         <AccordionButton>
-          <Box flex="1" textAlign="left">
+          <Box flex="1" fontWeight="semibold" textAlign="left">
             FRIENDS <FriendsCount />
           </Box>
           {!loading ? <AccordionIcon /> : <ImSpinner />}
@@ -66,14 +64,16 @@ export default function FriendsSideMenuAccordion() {
                       p={1}
                       fontWeight="400"
                       color={color}
-                      _hover={{
-                        color: hover,
-                        bg: linkbg,
-                        marginLeft: 1,
-                      }}
                       href="/user/[username]"
-                      as={`/user/[${friend.username}]`}
+                      as={`/user/${friend.username}`}
                     >
+                      <Badge
+                        mr={2}
+                        colorScheme={friend.online ? 'green' : 'red'}
+                      >
+                        {friend.online ? 'online' : 'offline'}
+                      </Badge>
+
                       {friend.username}
                     </NextChakraLink>
                   </ListItem>
