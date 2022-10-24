@@ -1,7 +1,9 @@
 query MyFriends {
-  myFriends {
-    id
-    username
-    online
+  me {
+    friends {
+      id
+      username
+      online
+    }
   }
 }

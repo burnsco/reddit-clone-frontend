@@ -1,4 +1,3 @@
-import { GraphQLWsLink } from '@/lib/subscriptions'
 import {
   ApolloClient,
   HttpLink,
@@ -7,6 +6,7 @@ import {
   ReactiveVar,
   split,
 } from '@apollo/client'
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
 import { useMemo } from 'react'

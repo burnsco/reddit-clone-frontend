@@ -1,5 +1,5 @@
-subscription NewPrivateMessage {
-  newPrivateMessage {
+subscription NewPrivateMessage($userId: ID!) {
+  newPrivateMessage(userId: $userId) {
     id
     body
     sentBy {

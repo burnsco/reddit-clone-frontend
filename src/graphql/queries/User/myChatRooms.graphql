@@ -1,11 +1,11 @@
 query MyChatRooms {
-  myChatRooms {
-    id
-    name
-    chatUsers {
-      id
-      online
-      username
+  me {
+    chatRooms {
+      chatUsers {
+        id
+        online
+        username
+      }
     }
   }
 }

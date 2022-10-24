@@ -281,9 +281,6 @@ export type Query = {
   comments?: Maybe<Array<Comment>>;
   me?: Maybe<User>;
   messages?: Maybe<Array<Message>>;
-  myChatRooms?: Maybe<Array<Category>>;
-  myFriends?: Maybe<Array<User>>;
-  myPrivateMessages?: Maybe<Array<PrivateMessage>>;
   post?: Maybe<Post>;
   posts?: Maybe<Array<Post>>;
   privateMessage?: Maybe<PrivateMessage>;
@@ -382,6 +379,11 @@ export type Subscription = {
 
 export type SubscriptionNewMessageArgs = {
   categoryId?: InputMaybe<Scalars['ID']>;
+};
+
+
+export type SubscriptionNewPrivateMessageArgs = {
+  userId: Scalars['ID'];
 };
 
 export type User = {
@@ -626,17 +628,17 @@ export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', id: st
 export type MyChatRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyChatRoomsQuery = { __typename?: 'Query', myChatRooms?: Array<{ __typename?: 'Category', id: string, name: string, chatUsers?: Array<{ __typename?: 'User', id: string, online: boolean, username: string }> | null }> | null };
+export type MyChatRoomsQuery = { __typename?: 'Query', me?: { __typename?: 'User', chatRooms: Array<{ __typename?: 'Category', chatUsers?: Array<{ __typename?: 'User', id: string, online: boolean, username: string }> | null }> } | null };
 
 export type MyFriendsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyFriendsQuery = { __typename?: 'Query', myFriends?: Array<{ __typename?: 'User', id: string, username: string, online: boolean }> | null };
+export type MyFriendsQuery = { __typename?: 'Query', me?: { __typename?: 'User', friends: Array<{ __typename?: 'User', id: string, username: string, online: boolean }> } | null };
 
 export type MyPrivateMessagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyPrivateMessagesQuery = { __typename?: 'Query', myPrivateMessages?: Array<{ __typename?: 'PrivateMessage', id: string, createdAt: string, body: string, sentBy: { __typename?: 'User', id: string, username: string }, sentTo: { __typename?: 'User', id: string, username: string } }> | null };
+export type MyPrivateMessagesQuery = { __typename?: 'Query', me?: { __typename?: 'User', privateMessages: Array<{ __typename?: 'PrivateMessage', id: string, createdAt: string, body: string, sentBy: { __typename?: 'User', id: string, username: string }, sentTo: { __typename?: 'User', id: string, username: string } }> } | null };
 
 export type UserQueryVariables = Exact<{
   data: EditUserInput;
@@ -669,7 +671,9 @@ export type NewUserSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 export type NewUserSubscription = { __typename?: 'Subscription', newUser: { __typename?: 'User', id: string, username: string, email: string } };
 
-export type NewPrivateMessageSubscriptionVariables = Exact<{ [key: string]: never; }>;
+export type NewPrivateMessageSubscriptionVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
 
 
 export type NewPrivateMessageSubscription = { __typename?: 'Subscription', newPrivateMessage: { __typename?: 'PrivateMessage', id: string, body: string, sentBy: { __typename?: 'User', id: string, username: string }, sentTo: { __typename?: 'User', id: string, username: string } } };
@@ -1735,13 +1739,13 @@ export function refetchMeQuery(variables?: MeQueryVariables) {
     }
 export const MyChatRoomsDocument = gql`
     query MyChatRooms {
-  myChatRooms {
-    id
-    name
-    chatUsers {
-      id
-      online
-      username
+  me {
+    chatRooms {
+      chatUsers {
+        id
+        online
+        username
+      }
     }
   }
 }
@@ -1778,10 +1782,12 @@ export function refetchMyChatRoomsQuery(variables?: MyChatRoomsQueryVariables) {
     }
 export const MyFriendsDocument = gql`
     query MyFriends {
-  myFriends {
-    id
-    username
-    online
+  me {
+    friends {
+      id
+      username
+      online
+    }
   }
 }
     `;
@@ -1817,17 +1823,19 @@ export function refetchMyFriendsQuery(variables?: MyFriendsQueryVariables) {
     }
 export const MyPrivateMessagesDocument = gql`
     query MyPrivateMessages {
-  myPrivateMessages {
-    id
-    createdAt
-    body
-    sentBy {
+  me {
+    privateMessages {
       id
-      username
-    }
-    sentTo {
-      id
-      username
+      createdAt
+      body
+      sentBy {
+        id
+        username
+      }
+      sentTo {
+        id
+        username
+      }
     }
   }
 }
@@ -2058,8 +2066,8 @@ export function useNewUserSubscription(baseOptions?: Apollo.SubscriptionHookOpti
 export type NewUserSubscriptionHookResult = ReturnType<typeof useNewUserSubscription>;
 export type NewUserSubscriptionResult = Apollo.SubscriptionResult<NewUserSubscription>;
 export const NewPrivateMessageDocument = gql`
-    subscription NewPrivateMessage {
-  newPrivateMessage {
+    subscription NewPrivateMessage($userId: ID!) {
+  newPrivateMessage(userId: $userId) {
     id
     body
     sentBy {
@@ -2086,10 +2094,11 @@ export const NewPrivateMessageDocument = gql`
  * @example
  * const { data, loading, error } = useNewPrivateMessageSubscription({
  *   variables: {
+ *      userId: // value for 'userId'
  *   },
  * });
  */
-export function useNewPrivateMessageSubscription(baseOptions?: Apollo.SubscriptionHookOptions<NewPrivateMessageSubscription, NewPrivateMessageSubscriptionVariables>) {
+export function useNewPrivateMessageSubscription(baseOptions: Apollo.SubscriptionHookOptions<NewPrivateMessageSubscription, NewPrivateMessageSubscriptionVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useSubscription<NewPrivateMessageSubscription, NewPrivateMessageSubscriptionVariables>(NewPrivateMessageDocument, options);
       }
