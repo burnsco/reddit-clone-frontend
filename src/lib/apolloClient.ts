@@ -1,11 +1,13 @@
 import {
   ApolloClient,
+  from,
   HttpLink,
   makeVar,
   NormalizedCacheObject,
   ReactiveVar,
   split,
 } from '@apollo/client'
+import { onError } from '@apollo/client/link/error'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { createClient } from 'graphql-ws'
@@ -18,10 +20,20 @@ export const selectedChatRoomName: ReactiveVar<string> =
   makeVar<string>('react-js')
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
+
 const WS_URI = `ws://localhost:4000/subscriptions`
 const ssrMode = typeof window === 'undefined'
 
 function createApolloClient() {
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+      graphQLErrors.forEach(({ message, locations, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        )
+      )
+    if (networkError) console.log(`[Network error]: ${networkError}`)
+  })
   const httpLink = new HttpLink({
     uri: process.env.NEXT_PUBLIC_API_URL as string,
     credentials: 'include',
@@ -44,7 +56,7 @@ function createApolloClient() {
     })
   )
 
-  const link = typeof window
+  const splitLink = typeof window
     ? split(
         ({ query }) => {
           const operations = getMainDefinition(query)
@@ -60,7 +72,7 @@ function createApolloClient() {
 
   return new ApolloClient({
     ssrMode,
-    link,
+    link: from([errorLink, splitLink]),
     cache: cacheOptions,
   })
 }
@@ -68,13 +80,14 @@ function createApolloClient() {
 export function initializeApollo(initialState: any = null) {
   const _apolloClient = apolloClient ?? createApolloClient()
 
+  // If your page has Next.js data fetching methods that use Apollo Client, the initial state
+  // get hydrated here
   if (initialState) {
-    const existingCache = _apolloClient.extract()
-    _apolloClient.cache.restore({ ...existingCache, ...initialState })
+    _apolloClient.cache.restore(initialState)
   }
-
-  if (ssrMode) return _apolloClient
-
+  // For SSG and SSR always create a new Apollo Client
+  if (typeof window === 'undefined') return _apolloClient
+  // Create the Apollo Client once in the client
   if (!apolloClient) apolloClient = _apolloClient
 
   return _apolloClient

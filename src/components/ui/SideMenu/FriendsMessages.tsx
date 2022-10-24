@@ -14,7 +14,7 @@ import {
   List,
   ListItem,
 } from '@chakra-ui/react'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { ImSpinner } from 'react-icons/im'
 import { useMyPrivateMessagesLazyQuery } from '../../../generated/graphql'
 
@@ -58,8 +58,8 @@ export default function FriendsAndMessagesAccordion() {
   }, [fetchMessages])
 
   const FriendsCount = () => {
-    if (data && data.myFriends && data.myFriends.length > 0) {
-      const onlineFriends = data.myFriends.map(
+    if (data && data?.me?.friends && data.me.friends.length > 0) {
+      const onlineFriends = data.me.friends.map(
         (friend: Partial<User>) => friend.online
       ).length
 
@@ -85,9 +85,9 @@ export default function FriendsAndMessagesAccordion() {
       <AccordionPanel pb={4}>
         <Accordion allowToggle>
           <List mt={2} spacing={3}>
-            {data && data.myFriends ? (
+            {data && data?.me?.friends ? (
               <>
-                {data.myFriends.map((user: Partial<User>) => (
+                {data.me.friends.map((user: Partial<User>) => (
                   <AccordionItem color="" key={`friends-list-${user.username}`}>
                     <AccordionButton
                       _expanded={{ bg: 'lightgrey', borderRadius: 5 }}
@@ -102,9 +102,9 @@ export default function FriendsAndMessagesAccordion() {
                     </AccordionButton>
                     <AccordionPanel pb={2}>
                       <List mt={2} spacing={3}>
-                        {messagesData && messagesData.myPrivateMessages ? (
+                        {messagesData && messagesData.me?.privateMessages ? (
                           <>
-                            {messagesData.myPrivateMessages.map(
+                            {messagesData.me.privateMessages.map(
                               (message: any) => {
                                 return (
                                   <ListItem key={`messages-list-${message.id}`}>

@@ -1,5 +1,4 @@
 import SideMenuTest from '@/components/common/SideMenuTest'
-import FooterTest from '@/components/ui/Footer/FooterTest'
 import { Header } from '@/components/ui/Header'
 import { Box, Stack } from '@chakra-ui/react'
 import Head from 'next/head'
@@ -62,7 +61,6 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
               <SideMenuTest />
             </Box>
           </Stack>
-          <FooterTest />
         </Box>
       </>
     </>

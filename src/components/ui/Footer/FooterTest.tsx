@@ -30,11 +30,13 @@ export default function FooterTest() {
   const { data: messages, loading: loadingMessages } =
     useMyPrivateMessagesQuery()
 
-  const userHasFriends = data && data.myFriends && data.myFriends.length > 0
+  const userHasFriends = data && data?.me?.friends && data.me.friends.length > 0
 
   const FriendsCount = () => {
-    if (data && data.myFriends && data.myFriends.length > 0) {
-      const onlineFriends = data.myFriends.map((friend) => friend.online).length
+    if (data && data?.me?.friends && data.me?.friends.length > 0) {
+      const onlineFriends = data.me.friends.map(
+        (friend) => friend.online
+      ).length
 
       return (
         <Badge mr={2} colorScheme="green">
@@ -47,7 +49,7 @@ export default function FooterTest() {
 
   const FriendsMenu = () => (
     <>
-      {data?.myFriends?.map((user) => (
+      {data?.me?.friends.map((user) => (
         <Menu key={`user messages - ${user.username}`}>
           <MenuButton
             onClick={() => refetch()}
@@ -65,7 +67,7 @@ export default function FooterTest() {
 
   const FooterContent = () => (
     <Flex w="100%" h="100%">
-      {data?.myFriends ? <FriendsMenu /> : null}
+      {data?.me?.friends ? <FriendsMenu /> : null}
     </Flex>
   )
 

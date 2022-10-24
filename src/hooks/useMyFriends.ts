@@ -4,7 +4,7 @@ import { useMyFriendsQuery } from '../generated/graphql'
 export const useMyFriends = () => {
   const { data } = useMyFriendsQuery()
 
-  const MyFriends = useMemo(() => data?.myFriends, [data])
+  const MyFriends = useMemo(() => data?.me?.friends, [data])
 
   return [MyFriends]
 }

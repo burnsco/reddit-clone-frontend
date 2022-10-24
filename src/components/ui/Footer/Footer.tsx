@@ -25,11 +25,13 @@ export default function Footer() {
     ssr: false,
   })
 
-  const userHasFriends = data && data.myFriends && data.myFriends.length > 0
+  const userHasFriends = data && data.me?.friends && data.me.friends.length > 0
 
   const FriendsCount = () => {
-    if (data && data.myFriends && data.myFriends.length > 0) {
-      const onlineFriends = data.myFriends.map((friend) => friend.online).length
+    if (data && data.me?.friends && data.me.friends.length > 0) {
+      const onlineFriends = data.me.friends.map(
+        (friend) => friend.online
+      ).length
 
       return (
         <Badge mr={2} colorScheme="green">
@@ -42,7 +44,7 @@ export default function Footer() {
 
   const FriendsMenu = () => (
     <>
-      {data?.myFriends ? (
+      {data?.me?.friends ? (
         <Menu>
           <MenuButton
             onClick={() => refetch()}
@@ -53,7 +55,7 @@ export default function Footer() {
             FRIENDS
           </MenuButton>
           <MenuList>
-            {data.myFriends.map((user) => (
+            {data.me.friends.map((user) => (
               <MenuItem key={`friend-${user.id}`}>
                 <Avatar
                   size="xs"
@@ -75,7 +77,7 @@ export default function Footer() {
 
   const ChatMenu = () => (
     <>
-      {data?.myFriends ? (
+      {data?.me?.friends ? (
         <Menu>
           <MenuButton
             onClick={() => refetch()}
@@ -86,7 +88,7 @@ export default function Footer() {
             FRIENDS
           </MenuButton>
           <MenuList>
-            {data.myFriends.map((user) => (
+            {data?.me?.friends.map((user) => (
               <MenuItem key={`friend-${user.id}`}>
                 <Avatar
                   size="xs"
