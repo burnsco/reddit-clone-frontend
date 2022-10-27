@@ -1,6 +1,7 @@
 import { useEditPostMutation } from '@/generated/graphql'
 import {
   Box,
+  chakra,
   Editable,
   EditableInput,
   EditablePreview,
@@ -22,6 +23,8 @@ type PostBodyType = {
   postId?: string
   categoryId?: string
 }
+
+const ChakraImage = chakra(Image)
 
 export default function PostBody({
   title,
@@ -106,6 +109,11 @@ export default function PostBody({
             src={`/${image}`}
             height={imageH}
             width={imageW}
+            sizes="100%"
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
             alt={`image-${title}`}
           />
         </>

@@ -1,5 +1,5 @@
 export const allPostsQueryVars = {
   skip: 0,
-  first: 100,
+  first: 5,
   orderBy: 'desc',
 }

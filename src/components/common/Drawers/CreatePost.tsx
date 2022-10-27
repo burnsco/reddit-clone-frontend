@@ -135,6 +135,8 @@ export default function CreatePostDrawer() {
         }
       })
       .end((error, response) => {
+        console.log('IMAGE UPLOAD')
+        console.log(response)
         if (error) {
           throw new Error(error.message)
         }

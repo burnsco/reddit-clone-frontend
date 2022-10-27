@@ -17,7 +17,7 @@ const PostContainer: React.FC<{ children: React.ReactNode; bg: string }> = ({
       borderColor={bc}
       minH="160px"
       width="100%"
-      maxH="800px"
+      maxH="600px"
       _hover={{
         boxShadow: 'md',
         borderWidth: '1px',
