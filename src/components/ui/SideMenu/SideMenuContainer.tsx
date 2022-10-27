@@ -8,7 +8,7 @@ export default function SideMenuContainer() {
   return (
     <>
       <Box borderRadius="sm" bg={bg} minW="200px" maxW="300px" boxShadow="xs">
-        <Accordion allowToggle>
+        <Accordion defaultIndex={[0]} allowMultiple>
           <CategoriesAccordion />
           <FriendsSideMenuAccordion />
         </Accordion>

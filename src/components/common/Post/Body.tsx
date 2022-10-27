@@ -89,7 +89,6 @@ export default function PostBody({
       {image && imageW && imageH ? (
         <>
           <Image
-            layout="responsive"
             src={image}
             height={imageH}
             width={imageW}

@@ -20,7 +20,6 @@ import {
   Box,
   Button,
   Flex,
-  HStack,
   Menu,
   MenuButton,
   MenuDivider,
@@ -247,7 +246,7 @@ export default function PostHeader({
   )
 
   const renderPostCreatedOrEdited = () => (
-    <Box ml="3" textDecoration="none">
+    <Box textDecoration="none">
       {createdAt === updatedAt ? `Posted by` : `Edited by`}
       <Menu isLazy>
         <Button
@@ -288,7 +287,6 @@ export default function PostHeader({
   const renderPostCategoryLink = () => (
     <Box
       fontWeight="600"
-      mr="2"
       color="orange.500"
       _hover={{
         textDecoration: 'underline',
@@ -307,16 +305,18 @@ export default function PostHeader({
   )
 
   return (
-    <HStack fontSize="sm" my={1} color={fontColor} w="full">
-      <HStack>
-        {renderPostCategoryLink()}
-        {renderPostCreatedOrEdited()}
-      </HStack>
+    <Flex
+      justify="space-between"
+      border="1px solid green"
+      fontSize="sm"
+      color={fontColor}
+      w="full"
+    >
+      {renderPostCategoryLink()}
       <Spacer />
+      {renderPostCreatedOrEdited()}
 
-      <Flex mr={1}>
-        <DeletePostDialog postId={postId} />
-      </Flex>
-    </HStack>
+      <DeletePostDialog postId={postId} />
+    </Flex>
   )
 }

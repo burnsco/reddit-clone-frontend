@@ -1,4 +1,5 @@
 import { NextChakraLink } from '@/components/common/index'
+import { OfflineCircle, OnlineCircle } from '@/components/common/OnlineOffline'
 import { useMyFriendsQuery } from '@/generated/graphql'
 import {
   AccordionButton,
@@ -67,12 +68,7 @@ export default function FriendsSideMenuAccordion() {
                       href="/user/[username]"
                       as={`/user/${friend.username}`}
                     >
-                      <Badge
-                        mr={2}
-                        colorScheme={friend.online ? 'green' : 'red'}
-                      >
-                        {friend.online ? 'online' : 'offline'}
-                      </Badge>
+                      {friend.online ? <OnlineCircle /> : <OfflineCircle />}
 
                       {friend.username}
                     </NextChakraLink>

@@ -128,6 +128,7 @@ export type MessageInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend: AddUserMutationResponse;
+  changePassword: UserMutationResponse;
   createCategory: CategoryMutationResponse;
   createComment: CommentMutationResponse;
   createMessage: Scalars['Boolean'];
@@ -149,6 +150,12 @@ export type Mutation = {
 
 export type MutationAddFriendArgs = {
   data: AddUserInput;
+};
+
+
+export type MutationChangePasswordArgs = {
+  newPassword: Scalars['String'];
+  token: Scalars['String'];
 };
 
 
@@ -198,7 +205,7 @@ export type MutationEditUserArgs = {
 
 
 export type MutationForgotPasswordArgs = {
-  email: EditUserInput;
+  email: Scalars['String'];
 };
 
 

@@ -1,3 +1,4 @@
+import Footer from '@/components/ui/Footer'
 import { Header } from '@/components/ui/Header'
 import SideMenuContainer from '@/components/ui/SideMenu/SideMenuContainer'
 import { Box, Stack } from '@chakra-ui/react'
@@ -61,6 +62,7 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
               <SideMenuContainer />
             </Box>
           </Stack>
+          <Footer />
         </Box>
       </>
     </>
