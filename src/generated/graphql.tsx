@@ -645,7 +645,7 @@ export type MyFriendsQuery = { __typename?: 'Query', me?: { __typename?: 'User',
 export type MyPrivateMessagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MyPrivateMessagesQuery = { __typename?: 'Query', me?: { __typename?: 'User', privateMessages: Array<{ __typename?: 'PrivateMessage', id: string, createdAt: string, body: string, sentBy: { __typename?: 'User', id: string, username: string }, sentTo: { __typename?: 'User', id: string, username: string } }> } | null };
+export type MyPrivateMessagesQuery = { __typename?: 'Query', me?: { __typename?: 'User', privateMessages: Array<{ __typename?: 'PrivateMessage', id: string, createdAt: string, body: string, sentBy: { __typename?: 'User', id: string, avatar?: string | null, online: boolean, username: string }, sentTo: { __typename?: 'User', id: string, avatar?: string | null, online: boolean, username: string } }> } | null };
 
 export type UserQueryVariables = Exact<{
   data: EditUserInput;
@@ -1837,10 +1837,14 @@ export const MyPrivateMessagesDocument = gql`
       body
       sentBy {
         id
+        avatar
+        online
         username
       }
       sentTo {
         id
+        avatar
+        online
         username
       }
     }

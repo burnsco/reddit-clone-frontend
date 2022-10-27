@@ -8,6 +8,7 @@ const PostContainer: React.FC<{ children: React.ReactNode; bg: string }> = ({
   const hoverbc = useColorModeValue('gray.200', 'gray.600')
   return (
     <Box
+      as="aside"
       boxShadow="sm"
       bg={bg}
       borderWidth="1px"

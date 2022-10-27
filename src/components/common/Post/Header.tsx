@@ -19,14 +19,13 @@ import {
   Badge,
   Box,
   Button,
-  Flex,
+  HStack,
   Menu,
   MenuButton,
   MenuDivider,
   MenuGroup,
   MenuItem,
   MenuList,
-  Spacer,
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react'
@@ -65,6 +64,12 @@ export default function PostHeader({
   const [addFriend, { loading }] = useAddFriendMutation()
 
   const isMyFriend = myFriends?.filter((friend) => friend.id === author?.id)
+
+  console.log('myfriendsquery')
+  console.log(myFriends)
+
+  console.log('is my friend')
+  console.log(isMyFriend)
 
   const isOwnerOfPost = loggedInUser?.username === author?.username
 
@@ -226,7 +231,7 @@ export default function PostHeader({
 
   const AuthorizedUserMenu = () => (
     <>
-      {isMyFriend ? (
+      {isMyFriend && isMyFriend.length > 0 ? (
         <AuthorizedAndIsFriendMenu />
       ) : (
         <AuthorizedAndIsNotAFriendMenu />
@@ -246,7 +251,7 @@ export default function PostHeader({
   )
 
   const renderPostCreatedOrEdited = () => (
-    <Box textDecoration="none">
+    <Box border="1px solid red" textDecoration="none">
       {createdAt === updatedAt ? `Posted by` : `Edited by`}
       <Menu isLazy>
         <Button
@@ -286,6 +291,7 @@ export default function PostHeader({
 
   const renderPostCategoryLink = () => (
     <Box
+      border="1px solid blue"
       fontWeight="600"
       color="orange.500"
       _hover={{
@@ -305,18 +311,18 @@ export default function PostHeader({
   )
 
   return (
-    <Flex
-      justify="space-between"
-      border="1px solid green"
+    <HStack
+      justify="space-evenly"
+      border="2px solid green"
       fontSize="sm"
       color={fontColor}
       w="full"
     >
       {renderPostCategoryLink()}
-      <Spacer />
+
       {renderPostCreatedOrEdited()}
 
       <DeletePostDialog postId={postId} />
-    </Flex>
+    </HStack>
   )
 }

@@ -6,10 +6,14 @@ query MyPrivateMessages {
       body
       sentBy {
         id
+        avatar
+        online
         username
       }
       sentTo {
         id
+        avatar
+        online
         username
       }
     }
