@@ -251,7 +251,7 @@ export default function PostHeader({
   )
 
   const renderPostCreatedOrEdited = () => (
-    <Box border="1px solid red" textDecoration="none">
+    <Box textDecoration="none">
       {createdAt === updatedAt ? `Posted by` : `Edited by`}
       <Menu isLazy>
         <Button
@@ -291,7 +291,6 @@ export default function PostHeader({
 
   const renderPostCategoryLink = () => (
     <Box
-      border="1px solid blue"
       fontWeight="600"
       color="orange.500"
       _hover={{
@@ -312,8 +311,8 @@ export default function PostHeader({
 
   return (
     <HStack
+      p="1"
       justify="space-evenly"
-      border="2px solid green"
       fontSize="sm"
       color={fontColor}
       w="full"

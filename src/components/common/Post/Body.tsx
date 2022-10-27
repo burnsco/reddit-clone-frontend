@@ -72,12 +72,25 @@ export default function PostBody({
         )
       }
       return (
-        <Heading fontWeight="500" fontSize="xl" p={2}>
+        <Heading fontWeight="500" fontSize="xl" p={1}>
           {title}
         </Heading>
       )
     }
     return null
+  }
+
+  console.log('image info')
+  console.log(image)
+  console.log(imageH)
+  console.log(imageW)
+  console.log('typeof')
+  console.log(typeof image)
+
+  const myLoader = ({ src, width, quality }: any) => {
+    return `https://res.cloudinary.com/dmztdsduf/${src}?w=${width}&q=${
+      quality || 50
+    }`
   }
 
   return (
@@ -89,7 +102,8 @@ export default function PostBody({
       {image && imageW && imageH ? (
         <>
           <Image
-            src={image}
+            loader={myLoader}
+            src={`/${image}`}
             height={imageH}
             width={imageW}
             alt={`image-${title}`}

@@ -29,6 +29,8 @@ export default function Posts() {
 
   const ViewPosts = () => {
     if (allPosts.length > 0) {
+      console.log('all posts')
+      console.log(allPosts)
       return (
         <VStack spacing={4}>
           {allPosts.map((post, index) => (
