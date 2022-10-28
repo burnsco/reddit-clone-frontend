@@ -15,7 +15,7 @@ import { useMemo } from 'react'
 import { cacheOptions } from './cache'
 
 export const selectedChatRoomId: ReactiveVar<string> = makeVar<string>('react')
-export const loggedInUserId: ReactiveVar<string> = makeVar<string>('5')
+export const loggedInUserId: ReactiveVar<string> = makeVar<string>('')
 export const selectedChatRoomName: ReactiveVar<string> =
   makeVar<string>('react-js')
 
@@ -47,11 +47,14 @@ function createApolloClient() {
     })
   }
 
+  console.log('apollo client lib - user id')
+  console.log(loggedInUserId)
+
   const wsLink = new GraphQLWsLink(
     createClient({
       url: `${WS_URI}`,
       connectionParams: {
-        Authorization: 'adsfsdf443',
+        Authorization: window.localStorage.getItem('userId'),
       },
     })
   )
