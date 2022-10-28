@@ -310,16 +310,11 @@ export default function PostHeader({
   )
 
   return (
-    <HStack
-      p="1"
-      justify="space-evenly"
-      fontSize="sm"
-      color={fontColor}
-      w="full"
-    >
-      {renderPostCategoryLink()}
-
-      {renderPostCreatedOrEdited()}
+    <HStack fontSize="sm" my={1} color={fontColor} w="full">
+      <HStack>
+        {renderPostCategoryLink()}
+        {renderPostCreatedOrEdited()}
+      </HStack>
 
       <DeletePostDialog postId={postId} />
     </HStack>
