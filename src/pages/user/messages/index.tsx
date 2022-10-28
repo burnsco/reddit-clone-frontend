@@ -1,5 +1,6 @@
 import { Container } from '@/components/common'
 import UserMyPrivateMessages from '@/components/common/User/myPrivateMessages'
+import SendPrivateMessageForm from '@/components/common/User/SendMessageInputForm'
 import { Layout } from '@/components/ui'
 
 import { useMyPrivateMessagesQuery } from '@/generated/graphql'
@@ -19,6 +20,7 @@ export default function UserPrivateMessagesPage() {
       <Container>
         <Heading>private messages</Heading>
         <UserMyPrivateMessages />
+        <SendPrivateMessageForm />
       </Container>
     </Layout>
   )

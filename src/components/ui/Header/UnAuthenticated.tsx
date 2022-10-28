@@ -2,16 +2,8 @@ import LoginDrawer from '@/components/common/Drawers/Login'
 import RegisterDrawer from '@/components/common/Drawers/Register'
 import Logo from '@/components/common/Logo'
 import NavigationMenu from '@/components/common/NavigationMenu'
-import {
-  Flex,
-  IconButton,
-  Spacer,
-  Stack,
-  useColorMode,
-  useColorModeValue,
-} from '@chakra-ui/react'
+import { Flex, Spacer, Stack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { FaMoon, FaSun } from 'react-icons/fa'
 
 function LogoSection() {
   const router = useRouter()
@@ -33,11 +25,15 @@ function LogoSection() {
 }
 
 export default function UnAuthenticatedHeader() {
-  const { toggleColorMode: toggleMode } = useColorMode()
-  const text = useColorModeValue('dark', 'light')
-  const SwitchIcon = useColorModeValue(FaMoon, FaSun)
   return (
-    <Flex w="100%" h="100%" px="4" align="center" justify="space-around">
+    <Flex
+      w="100%"
+      h="100%"
+      px="4"
+      align="center"
+      justify="space-around"
+      border="2px solid green"
+    >
       <LogoSection />
       <Spacer />
       <NavigationMenu />
@@ -46,15 +42,6 @@ export default function UnAuthenticatedHeader() {
 
         <LoginDrawer />
       </Stack>
-      <IconButton
-        size="md"
-        fontSize="lg"
-        aria-label={`Switch to ${text} mode`}
-        variant="ghost"
-        color="current"
-        onClick={toggleMode}
-        icon={<SwitchIcon />}
-      />
     </Flex>
   )
 }

@@ -1,27 +1,30 @@
 import Logo from '@/components/common/Logo'
-import NavigationMenu from '@/components/common/NavigationMenu'
 import { useLogoutMutation } from '@/generated/graphql'
 import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import {
   Avatar,
   Box,
   ButtonGroup,
+  chakra,
   Flex,
+  HStack,
   IconButton,
+  LinkBox,
+  LinkOverlay,
   Menu,
   MenuButton,
   MenuDivider,
   MenuGroup,
   MenuItem,
   MenuList,
-  useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { AiOutlineLogout } from 'react-icons/ai'
-import { FaMoon, FaSun, FaUserCircle } from 'react-icons/fa'
+import { FaUserCircle } from 'react-icons/fa'
 import { MdSettings } from 'react-icons/md'
+import NavigationMenu from './NavigationMenu'
 
 const DynamicChatRoomDrawer = dynamic(
   () => import('@/components/common/Drawers/Chat')
@@ -57,6 +60,26 @@ export function LogoSection() {
   )
 }
 
+const NavbarLogoSection = () => (
+  <HStack px="4" border="2px solid red">
+    <LinkBox
+      data-testid="nav-logo"
+      letterSpacing="wide"
+      fontWeight="bold"
+      fontFamily="Kanit"
+      aria-label="Home Page Link"
+    >
+      <LinkOverlay href="/">
+        <HStack>
+          <chakra.span>SOCIAL</chakra.span>
+
+          <Logo />
+        </HStack>
+      </LinkOverlay>
+    </LinkBox>
+  </HStack>
+)
+
 function HeaderIconsSection() {
   const router = useRouter()
   const [loggedInUser] = useLoggedInUser()
@@ -64,7 +87,7 @@ function HeaderIconsSection() {
 
   const [logout, { client }] = useLogoutMutation()
   return (
-    <>
+    <Box border="2px solid purple">
       <ButtonGroup>
         <DynamicChatRoomDrawer />
         <DynamicCreatePostDrawer />
@@ -122,29 +145,23 @@ function HeaderIconsSection() {
           </MenuGroup>
         </MenuList>
       </Menu>
-    </>
+    </Box>
   )
 }
 
 export default function AuthenticatedHeader() {
-  const { toggleColorMode: toggleMode } = useColorMode()
-  const text = useColorModeValue('dark', 'light')
-  const SwitchIcon = useColorModeValue(FaMoon, FaSun)
-
   return (
-    <Flex w="100%" h="100%" px="4" align="center" justify="space-around">
-      <LogoSection />
+    <Flex
+      w="100%"
+      h="100%"
+      px="4"
+      align="center"
+      justify="space-around"
+      border="2px solid pink"
+    >
+      <NavbarLogoSection />
       <NavigationMenu />
       <HeaderIconsSection />
-      <IconButton
-        size="md"
-        fontSize="lg"
-        aria-label={`Switch to ${text} mode`}
-        variant="ghost"
-        color="current"
-        onClick={toggleMode}
-        icon={<SwitchIcon />}
-      />
     </Flex>
   )
 }

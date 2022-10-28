@@ -64,16 +64,21 @@ export default function AboutUserPage() {
       <Layout title={data.user.username || 'user'}>
         <Container>
           <Box
-            p={1}
+            p={2}
             maxW="sm"
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
           >
-            <Heading>User Details</Heading>
+            <Heading m="2">User Details</Heading>
             <List>
-              <ListItem>{data.user.username} </ListItem>
-              <ListItem>{data.user.email} </ListItem>
+              <ListItem>
+                <em>Username:</em> {data.user.username}{' '}
+              </ListItem>
+              <ListItem>
+                <em>Email: </em>
+                {data.user.email}{' '}
+              </ListItem>
               <ListItem>{data.user.about} </ListItem>
               <ListItem>{data.user.online} </ListItem>
             </List>

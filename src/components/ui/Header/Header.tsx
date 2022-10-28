@@ -3,20 +3,27 @@ import { useMeQuery } from '@/generated/graphql'
 import useNewUserNotification from '@/hooks/useNewUserNotify'
 import {
   Badge,
+  Box,
   chakra,
   Flex,
+  IconButton,
   Skeleton,
   Text,
+  useColorMode,
   useColorModeValue,
   useSafeLayoutEffect,
   useToast,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
+import { FaMoon, FaSun } from 'react-icons/fa'
 import UnAuthenticatedHeader from './UnAuthenticated'
 
 const AuthenticatedHeader = dynamic(() => import('./Authenticated'))
 
 export default function Header() {
+  const { toggleColorMode: toggleMode } = useColorMode()
+  const text = useColorModeValue('dark', 'light')
+  const SwitchIcon = useColorModeValue(FaMoon, FaSun)
   const { data, loading } = useMeQuery()
 
   const toast = useToast()
@@ -48,6 +55,7 @@ export default function Header() {
   return (
     <Skeleton isLoaded={!loading}>
       <chakra.nav
+        border="2px solid brown"
         pos="fixed"
         zIndex="1000"
         height="3.5rem"
@@ -58,6 +66,17 @@ export default function Header() {
       >
         <Flex w="100%" h="100%" align="center" justify="space-around">
           {data?.me ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
+          <Box border="2px solid red" px="2">
+            <IconButton
+              size="md"
+              fontSize="lg"
+              aria-label={`Switch to ${text} mode`}
+              variant="ghost"
+              color="current"
+              onClick={toggleMode}
+              icon={<SwitchIcon />}
+            />
+          </Box>
         </Flex>
       </chakra.nav>
     </Skeleton>
