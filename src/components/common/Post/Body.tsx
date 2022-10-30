@@ -11,7 +11,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import Image from 'next/legacy/image'
+import Image from 'next/image'
 
 type PostBodyType = {
   title?: string | null
@@ -103,15 +103,15 @@ export default function PostBody({
       </Skeleton>
 
       {image && imageW && imageH ? (
-        <>
+        <Box maxW="600px">
           <Image
-            layout="responsive"
+            loader={myLoader}
             src={image}
             height={imageH}
             width={imageW}
             alt={`image-${title}`}
           />
-        </>
+        </Box>
       ) : null}
 
       {text ? (

@@ -52,7 +52,7 @@ function createApolloClient() {
 
   const wsLink = new GraphQLWsLink(
     createClient({
-      url: `${WS_URI}`,
+      url: `${process.env.NEXT_PUBLIC_API_WS}`,
       connectionParams: {
         Authorization: window.localStorage.getItem('userId'),
       },

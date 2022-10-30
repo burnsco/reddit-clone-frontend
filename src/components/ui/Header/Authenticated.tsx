@@ -24,6 +24,7 @@ import { useRouter } from 'next/router'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { FaUserCircle } from 'react-icons/fa'
 import { MdSettings } from 'react-icons/md'
+import CreateCategoryDropDown from '../../common/CreateCategoryDropDown'
 import NavigationMenu from './NavigationMenu'
 
 const DynamicChatRoomDrawer = dynamic(
@@ -90,7 +91,7 @@ function HeaderIconsSection() {
     <Box border="2px solid purple">
       <ButtonGroup>
         <DynamicChatRoomDrawer />
-        <DynamicCreatePostDrawer />
+        <CreateCategoryDropDown />
         <DynamicCreateCategoryDrawer />
         <DynamicAddFriendDrawer />
       </ButtonGroup>
