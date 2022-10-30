@@ -1,8 +1,8 @@
 {
-  "**/*.{ts,tsx,js,jsx}": [
+  "**/*.{md,yml,json,babelrc,eslintrc,prettierrc}": [
     "prettier --write"
   ],
-  "**/*.{md,yml,json,babelrc,eslintrc,prettierrc}": [
+  "**/*.{ts,tsx,js,jsx}": [
     "prettier --write"
   ]
 }

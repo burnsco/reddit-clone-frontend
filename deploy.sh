@@ -1,7 +1,10 @@
 #!/bin/bash
 
-docker build -t coreymburns/social-frontend .
-docker push coreymburns/social-frontend
+echo What should the version be?
+read VERSION
+
+docker build -t coreymburns/social-frontend:$VERSION .
+docker push coreymburns/social-frontend:$VERSION
 
 
 
