@@ -1,3 +1,4 @@
+import { NextChakraLink } from '@/components/common'
 import Logo from '@/components/common/Logo'
 import { useLogoutMutation } from '@/generated/graphql'
 import { useLoggedInUser } from '@/hooks/useLoggedInUser'
@@ -10,7 +11,6 @@ import {
   HStack,
   IconButton,
   LinkBox,
-  LinkOverlay,
   Menu,
   MenuButton,
   MenuDivider,
@@ -43,42 +43,24 @@ const DynamicAddFriendDrawer = dynamic(
   () => import('@/components/common/Drawers/AddFriend')
 )
 
-export function LogoSection() {
-  const router = useRouter()
-
-  return (
-    <Flex
-      align="center"
-      h="full"
-      p="0.5"
-      flexGrow={1}
-      display={{ base: 'flex' }}
-    >
-      <Flex cursor="pointer" align="center" onClick={() => router.push('/')}>
-        <Logo />
-      </Flex>
-    </Flex>
-  )
-}
-
 export const NavbarLogoSection = () => (
-  <HStack px="4" border="2px solid red">
-    <LinkBox
-      data-testid="nav-logo"
-      letterSpacing="wide"
-      fontWeight="bold"
-      fontFamily="Kanit"
-      aria-label="Home Page Link"
-    >
-      <LinkOverlay href="/">
+  <NextChakraLink href="/" as={`/`}>
+    <HStack px="4" border="2px solid red">
+      <LinkBox
+        data-testid="nav-logo"
+        letterSpacing="wide"
+        fontWeight="bold"
+        fontFamily="Kanit"
+        aria-label="Home Page Link"
+      >
         <HStack>
           <chakra.span>SOCIAL</chakra.span>
 
           <Logo />
         </HStack>
-      </LinkOverlay>
-    </LinkBox>
-  </HStack>
+      </LinkBox>
+    </HStack>
+  </NextChakraLink>
 )
 
 function HeaderIconsSection() {
