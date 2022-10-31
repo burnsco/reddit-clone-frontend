@@ -1,11 +1,21 @@
 import { ChakraWrapper } from '@/components/common'
 import { useApollo } from '@/lib/apolloClient'
 import { ApolloProvider } from '@apollo/client'
+import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 
-export default function App({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode
+}
+
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const apolloClient = useApollo(pageProps)
+  const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <>
       <Head>
@@ -15,9 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
 
       <ApolloProvider client={apolloClient}>
-        <ChakraWrapper>
-          <Component {...pageProps} />
-        </ChakraWrapper>
+        <ChakraWrapper>{getLayout(<Component {...pageProps} />)}</ChakraWrapper>
       </ApolloProvider>
     </>
   )

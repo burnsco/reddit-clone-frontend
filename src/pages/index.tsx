@@ -6,8 +6,9 @@ import { initializeApollo } from '@/lib/apolloClient'
 import { allPostsQueryVars } from '@/types/pagination'
 import { NetworkStatus } from '@apollo/client'
 import { Box, Text, VisuallyHidden, VStack } from '@chakra-ui/react'
+import type { NextPageWithLayout } from './_app'
 
-export async function getStaticProps() {
+export async function getPosts() {
   const apolloClient = initializeApollo()
 
   await apolloClient.query<PostsQuery>({
@@ -23,7 +24,7 @@ export async function getStaticProps() {
   }
 }
 
-export default function IndexPage() {
+const Index: NextPageWithLayout = () => {
   const { loading, data, fetchMore, networkStatus } = usePostsQuery({
     variables: allPostsQueryVars,
     notifyOnNetworkStatusChange: true,
@@ -63,15 +64,19 @@ export default function IndexPage() {
   }
 
   return (
-    <Layout title="Home">
-      <Box as="section">
-        <ViewPosts />
-        <ShowMorePosts
-          loadMorePosts={loadMorePosts}
-          areMorePosts={areMorePosts}
-          loadingMorePosts={loadingMorePosts}
-        />
-      </Box>
-    </Layout>
+    <Box as="section">
+      <ViewPosts />
+      <ShowMorePosts
+        loadMorePosts={loadMorePosts}
+        areMorePosts={areMorePosts}
+        loadingMorePosts={loadingMorePosts}
+      />
+    </Box>
   )
+}
+
+export default Index
+
+Index.getLayout = function getLayout(page: React.ReactElement) {
+  return <Layout title="Home">{page}</Layout>
 }
