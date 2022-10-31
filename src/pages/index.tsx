@@ -1,13 +1,29 @@
 import NewPost from '@/components/common/Post'
 import { ShowMorePosts } from '@/components/common/ShowMorePosts'
 import { Layout } from '@/components/ui'
-import { usePostsQuery } from '@/generated/graphql'
+import { PostsDocument, PostsQuery, usePostsQuery } from '@/generated/graphql'
+import { initializeApollo } from '@/lib/apolloClient'
 import { allPostsQueryVars } from '@/types/pagination'
 import { NetworkStatus } from '@apollo/client'
 import { Box, Text, VisuallyHidden, VStack } from '@chakra-ui/react'
-import type { NextPageWithLayout } from './_app'
 
-const Index: NextPageWithLayout = () => {
+export async function getStaticProps() {
+  const apolloClient = initializeApollo()
+
+  await apolloClient.query<PostsQuery>({
+    query: PostsDocument,
+    variables: allPostsQueryVars,
+  })
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+    revalidate: 10,
+  }
+}
+
+export default function IndexPage() {
   const { loading, data, fetchMore, networkStatus } = usePostsQuery({
     variables: allPostsQueryVars,
     notifyOnNetworkStatusChange: true,
@@ -47,19 +63,15 @@ const Index: NextPageWithLayout = () => {
   }
 
   return (
-    <Box as="section">
-      <ViewPosts />
-      <ShowMorePosts
-        loadMorePosts={loadMorePosts}
-        areMorePosts={areMorePosts}
-        loadingMorePosts={loadingMorePosts}
-      />
-    </Box>
+    <Layout title="Home">
+      <Box as="section">
+        <ViewPosts />
+        <ShowMorePosts
+          loadMorePosts={loadMorePosts}
+          areMorePosts={areMorePosts}
+          loadingMorePosts={loadingMorePosts}
+        />
+      </Box>
+    </Layout>
   )
-}
-
-export default Index
-
-Index.getLayout = function getLayout(page: React.ReactElement) {
-  return <Layout title="Home">{page}</Layout>
 }

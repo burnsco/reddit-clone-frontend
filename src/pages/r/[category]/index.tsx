@@ -1,13 +1,56 @@
 import NewPost from '@/components/common/Post'
 import { ShowMorePosts } from '@/components/common/ShowMorePosts'
 import { Layout } from '@/components/ui'
-import { usePostsQuery } from '@/generated/graphql'
-import { NextPageWithLayout } from '@/pages/_app'
+import {
+  CategoriesDocument,
+  Category,
+  PostsDocument,
+  PostsQuery,
+  usePostsQuery,
+} from '@/generated/graphql'
+import { initializeApollo } from '@/lib/apolloClient'
 import { NetworkStatus } from '@apollo/client'
 import { Box, VisuallyHidden, VStack } from '@chakra-ui/react'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 
-const CategoryPage: NextPageWithLayout = () => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const apolloClient = initializeApollo()
+
+  await apolloClient.query<PostsQuery>({
+    query: PostsDocument,
+    variables: {
+      category: params?.category ?? 'react',
+      skip: 0,
+      first: 4,
+    },
+  })
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+      category: params?.category ?? 'react',
+    },
+    revalidate: 1,
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const apolloClient = initializeApollo()
+
+  const { data } = await apolloClient.query({
+    query: CategoriesDocument,
+  })
+
+  const paths = data.categories.map((item: Category) => `/r/${item.name}`)
+
+  return {
+    paths,
+    fallback: 'blocking',
+  }
+}
+
+export default function CategoryPage() {
   const router = useRouter()
 
   const category = router.query.category as string
@@ -57,19 +100,15 @@ const CategoryPage: NextPageWithLayout = () => {
   }
 
   return (
-    <Box as="section">
-      <ViewPosts />
-      <ShowMorePosts
-        loadMorePosts={loadMorePosts}
-        areMorePosts={areMorePosts}
-        loadingMorePosts={loadingMorePosts}
-      />
-    </Box>
+    <Layout title={`${category}`}>
+      <Box as="section">
+        <ViewPosts />
+        <ShowMorePosts
+          loadMorePosts={loadMorePosts}
+          areMorePosts={areMorePosts}
+          loadingMorePosts={loadingMorePosts}
+        />
+      </Box>
+    </Layout>
   )
-}
-
-export default CategoryPage
-
-CategoryPage.getLayout = function getLayout(page: React.ReactElement) {
-  return <Layout title="Home">{page}</Layout>
 }
