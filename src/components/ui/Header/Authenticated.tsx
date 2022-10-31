@@ -61,7 +61,7 @@ export function LogoSection() {
   )
 }
 
-const NavbarLogoSection = () => (
+export const NavbarLogoSection = () => (
   <HStack px="4" border="2px solid red">
     <LinkBox
       data-testid="nav-logo"

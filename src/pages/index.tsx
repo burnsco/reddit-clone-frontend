@@ -1,28 +1,11 @@
 import NewPost from '@/components/common/Post'
 import { ShowMorePosts } from '@/components/common/ShowMorePosts'
 import { Layout } from '@/components/ui'
-import { PostsDocument, PostsQuery, usePostsQuery } from '@/generated/graphql'
-import { initializeApollo } from '@/lib/apolloClient'
+import { usePostsQuery } from '@/generated/graphql'
 import { allPostsQueryVars } from '@/types/pagination'
 import { NetworkStatus } from '@apollo/client'
 import { Box, Text, VisuallyHidden, VStack } from '@chakra-ui/react'
 import type { NextPageWithLayout } from './_app'
-
-export async function getPosts() {
-  const apolloClient = initializeApollo()
-
-  await apolloClient.query<PostsQuery>({
-    query: PostsDocument,
-    variables: allPostsQueryVars,
-  })
-
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-    revalidate: 10,
-  }
-}
 
 const Index: NextPageWithLayout = () => {
   const { loading, data, fetchMore, networkStatus } = usePostsQuery({
