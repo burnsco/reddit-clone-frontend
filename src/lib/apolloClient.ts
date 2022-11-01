@@ -17,7 +17,7 @@ import { cacheOptions } from './cache'
 export const selectedChatRoomId: ReactiveVar<string> = makeVar<string>('react')
 export const loggedInUserId: ReactiveVar<string> = makeVar<string>('')
 export const selectedChatRoomName: ReactiveVar<string> =
-  makeVar<string>('react-js')
+  makeVar<string>('react')
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 

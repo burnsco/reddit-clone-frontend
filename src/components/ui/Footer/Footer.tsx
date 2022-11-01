@@ -1,6 +1,11 @@
 import MessageUser from '@/components/common/MessageUser'
 import { OfflineCircle, OnlineCircle } from '@/components/common/OnlineOffline'
-import { useMyFriendsQuery } from '@/generated/graphql'
+import {
+  useAddFriendMutation,
+  useMyFriendRequestsQuery,
+  useMyFriendsQuery,
+} from '@/generated/graphql'
+import { sleep } from '@/utils/sleepy'
 import {
   Avatar,
   Badge,
@@ -18,16 +23,14 @@ import {
   Skeleton,
   Spacer,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react'
 import { FaUserFriends } from 'react-icons/fa'
 import { ImSpinner } from 'react-icons/im'
-import {
-  useAddFriendMutation,
-  useMyFriendRequestsQuery,
-} from '../../../generated/graphql'
 
 export default function Footer() {
   const bg = useColorModeValue('white', '#202020')
+  const toast = useToast()
 
   const { data, loading, refetch } = useMyFriendsQuery({
     ssr: false,
@@ -110,6 +113,9 @@ export default function Footer() {
   console.log('FOOTER _ FRIEND _ REQUESTS')
   console.log(requests)
 
+  console.log('add friend data')
+  console.log(addFriendData)
+
   interface AcceptOrRejectType {
     username: string
   }
@@ -119,14 +125,27 @@ export default function Footer() {
       <Badge
         as="button"
         onClick={async () => {
-          console.log('accept friend')
-          await addFriend({
-            variables: {
-              data: {
-                username,
-                accept: true,
+          let response
+          sleep(1000)
+          try {
+            response = await addFriend({
+              variables: {
+                data: {
+                  username,
+                  accept: true,
+                },
               },
-            },
+            })
+          } catch (ex) {
+            console.log(ex)
+          }
+
+          toast({
+            id: `${addFriendData?.addFriend} added as friend`,
+            title: `${addFriendData?.addFriend.friend?.username} is now your friend.`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
           })
         }}
         colorScheme="green"
@@ -137,7 +156,6 @@ export default function Footer() {
       <Badge
         as="button"
         onClick={async () => {
-          console.log('accept friend')
           await addFriend({
             variables: {
               data: {

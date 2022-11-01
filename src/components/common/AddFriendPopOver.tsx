@@ -112,7 +112,7 @@ export default function AddFriendPopOver() {
                     toast({
                       id: `user-${friend.username}-added`,
                       title: 'Success',
-                      description: `User '${friend.username}' is now your friend `,
+                      description: `Friend Request sent to '${friend.username}' `,
                       status: 'success',
                       duration: 9000,
                       isClosable: true,

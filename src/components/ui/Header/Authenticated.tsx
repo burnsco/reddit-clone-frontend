@@ -52,7 +52,10 @@ export const NavbarLogoSection = () => (
         fontFamily="Kanit"
         aria-label="Home Page Link"
       >
-        <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
+        <chakra.span
+          fontSize="xl"
+          display={{ base: 'none', sm: 'none', md: 'flex' }}
+        >
           SOCIAL
         </chakra.span>
         <Logo />

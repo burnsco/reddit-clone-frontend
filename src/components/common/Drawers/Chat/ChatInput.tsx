@@ -1,5 +1,5 @@
 import { useCreateMessageMutation } from '@/generated/graphql'
-import { selectedChatRoomId } from '@/lib/apolloClient'
+import { selectedChatRoomId, selectedChatRoomName } from '@/lib/apolloClient'
 import { useReactiveVar } from '@apollo/client'
 import { HStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
@@ -7,19 +7,21 @@ import ChatField from '../../Forms/ChatField'
 
 export default function ChatInput() {
   const selectedCategoryId = useReactiveVar(selectedChatRoomId)
+  const chatName = useReactiveVar(selectedChatRoomName)
   const [submitMessage] = useCreateMessageMutation()
 
   const handleSubmitMessage = async (values: any, actions: any) => {
     const response = await submitMessage({
       variables: {
         data: {
-          categoryName: values.categoryName,
+          categoryName: chatName,
           content: values.content,
           categoryId: selectedCategoryId,
         },
       },
     })
-
+    console.log('handle submit message')
+    console.log(response)
     actions.resetForm()
     return response
   }
