@@ -15,7 +15,8 @@ export type Scalars = {
   Float: number;
 };
 
-export type AddUserInput = {
+export type AcceptOrRejectFriendInput = {
+  accept: Scalars['Boolean'];
   username: Scalars['String'];
 };
 
@@ -128,6 +129,7 @@ export type MessageInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   addFriend: AddUserMutationResponse;
+  addFriendRequest: AddUserMutationResponse;
   changePassword: UserMutationResponse;
   createCategory: CategoryMutationResponse;
   createComment: CommentMutationResponse;
@@ -149,7 +151,12 @@ export type Mutation = {
 
 
 export type MutationAddFriendArgs = {
-  data: AddUserInput;
+  data: AcceptOrRejectFriendInput;
+};
+
+
+export type MutationAddFriendRequestArgs = {
+  data: RequestToAddFriendInput;
 };
 
 
@@ -376,6 +383,10 @@ export type RegisterInput = {
   username: Scalars['String'];
 };
 
+export type RequestToAddFriendInput = {
+  username: Scalars['String'];
+};
+
 export type Subscription = {
   __typename?: 'Subscription';
   newMessage: Message;
@@ -400,6 +411,7 @@ export type User = {
   chatRooms: Array<Category>;
   createdAt: Scalars['String'];
   email: Scalars['String'];
+  friendRequests: Array<User>;
   friends: Array<User>;
   id: Scalars['String'];
   online: Scalars['Boolean'];
@@ -515,11 +527,18 @@ export type EditPostMutationVariables = Exact<{
 export type EditPostMutation = { __typename?: 'Mutation', editPost: { __typename?: 'PostMutationResponse', post?: { __typename?: 'Post', id: string, createdAt: string, updatedAt: string, title: string, imageH?: number | null, imageW?: number | null, text?: string | null, image?: string | null, link?: string | null, category: { __typename?: 'Category', id: string, createdAt: string, updatedAt: string, name: string } } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 export type AddFriendMutationVariables = Exact<{
-  data: AddUserInput;
+  data: AcceptOrRejectFriendInput;
 }>;
 
 
 export type AddFriendMutation = { __typename?: 'Mutation', addFriend: { __typename?: 'AddUserMutationResponse', me?: { __typename?: 'User', id: string, username: string } | null, friend?: { __typename?: 'User', id: string, username: string, online: boolean } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
+
+export type AddFriendRequestMutationVariables = Exact<{
+  data: RequestToAddFriendInput;
+}>;
+
+
+export type AddFriendRequestMutation = { __typename?: 'Mutation', addFriendRequest: { __typename?: 'AddUserMutationResponse', me?: { __typename?: 'User', id: string, username: string } | null, friend?: { __typename?: 'User', id: string, username: string, online: boolean } | null, errors?: Array<{ __typename?: 'FieldError', field: string, message: string }> | null } };
 
 export type EditUserMutationVariables = Exact<{
   data: EditUserInput;
@@ -636,6 +655,11 @@ export type MyChatRoomsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type MyChatRoomsQuery = { __typename?: 'Query', me?: { __typename?: 'User', chatRooms: Array<{ __typename?: 'Category', chatUsers?: Array<{ __typename?: 'User', id: string, online: boolean, username: string }> | null }> } | null };
+
+export type MyFriendRequestsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MyFriendRequestsQuery = { __typename?: 'Query', me?: { __typename?: 'User', friendRequests: Array<{ __typename?: 'User', id: string, username: string, online: boolean }> } | null };
 
 export type MyFriendsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -1038,7 +1062,7 @@ export type EditPostMutationHookResult = ReturnType<typeof useEditPostMutation>;
 export type EditPostMutationResult = Apollo.MutationResult<EditPostMutation>;
 export type EditPostMutationOptions = Apollo.BaseMutationOptions<EditPostMutation, EditPostMutationVariables>;
 export const AddFriendDocument = gql`
-    mutation AddFriend($data: AddUserInput!) {
+    mutation AddFriend($data: AcceptOrRejectFriendInput!) {
   addFriend(data: $data) {
     me {
       id
@@ -1082,6 +1106,51 @@ export function useAddFriendMutation(baseOptions?: Apollo.MutationHookOptions<Ad
 export type AddFriendMutationHookResult = ReturnType<typeof useAddFriendMutation>;
 export type AddFriendMutationResult = Apollo.MutationResult<AddFriendMutation>;
 export type AddFriendMutationOptions = Apollo.BaseMutationOptions<AddFriendMutation, AddFriendMutationVariables>;
+export const AddFriendRequestDocument = gql`
+    mutation AddFriendRequest($data: RequestToAddFriendInput!) {
+  addFriendRequest(data: $data) {
+    me {
+      id
+      username
+    }
+    friend {
+      id
+      username
+      online
+    }
+    errors {
+      field
+      message
+    }
+  }
+}
+    `;
+export type AddFriendRequestMutationFn = Apollo.MutationFunction<AddFriendRequestMutation, AddFriendRequestMutationVariables>;
+
+/**
+ * __useAddFriendRequestMutation__
+ *
+ * To run a mutation, you first call `useAddFriendRequestMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddFriendRequestMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addFriendRequestMutation, { data, loading, error }] = useAddFriendRequestMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useAddFriendRequestMutation(baseOptions?: Apollo.MutationHookOptions<AddFriendRequestMutation, AddFriendRequestMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddFriendRequestMutation, AddFriendRequestMutationVariables>(AddFriendRequestDocument, options);
+      }
+export type AddFriendRequestMutationHookResult = ReturnType<typeof useAddFriendRequestMutation>;
+export type AddFriendRequestMutationResult = Apollo.MutationResult<AddFriendRequestMutation>;
+export type AddFriendRequestMutationOptions = Apollo.BaseMutationOptions<AddFriendRequestMutation, AddFriendRequestMutationVariables>;
 export const EditUserDocument = gql`
     mutation editUser($data: EditUserInput!) {
   editUser(data: $data) {
@@ -1786,6 +1855,47 @@ export type MyChatRoomsLazyQueryHookResult = ReturnType<typeof useMyChatRoomsLaz
 export type MyChatRoomsQueryResult = Apollo.QueryResult<MyChatRoomsQuery, MyChatRoomsQueryVariables>;
 export function refetchMyChatRoomsQuery(variables?: MyChatRoomsQueryVariables) {
       return { query: MyChatRoomsDocument, variables: variables }
+    }
+export const MyFriendRequestsDocument = gql`
+    query MyFriendRequests {
+  me {
+    friendRequests {
+      id
+      username
+      online
+    }
+  }
+}
+    `;
+
+/**
+ * __useMyFriendRequestsQuery__
+ *
+ * To run a query within a React component, call `useMyFriendRequestsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMyFriendRequestsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMyFriendRequestsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMyFriendRequestsQuery(baseOptions?: Apollo.QueryHookOptions<MyFriendRequestsQuery, MyFriendRequestsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MyFriendRequestsQuery, MyFriendRequestsQueryVariables>(MyFriendRequestsDocument, options);
+      }
+export function useMyFriendRequestsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MyFriendRequestsQuery, MyFriendRequestsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MyFriendRequestsQuery, MyFriendRequestsQueryVariables>(MyFriendRequestsDocument, options);
+        }
+export type MyFriendRequestsQueryHookResult = ReturnType<typeof useMyFriendRequestsQuery>;
+export type MyFriendRequestsLazyQueryHookResult = ReturnType<typeof useMyFriendRequestsLazyQuery>;
+export type MyFriendRequestsQueryResult = Apollo.QueryResult<MyFriendRequestsQuery, MyFriendRequestsQueryVariables>;
+export function refetchMyFriendRequestsQuery(variables?: MyFriendRequestsQueryVariables) {
+      return { query: MyFriendRequestsDocument, variables: variables }
     }
 export const MyFriendsDocument = gql`
     query MyFriends {

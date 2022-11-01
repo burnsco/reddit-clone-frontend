@@ -34,7 +34,7 @@ export default function NavigationMenu() {
   }
 
   const NavigationDisplay = () => (
-    <Flex flexGrow={2} border="2px solid green" justify="center">
+    <Flex flexGrow={2} justify="center">
       <Menu closeOnSelect={true} matchWidth>
         {({ isOpen }) => (
           <>

@@ -58,12 +58,12 @@ export default function Header() {
         pos="fixed"
         zIndex="1000"
         height="3.5rem"
-        maxW="1400px"
+        maxW="1600px"
         bg={headerBG}
         boxShadow={headerShadow}
         width="full"
       >
-        <Flex w="100%" h="100%" align="center" justify="space-around">
+        <Flex px="2" w="100%" h="100%" align="center" justify="space-around">
           {data?.me ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
           <Box px="1">
             <IconButton

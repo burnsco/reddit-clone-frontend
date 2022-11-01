@@ -12,11 +12,13 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Skeleton,
   Spacer,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { FaUserFriends } from 'react-icons/fa'
 import { ImSpinner } from 'react-icons/im'
+import { useMyFriendRequestsQuery } from '../../../generated/graphql'
 
 export default function Footer() {
   const bg = useColorModeValue('white', '#202020')
@@ -24,6 +26,12 @@ export default function Footer() {
   const { data, loading, refetch } = useMyFriendsQuery({
     ssr: false,
   })
+
+  const {
+    data: requests,
+    loading: loadingRequests,
+    refetch: refetchRequests,
+  } = useMyFriendRequestsQuery()
 
   const userHasFriends = data && data.me?.friends && data.me.friends.length > 0
 
@@ -75,20 +83,23 @@ export default function Footer() {
     </>
   )
 
+  console.log('FOOTER _ FRIEND _ REQUESTS')
+  console.log(requests)
+
   const ChatMenu = () => (
-    <>
-      {data?.me?.friends ? (
+    <Skeleton isLoaded={!loadingRequests}>
+      {requests?.me?.friendRequests ? (
         <Menu>
           <MenuButton
-            onClick={() => refetch()}
+            onClick={() => refetchRequests()}
             as={Button}
             rightIcon={!loading ? <FaUserFriends /> : <ImSpinner />}
           >
             <FriendsCount />
-            FRIENDS
+            Requests
           </MenuButton>
           <MenuList>
-            {data?.me?.friends.map((user) => (
+            {requests?.me?.friendRequests.map((user) => (
               <MenuItem key={`friend-${user.id}`}>
                 <Avatar
                   size="xs"
@@ -105,7 +116,7 @@ export default function Footer() {
       ) : (
         <Heading>No Friends</Heading>
       )}
-    </>
+    </Skeleton>
   )
 
   const FooterContent = () => (

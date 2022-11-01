@@ -1,5 +1,5 @@
-mutation AddFriend($data: AcceptOrRejectFriendInput!) {
-  addFriend(data: $data) {
+mutation AddFriendRequest($data: RequestToAddFriendInput!) {
+  addFriendRequest(data: $data) {
     me {
       id
       username

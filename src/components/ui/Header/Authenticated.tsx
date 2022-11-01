@@ -1,4 +1,5 @@
 import { NextChakraLink } from '@/components/common'
+import AddFriendPopOver from '@/components/common/AddFriendPopOver'
 import Logo from '@/components/common/Logo'
 import { useLogoutMutation } from '@/generated/graphql'
 import { useLoggedInUser } from '@/hooks/useLoggedInUser'
@@ -9,7 +10,6 @@ import {
   chakra,
   HStack,
   IconButton,
-  LinkBox,
   Menu,
   MenuButton,
   MenuDivider,
@@ -45,20 +45,18 @@ const DynamicAddFriendDrawer = dynamic(
 export const NavbarLogoSection = () => (
   <NextChakraLink href="/" as={`/`}>
     <HStack px="1">
-      <LinkBox
-        data-testid="nav-logo"
+      <HStack
+        px="1"
         letterSpacing="wide"
         fontWeight="bold"
         fontFamily="Kanit"
         aria-label="Home Page Link"
       >
-        <HStack px="1">
-          <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
-            SOCIAL
-          </chakra.span>
-          <Logo />
-        </HStack>
-      </LinkBox>
+        <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
+          SOCIAL
+        </chakra.span>
+        <Logo />
+      </HStack>
     </HStack>
   </NextChakraLink>
 )
@@ -70,12 +68,12 @@ function HeaderIconsSection() {
 
   const [logout, { client }] = useLogoutMutation()
   return (
-    <Box border="2px solid purple">
-      <ButtonGroup>
+    <Box border="1px dotted white">
+      <ButtonGroup spacing={[2, 4, 8]}>
         <DynamicChatRoomDrawer />
         <DynamicCreatePostDrawer />
         <DynamicCreateCategoryDrawer />
-        <DynamicAddFriendDrawer />
+        <AddFriendPopOver />
       </ButtonGroup>
 
       <Menu isLazy>

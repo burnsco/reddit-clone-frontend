@@ -1,0 +1,9 @@
+query MyFriendRequests {
+  me {
+    friendRequests {
+      id
+      username
+      online
+    }
+  }
+}
