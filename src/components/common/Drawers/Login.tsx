@@ -36,7 +36,7 @@ export default function LoginDrawer() {
     <>
       <Button
         variant="outline"
-        size="md"
+        size={['sm', 'md']}
         ref={btnRef}
         colorScheme={buttonScheme}
         onClick={onOpen}

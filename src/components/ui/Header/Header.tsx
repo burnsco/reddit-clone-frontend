@@ -63,15 +63,9 @@ export default function Header() {
         boxShadow={headerShadow}
         width="full"
       >
-        <Flex
-          border="2px solid white"
-          w="100%"
-          h="100%"
-          align="center"
-          justify="space-around"
-        >
+        <Flex w="100%" h="100%" align="center" justify="space-around">
           {data?.me ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
-          <Box border="2px solid red" px="2">
+          <Box px="1">
             <IconButton
               size="md"
               fontSize="lg"

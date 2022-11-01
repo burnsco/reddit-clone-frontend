@@ -35,7 +35,7 @@ export default function RegisterDrawer() {
     <>
       <Button
         ref={btnRef}
-        size="md"
+        size={['sm', 'md']}
         colorScheme={buttonScheme}
         onClick={onOpen}
       >

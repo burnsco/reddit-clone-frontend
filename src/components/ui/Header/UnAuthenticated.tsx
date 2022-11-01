@@ -9,17 +9,15 @@ export default function UnAuthenticatedHeader() {
     <Flex
       w="100%"
       h="100%"
-      px="4"
+      px={[2, 4, 6]}
       align="center"
       justify="space-around"
-      border="2px solid green"
     >
       <NavbarLogoSection />
       <Spacer />
       <NavigationMenu />
       <Stack spacing={4} mr={2} direction="row">
         <RegisterDrawer />
-
         <LoginDrawer />
       </Stack>
     </Flex>

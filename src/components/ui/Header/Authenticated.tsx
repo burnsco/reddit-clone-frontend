@@ -44,7 +44,7 @@ const DynamicAddFriendDrawer = dynamic(
 
 export const NavbarLogoSection = () => (
   <NextChakraLink href="/" as={`/`}>
-    <HStack border="2px solid red">
+    <HStack px="1">
       <LinkBox
         data-testid="nav-logo"
         letterSpacing="wide"
@@ -52,7 +52,7 @@ export const NavbarLogoSection = () => (
         fontFamily="Kanit"
         aria-label="Home Page Link"
       >
-        <HStack>
+        <HStack px="1">
           <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
             SOCIAL
           </chakra.span>
