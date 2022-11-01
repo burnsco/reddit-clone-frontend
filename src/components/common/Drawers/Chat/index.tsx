@@ -43,9 +43,10 @@ export default function ChatDrawerPage() {
         </chakra.span>
       </Tooltip>
       <Drawer
-        size="xxl"
+        size="xl"
+        isFullHeight={true}
         isOpen={isOpen}
-        placement="left"
+        placement="bottom"
         onClose={onClose}
         finalFocusRef={btnRef}
       >

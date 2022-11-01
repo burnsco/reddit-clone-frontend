@@ -33,7 +33,7 @@
     "babel-plugin-superjson-next": "^0.4.4",
     "deepmerge": "^4.2.2",
     "formik": "^2.2.9",
-    "framer-motion": "^7.6.3",
+    "framer-motion": "^7.6.4",
     "graphql": "^16.6.0",
     "graphql-ws": "^5.11.2",
     "js-cookie": "^3.0.1",
@@ -50,7 +50,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.13.9",
+    "@graphql-codegen/cli": "^2.13.10",
     "@graphql-codegen/plugin-helpers": "^2.7.2",
     "@graphql-codegen/typescript": "^2.8.1",
     "@graphql-codegen/typescript-operations": "^2.5.6",

@@ -88,7 +88,6 @@ export default function Footer() {
             rightIcon={!loading ? <FaUserFriends /> : <ImSpinner />}
           >
             <HStack>
-              <FriendsCount />
               <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
                 FRIENDS
               </chakra.span>
@@ -221,7 +220,6 @@ export default function Footer() {
 
   const FooterContent = () => (
     <Flex w="100%" h="100%" border="1px dotted white">
-      <FriendRequests />
       <ChatMenu />
       <FriendsMenu />
     </Flex>
@@ -240,7 +238,7 @@ export default function Footer() {
         right="0"
         width="full"
       >
-        <chakra.div height="2.5rem" mx="auto" maxW="1200px" px={1}>
+        <chakra.div height="2.5rem" mx="auto" maxW="1400px">
           <FooterContent />
         </chakra.div>
       </chakra.footer>

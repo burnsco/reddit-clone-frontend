@@ -6,6 +6,15 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
+  Portal,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -31,6 +40,23 @@ export default function ChatMenu() {
     }
     return 'Home'
   }
+
+  const ChatMenuDisplay = () => (
+    <Popover>
+      <PopoverTrigger>
+        <Button w="full">Trigger</Button>
+      </PopoverTrigger>
+      <Portal>
+        <PopoverContent w="100vw" h="60vh">
+          <PopoverArrow />
+          <PopoverHeader>list of categories</PopoverHeader>
+          <PopoverCloseButton />
+          <PopoverBody>chat body</PopoverBody>
+          <PopoverFooter>This is the footer</PopoverFooter>
+        </PopoverContent>
+      </Portal>
+    </Popover>
+  )
 
   const NavigationDisplay = () => (
     <Flex w="full" border="2px solid blue">
@@ -68,7 +94,7 @@ export default function ChatMenu() {
   )
 
   if (!loading) {
-    return <NavigationDisplay />
+    return <ChatMenuDisplay />
   }
   return null
 }

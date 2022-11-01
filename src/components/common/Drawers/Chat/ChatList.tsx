@@ -39,7 +39,7 @@ export default function ChatList(props: any) {
 
   if (!loading && data && data.messages) {
     return (
-      <Box overflowY="auto" height="auto" w="85%" bg="gray.800" p={2}>
+      <Box overflowY="auto" height="auto" w="full" bg="gray.800" p={2}>
         <List mt={2} spacing={4}>
           {data.messages.map((message: Message) => {
             const myMessage = message.sentBy.username === meData?.me?.username
