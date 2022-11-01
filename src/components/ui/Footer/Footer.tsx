@@ -21,7 +21,10 @@ import {
 } from '@chakra-ui/react'
 import { FaUserFriends } from 'react-icons/fa'
 import { ImSpinner } from 'react-icons/im'
-import { useMyFriendRequestsQuery } from '../../../generated/graphql'
+import {
+  useAddFriendMutation,
+  useMyFriendRequestsQuery,
+} from '../../../generated/graphql'
 
 export default function Footer() {
   const bg = useColorModeValue('white', '#202020')
@@ -29,6 +32,9 @@ export default function Footer() {
   const { data, loading, refetch } = useMyFriendsQuery({
     ssr: false,
   })
+
+  const [addFriend, { data: addFriendData, loading: addFriendLoading }] =
+    useAddFriendMutation()
 
   const {
     data: requests,
@@ -104,12 +110,24 @@ export default function Footer() {
   console.log('FOOTER _ FRIEND _ REQUESTS')
   console.log(requests)
 
-  const AcceptOrRejectButtons = () => (
+  interface AcceptOrRejectType {
+    username: string
+  }
+
+  const AcceptOrRejectButtons = ({ username }: AcceptOrRejectType) => (
     <HStack p="2" ml="4">
       <Badge
         as="button"
-        onClick={() => {
+        onClick={async () => {
           console.log('accept friend')
+          await addFriend({
+            variables: {
+              data: {
+                username,
+                accept: true,
+              },
+            },
+          })
         }}
         colorScheme="green"
         mx="2"
@@ -117,11 +135,20 @@ export default function Footer() {
         Accept
       </Badge>
       <Badge
-        onClick={() => {
-          console.log('reject friend')
-        }}
         as="button"
+        onClick={async () => {
+          console.log('accept friend')
+          await addFriend({
+            variables: {
+              data: {
+                username,
+                accept: false,
+              },
+            },
+          })
+        }}
         colorScheme="red"
+        mx="2"
       >
         Reject
       </Badge>
@@ -150,7 +177,8 @@ export default function Footer() {
                     src="https://bit.ly/ryan-florence"
                     mr={3}
                   />
-                  {user.username} {user && <AcceptOrRejectButtons />}
+                  {user.username}{' '}
+                  {user && <AcceptOrRejectButtons username={user.username} />}
                   <MenuDivider />
                 </MenuGroup>
               ))}
