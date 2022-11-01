@@ -8,6 +8,7 @@ import {
   MenuList,
   useColorModeValue,
 } from '@chakra-ui/react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { BsArrowDown, BsArrowLeft } from 'react-icons/bs'
 import { FaHome } from 'react-icons/fa'
@@ -33,7 +34,7 @@ export default function NavigationMenu() {
   }
 
   const NavigationDisplay = () => (
-    <Flex flexGrow={1} border="2px solid red">
+    <Flex flexGrow={2} border="2px solid green" justify="center">
       <Menu closeOnSelect={true} matchWidth>
         {({ isOpen }) => (
           <>
@@ -54,9 +55,10 @@ export default function NavigationMenu() {
               <MenuList minWidth="240px" opacity="0.7" bg={bg}>
                 {data.categories.map((item, i) => (
                   <MenuItem
+                    as={Link}
+                    href={`/r/${item.name}`}
                     value={item.name}
                     key={`subreddit-center-menu-${item.id}-${i}`}
-                    onClick={() => router.push(`/r/${item.name}`)}
                   >
                     {item.name}
                   </MenuItem>

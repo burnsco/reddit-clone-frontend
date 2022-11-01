@@ -7,7 +7,6 @@ import {
   Box,
   ButtonGroup,
   chakra,
-  Flex,
   HStack,
   IconButton,
   LinkBox,
@@ -45,7 +44,7 @@ const DynamicAddFriendDrawer = dynamic(
 
 export const NavbarLogoSection = () => (
   <NextChakraLink href="/" as={`/`}>
-    <HStack px="4" border="2px solid red">
+    <HStack border="2px solid red">
       <LinkBox
         data-testid="nav-logo"
         letterSpacing="wide"
@@ -54,8 +53,9 @@ export const NavbarLogoSection = () => (
         aria-label="Home Page Link"
       >
         <HStack>
-          <chakra.span>SOCIAL</chakra.span>
-
+          <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
+            SOCIAL
+          </chakra.span>
           <Logo />
         </HStack>
       </LinkBox>
@@ -137,17 +137,10 @@ function HeaderIconsSection() {
 
 export default function AuthenticatedHeader() {
   return (
-    <Flex
-      w="100%"
-      h="100%"
-      px="4"
-      align="center"
-      justify="space-around"
-      border="2px solid pink"
-    >
+    <>
       <NavbarLogoSection />
       <NavigationMenu />
       <HeaderIconsSection />
-    </Flex>
+    </>
   )
 }
