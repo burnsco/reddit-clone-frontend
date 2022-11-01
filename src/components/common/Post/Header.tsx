@@ -1,10 +1,6 @@
 import DeletePostDialog from '@/components/common/DeletePostDialog'
 import InputField from '@/components/common/Forms/InputField'
-import {
-  useAddFriendMutation,
-  User,
-  useSendPrivateMessageMutation,
-} from '@/generated/graphql'
+import { User, useSendPrivateMessageMutation } from '@/generated/graphql'
 import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import { useMyFriends } from '@/hooks/useMyFriends'
 import { timeDifferenceForDate } from '@/utils/index'
@@ -36,6 +32,7 @@ import { FaUserCircle } from 'react-icons/fa'
 import { IoAddCircle } from 'react-icons/io5'
 import { MdMessage } from 'react-icons/md'
 import { RiMailSendLine } from 'react-icons/ri'
+import { useAddFriendRequestMutation } from '../../../generated/graphql'
 import { OfflineCircle, OnlineCircle } from '../OnlineOffline'
 
 type PostHeaderType = {
@@ -61,7 +58,7 @@ export default function PostHeader({
   const router = useRouter()
   const toast = useToast()
 
-  const [addFriend, { loading }] = useAddFriendMutation()
+  const [addFriendRequest, { loading }] = useAddFriendRequestMutation()
 
   const isMyFriend = myFriends?.filter((friend) => friend.id === author?.id)
 
@@ -78,14 +75,14 @@ export default function PostHeader({
     if (username) {
       let response
       try {
-        response = await addFriend({
+        response = await addFriendRequest({
           variables: {
             data: {
               username,
             },
           },
           update(cache, { data }) {
-            if (loggedInUser && !data?.addFriend.errors) {
+            if (loggedInUser && !data?.addFriendRequest.errors) {
               console.log('cache')
               console.log(cache)
 
@@ -98,9 +95,9 @@ export default function PostHeader({
       } catch (ex) {
         return ex
       }
-      if (response?.data?.addFriend?.friend) {
+      if (response?.data?.addFriendRequest?.friend) {
         console.log(response)
-        const { friend } = response?.data?.addFriend
+        const { friend } = response?.data?.addFriendRequest
         console.log(friend)
         toast({
           id: `user-${friend.username}-added`,

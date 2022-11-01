@@ -1,4 +1,4 @@
-import { CommentQuery, useAddFriendMutation } from '@/generated/graphql'
+import { CommentQuery, useAddFriendRequestMutation } from '@/generated/graphql'
 import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import { timeDifferenceForDate } from '@/utils/index'
 import { gql } from '@apollo/client'
@@ -27,7 +27,7 @@ import { OfflineCircle, OnlineCircle } from '../OnlineOffline'
 
 export default function CommentPage(props: CommentQuery) {
   const [loggedInUser] = useLoggedInUser()
-  const [addFriend, { loading }] = useAddFriendMutation()
+  const [addFriendRequest, { loading }] = useAddFriendRequestMutation()
 
   const bg = useColorModeValue('white', '#202020')
   const stackColor = useColorModeValue('gray.600', 'gray.400')
@@ -105,7 +105,7 @@ export default function CommentPage(props: CommentQuery) {
                   onClick={async () => {
                     let response
                     try {
-                      response = await addFriend({
+                      response = await addFriendRequest({
                         variables: {
                           data: {
                             username: comment?.createdBy.username,
@@ -118,7 +118,7 @@ export default function CommentPage(props: CommentQuery) {
                               fields: {
                                 friends(existingFriends = []) {
                                   const newFriendRef = cache.writeFragment({
-                                    data: data?.addFriend.me,
+                                    data: data?.addFriendRequest.me,
                                     fragment: gql`
                                       fragment NewFriend on User {
                                         id

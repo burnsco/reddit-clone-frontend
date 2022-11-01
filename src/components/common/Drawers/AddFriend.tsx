@@ -1,5 +1,5 @@
 import { ChakraField } from '@/components/common/index'
-import { useAddFriendMutation } from '@/generated/graphql'
+import { useAddFriendRequestMutation } from '@/generated/graphql'
 import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import convertToErrorMap from '@/utils/toErrorMap'
 import { gql } from '@apollo/client'
@@ -29,7 +29,7 @@ export default function AddFriendDrawer() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const toast = useToast()
   const buttonColor = useColorModeValue('purple', 'blue')
-  const [addFriend, { loading }] = useAddFriendMutation()
+  const [addFriendRequest, { loading }] = useAddFriendRequestMutation()
   const btnRef = useRef<HTMLButtonElement | null>(null)
 
   return (
@@ -68,20 +68,20 @@ export default function AddFriendDrawer() {
               actions.setSubmitting(false)
               let response
               try {
-                response = await addFriend({
+                response = await addFriendRequest({
                   variables: {
                     data: {
                       username: values.username,
                     },
                   },
                   update(cache, { data }) {
-                    if (loggedInUser && !data?.addFriend.errors) {
+                    if (loggedInUser && !data?.addFriendRequest.errors) {
                       cache.modify({
                         id: cache.identify(loggedInUser),
                         fields: {
                           friends(existingFriends = []) {
                             const newFriendRef = cache.writeFragment({
-                              data: data?.addFriend.me,
+                              data: data?.addFriendRequest.me,
                               fragment: gql`
                                 fragment Friend on User {
                                   id
@@ -101,19 +101,19 @@ export default function AddFriendDrawer() {
               } catch (ex) {
                 console.log(ex)
               }
-              if (response?.data?.addFriend.errors) {
+              if (response?.data?.addFriendRequest.errors) {
                 actions.setErrors(
-                  convertToErrorMap(response.data.addFriend.errors)
+                  convertToErrorMap(response.data.addFriendRequest.errors)
                 )
               }
               if (
                 response &&
                 response.data &&
-                response.data.addFriend &&
-                response.data.addFriend.me &&
-                response.data.addFriend.friend
+                response.data.addFriendRequest &&
+                response.data.addFriendRequest.me &&
+                response.data.addFriendRequest.friend
               ) {
-                const { friend } = response.data.addFriend
+                const { friend } = response.data.addFriendRequest
                 toast({
                   id: `user-${friend.username}-added`,
                   title: 'Sucess',

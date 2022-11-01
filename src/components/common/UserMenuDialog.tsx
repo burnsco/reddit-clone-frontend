@@ -1,4 +1,4 @@
-import { useAddFriendMutation } from '@/generated/graphql'
+import { useAddFriendRequestMutation } from '@/generated/graphql'
 import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import { gql } from '@apollo/client'
 import {
@@ -13,7 +13,6 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { ImSpinner } from 'react-icons/im'
 import { IoAddCircle } from 'react-icons/io5'
@@ -21,7 +20,7 @@ import { MdEmail } from 'react-icons/md'
 
 export default function UserMenuDialog(username: string) {
   const bg = useColorModeValue('white', '#202020')
-  const [addFriend, { loading }] = useAddFriendMutation()
+  const [addFriendRequest, { loading }] = useAddFriendRequestMutation()
   const router = useRouter()
   const [loggedInUser] = useLoggedInUser()
 
@@ -49,7 +48,7 @@ export default function UserMenuDialog(username: string) {
       onClick={async () => {
         let response
         try {
-          response = await addFriend({
+          response = await addFriendRequest({
             variables: {
               data: {
                 username,
@@ -62,9 +61,9 @@ export default function UserMenuDialog(username: string) {
                   fields: {
                     friends(existingFriends = []) {
                       const newFriendRef = cache.writeFragment({
-                        data: data?.addFriend.me,
+                        data: data?.addFriendRequest.me,
                         fragment: gql`
-                          fragment NewFriend on User {
+                          fragment FriendRequest on User {
                             id
                             username
                             online

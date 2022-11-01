@@ -8,8 +8,11 @@ import {
   chakra,
   Flex,
   Heading,
+  HStack,
   Menu,
   MenuButton,
+  MenuDivider,
+  MenuGroup,
   MenuItem,
   MenuList,
   Skeleton,
@@ -44,6 +47,21 @@ export default function Footer() {
       return (
         <Badge mr={2} colorScheme="green">
           {onlineFriends}
+        </Badge>
+      )
+    }
+    return null
+  }
+
+  const FriendRequestsCount = () => {
+    if (requests && requests.me && requests.me.friendRequests.length > 0) {
+      const friendRequests = requests.me.friendRequests.map(
+        (friend) => friend.online
+      ).length
+
+      return (
+        <Badge mr={2} colorScheme="green">
+          {friendRequests}
         </Badge>
       )
     }
@@ -86,31 +104,57 @@ export default function Footer() {
   console.log('FOOTER _ FRIEND _ REQUESTS')
   console.log(requests)
 
-  const ChatMenu = () => (
+  const AcceptOrRejectButtons = () => (
+    <HStack p="2" ml="4">
+      <Badge
+        as="button"
+        onClick={() => {
+          console.log('accept friend')
+        }}
+        colorScheme="green"
+        mx="2"
+      >
+        Accept
+      </Badge>
+      <Badge
+        onClick={() => {
+          console.log('reject friend')
+        }}
+        as="button"
+        colorScheme="red"
+      >
+        Reject
+      </Badge>
+    </HStack>
+  )
+
+  const FriendRequests = () => (
     <Skeleton isLoaded={!loadingRequests}>
       {requests?.me?.friendRequests ? (
         <Menu>
           <MenuButton
             onClick={() => refetchRequests()}
             as={Button}
-            rightIcon={!loading ? <FaUserFriends /> : <ImSpinner />}
+            rightIcon={!loading ? '?' : <ImSpinner />}
           >
-            <FriendsCount />
+            <FriendRequestsCount />
             Requests
           </MenuButton>
-          <MenuList>
-            {requests?.me?.friendRequests.map((user) => (
-              <MenuItem key={`friend-${user.id}`}>
-                <Avatar
-                  size="xs"
-                  name="Ryan Florence"
-                  src="https://bit.ly/ryan-florence"
-                  mr={3}
-                />
-                {user.username} {user && <MessageUser {...user} />}
-                {user.online ? <OnlineCircle /> : <OfflineCircle />}
-              </MenuItem>
-            ))}
+          <MenuList p="1" width="200px">
+            <HStack p="2" border="1px dotted red" w="full">
+              {requests?.me?.friendRequests.map((user) => (
+                <MenuGroup w="full" key={`friend-${user.id}`}>
+                  <Avatar
+                    size="xs"
+                    name="Ryan Florence"
+                    src="https://bit.ly/ryan-florence"
+                    mr={3}
+                  />
+                  {user.username} {user && <AcceptOrRejectButtons />}
+                  <MenuDivider />
+                </MenuGroup>
+              ))}
+            </HStack>
           </MenuList>
         </Menu>
       ) : (
@@ -121,7 +165,7 @@ export default function Footer() {
 
   const FooterContent = () => (
     <Flex w="100%" h="100%">
-      <ChatMenu />
+      <FriendRequests />
       <Spacer />
       <FriendsMenu />
     </Flex>
