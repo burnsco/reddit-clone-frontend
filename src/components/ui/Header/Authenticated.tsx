@@ -20,11 +20,11 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineLogout } from 'react-icons/ai'
 import { FaUserCircle } from 'react-icons/fa'
 import { MdSettings } from 'react-icons/md'
-import CreateCategoryDropDown from '../../common/CreateCategoryDropDown'
 import NavigationMenu from './NavigationMenu'
 
 const DynamicChatRoomDrawer = dynamic(
@@ -73,7 +73,7 @@ function HeaderIconsSection() {
     <Box border="2px solid purple">
       <ButtonGroup>
         <DynamicChatRoomDrawer />
-        <CreateCategoryDropDown />
+        <DynamicCreatePostDrawer />
         <DynamicCreateCategoryDrawer />
         <DynamicAddFriendDrawer />
       </ButtonGroup>
@@ -94,21 +94,24 @@ function HeaderIconsSection() {
         />
 
         <MenuList m={0} opacity="0.7" bg={bg}>
-          <MenuGroup title={loggedInUser?.username} color="lightsteelblue">
+          <MenuGroup
+            title={loggedInUser?.username || 'user menu'}
+            color="lightsteelblue"
+          >
             <MenuDivider />
-            <MenuItem onClick={() => router.push('/user')}>
+            <MenuItem as={Link} href="/user/profile">
               <FaUserCircle />
               <Box ml="2">Profile</Box>
             </MenuItem>
-            <MenuItem onClick={() => router.push('/user/account')}>
+            <MenuItem as={Link} href="/user/account">
               <MdSettings />
               <Box ml="2">Account</Box>
             </MenuItem>
-            <MenuItem onClick={() => router.push('/user/account')}>
+            <MenuItem as={Link} href="/user/friends">
               <MdSettings />
               <Box ml="2">Friends</Box>
             </MenuItem>
-            <MenuItem onClick={() => router.push('/user/messages')}>
+            <MenuItem as={Link} href="/user/messagesa">
               <MdSettings />
               <Box ml="2">Messages</Box>
             </MenuItem>
