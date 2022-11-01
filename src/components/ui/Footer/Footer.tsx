@@ -1,5 +1,6 @@
 import MessageUser from '@/components/common/MessageUser'
 import { OfflineCircle, OnlineCircle } from '@/components/common/OnlineOffline'
+import ChatMenu from '@/components/ui/Footer/ChatMenu'
 import {
   useAddFriendMutation,
   useMyFriendRequestsQuery,
@@ -21,7 +22,6 @@ import {
   MenuItem,
   MenuList,
   Skeleton,
-  Spacer,
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react'
@@ -82,12 +82,17 @@ export default function Footer() {
       {data?.me?.friends ? (
         <Menu>
           <MenuButton
+            size="md"
             onClick={() => refetch()}
             as={Button}
             rightIcon={!loading ? <FaUserFriends /> : <ImSpinner />}
           >
-            <FriendsCount />
-            FRIENDS
+            <HStack>
+              <FriendsCount />
+              <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
+                FRIENDS
+              </chakra.span>
+            </HStack>
           </MenuButton>
           <MenuList>
             {data.me.friends.map((user) => (
@@ -178,12 +183,17 @@ export default function Footer() {
       {requests?.me?.friendRequests ? (
         <Menu>
           <MenuButton
+            size="md"
             onClick={() => refetchRequests()}
             as={Button}
             rightIcon={!loading ? '?' : <ImSpinner />}
           >
-            <FriendRequestsCount />
-            Requests
+            <HStack>
+              <FriendRequestsCount />
+              <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>
+                Requests
+              </chakra.span>
+            </HStack>
           </MenuButton>
           <MenuList p="1" width="200px">
             <HStack p="2" border="1px dotted red" w="full">
@@ -210,9 +220,9 @@ export default function Footer() {
   )
 
   const FooterContent = () => (
-    <Flex w="100%" h="100%">
+    <Flex w="100%" h="100%" border="1px dotted white">
       <FriendRequests />
-      <Spacer />
+      <ChatMenu />
       <FriendsMenu />
     </Flex>
   )
