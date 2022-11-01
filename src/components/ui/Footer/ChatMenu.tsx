@@ -1,4 +1,7 @@
+import ChatDisplaySub from '@/components/ui/Footer/ChatDisplaySub'
 import { useCategoriesQuery } from '@/generated/graphql'
+import { selectedChatRoomId, selectedChatRoomName } from '@/lib/apolloClient'
+import { useReactiveVar } from '@apollo/client'
 import {
   Button,
   Flex,
@@ -7,7 +10,6 @@ import {
   MenuItem,
   MenuList,
   Popover,
-  PopoverArrow,
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
@@ -15,14 +17,25 @@ import {
   PopoverHeader,
   PopoverTrigger,
   Portal,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
   useColorModeValue,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { BsArrowDown, BsArrowLeft } from 'react-icons/bs'
 import { FaHome } from 'react-icons/fa'
+import ChatInput from './ChatInput'
 
 export default function ChatMenu() {
+  const [tabIndex, setTabIndex] = useState(0)
   const router = useRouter()
+
+  const chatID = useReactiveVar(selectedChatRoomId)
+  const chatName = useReactiveVar(selectedChatRoomName)
 
   const { loading, data } = useCategoriesQuery()
 
@@ -41,18 +54,42 @@ export default function ChatMenu() {
     return 'Home'
   }
 
+  console.log(tabIndex)
+  selectedChatRoomName('react')
+
   const ChatMenuDisplay = () => (
-    <Popover>
+    <Popover gutter={1} arrowPadding={1}>
       <PopoverTrigger>
         <Button w="full">Trigger</Button>
       </PopoverTrigger>
       <Portal>
-        <PopoverContent w="100vw" h="60vh">
-          <PopoverArrow />
-          <PopoverHeader>list of categories</PopoverHeader>
-          <PopoverCloseButton />
-          <PopoverBody>chat body</PopoverBody>
-          <PopoverFooter>This is the footer</PopoverFooter>
+        <PopoverContent w="95vw" h="600px">
+          <Tabs
+            onChange={(e) => {
+              console.log(e)
+            }}
+            h="100%"
+          >
+            <PopoverHeader>
+              <TabList border="none">
+                {data?.categories?.map((item, i) => (
+                  <Tab key={`chat room tab-${item.name}`}>{item.name}</Tab>
+                ))}
+              </TabList>
+            </PopoverHeader>
+            <PopoverCloseButton />
+            <TabPanels h="500px" w="full">
+              <TabPanel w="full" h="full">
+                <PopoverBody w="full" h="full">
+                  <ChatDisplaySub />
+                </PopoverBody>
+              </TabPanel>
+            </TabPanels>
+
+            <PopoverFooter p="0">
+              <ChatInput />
+            </PopoverFooter>
+          </Tabs>
         </PopoverContent>
       </Portal>
     </Popover>

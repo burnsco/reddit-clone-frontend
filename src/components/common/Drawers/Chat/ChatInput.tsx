@@ -27,7 +27,7 @@ export default function ChatInput() {
   }
 
   return (
-    <HStack w="full" p={1}>
+    <HStack w="full" border="2px solid white">
       <Formik initialValues={{ content: '' }} onSubmit={handleSubmitMessage}>
         <Form>
           <ChatField

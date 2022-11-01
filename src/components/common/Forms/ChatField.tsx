@@ -1,6 +1,5 @@
 import {
   FormControl,
-  FormLabel,
   Input,
   InputGroup,
   InputRightAddon,
@@ -25,10 +24,7 @@ export default function ChatField({
 
   return (
     <FormControl>
-      <FormLabel fontSize={`${size}` || 'sm'} htmlFor={props.name || props.id}>
-        {label}
-      </FormLabel>
-      <InputGroup size="lg">
+      <InputGroup h="full" border="2px solid white" size="sm" p="0">
         <Input
           {...field}
           {...props}
