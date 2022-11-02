@@ -51,7 +51,7 @@ export default function SubredditsAccordion() {
           {!loading ? <AccordionIcon /> : <ImSpinner />}
         </AccordionButton>
       </h2>
-      <AccordionPanel pb={4}>
+      <AccordionPanel pb={4} maxHeight="calc(100vh - 4rem - (1rem + 4vh));">
         <List mt={2} spacing={3}>
           {data && data.categories ? (
             <>

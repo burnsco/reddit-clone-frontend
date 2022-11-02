@@ -70,7 +70,13 @@ export default function NavigationMenu() {
               {renderPath()}
             </MenuButton>
             {data && data.categories && (
-              <MenuList minWidth="240px" opacity="0.7" bg={bg}>
+              <MenuList
+                maxHeight="calc(100vh - 4rem - (1rem + 4vh));"
+                overflowY="auto"
+                minWidth="240px"
+                opacity="0.7"
+                bg={bg}
+              >
                 {data.categories.map((item, i) => (
                   <MenuItem
                     value={item.name}

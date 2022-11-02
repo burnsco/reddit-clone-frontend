@@ -23,8 +23,8 @@ export default function ChatList(props: any) {
 
   if (data?.messages) {
     return (
-      <Box overflowY="auto">
-        <List mt={2} spacing={3}>
+      <Box>
+        <List spacing={3}>
           {data.messages.map((message: any) => (
             <ListItem key={message.id}>
               <Flex>

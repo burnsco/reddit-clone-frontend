@@ -79,11 +79,11 @@ export default function ChatMenu() {
             </PopoverHeader>
             <PopoverCloseButton />
             <TabPanels h="500px" w="full">
-              <TabPanel w="full" h="full">
-                <PopoverBody w="full" h="full">
+              <PopoverBody w="full" h="50%">
+                <TabPanel w="full" h="50%">
                   <ChatDisplaySub />
-                </PopoverBody>
-              </TabPanel>
+                </TabPanel>
+              </PopoverBody>
             </TabPanels>
 
             <PopoverFooter p="0">
