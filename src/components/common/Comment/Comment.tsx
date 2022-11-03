@@ -145,11 +145,11 @@ export default function CommentPage(props: CommentQuery) {
                   <IoAddCircle />
                   <Box ml={3}>Add to Friends</Box>
                 </MenuItem>
-                <MenuItem onClick={() => router.push('/user/account')}>
+                <MenuItem>
                   <MdEmail />
                   <Box ml={3}>Message</Box>
                 </MenuItem>
-                <MenuItem onClick={() => router.push('/user/account')}>
+                <MenuItem>
                   <MdMessage />
                   <Box ml={3}>Chat</Box>
                 </MenuItem>

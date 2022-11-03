@@ -1,9 +1,9 @@
 import { Header } from '@/components/ui/Header'
+import ChatSideMenuWithSubs from '@/components/ui/SideMenu/ChatSideMenuWithSubs'
 import LeftSideMenuContainer from '@/components/ui/SideMenu/LeftSideMenuContainer'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
-import RightSideMenuContainer from '../SideMenu/RightSideMenuContainer'
 
 const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
   children,
@@ -64,7 +64,7 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
           {children}
         </GridItem>
 
-        <RightSideMenuContainer />
+        <ChatSideMenuWithSubs />
       </Grid>
     </>
   )

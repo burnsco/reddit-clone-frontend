@@ -7,7 +7,7 @@ import { selectedChatRoomId } from '@/lib/apolloClient'
 import { useReactiveVar } from '@apollo/client'
 import { Alert } from '@chakra-ui/react'
 
-export default function ChatDisplay() {
+export default function ChatSideMenuWithSubs() {
   const selectedCategoryId = useReactiveVar(selectedChatRoomId)
 
   const { subscribeToMore, ...result } = useChatRoomMessagesQuery({

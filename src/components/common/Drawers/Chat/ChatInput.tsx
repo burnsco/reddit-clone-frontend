@@ -3,6 +3,7 @@ import { selectedChatRoomId, selectedChatRoomName } from '@/lib/apolloClient'
 import { useReactiveVar } from '@apollo/client'
 import { HStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import { useRouter } from 'next/router'
 import ChatField from '../../Forms/ChatField'
 
 export default function ChatInput() {
@@ -10,13 +11,15 @@ export default function ChatInput() {
   const chatName = useReactiveVar(selectedChatRoomName)
   const [submitMessage] = useCreateMessageMutation()
 
+  const router = useRouter()
+  const { category } = router.query
+
   const handleSubmitMessage = async (values: any, actions: any) => {
     const response = await submitMessage({
       variables: {
         data: {
-          categoryName: chatName,
+          categoryName: category as string,
           content: values.content,
-          categoryId: selectedCategoryId,
         },
       },
     })

@@ -121,7 +121,6 @@ export type Message = {
 };
 
 export type MessageInput = {
-  categoryId: Scalars['ID'];
   categoryName: Scalars['String'];
   content: Scalars['String'];
 };
