@@ -12,7 +12,9 @@ export default function LeftSideMenuContainer() {
 
   return (
     <Flex
-      id="chat-container"
+      w="15rem"
+      border="2px solid white"
+      id="left-side-container"
       dir="row"
       pos="fixed"
       maxHeight="calc(100vh - 4.2rem);"
@@ -21,12 +23,11 @@ export default function LeftSideMenuContainer() {
         id="chat-display-container"
         borderRadius="sm"
         bg={bg}
-        minW="256px"
         boxShadow="xs"
       >
-        <Flex border="2px solid red" h="calc(100vh - 4.3rem);" w="full">
+        <Flex border="2px solid red" h="calc(100vh - 4.3rem);" w="15rem">
           <List>
-            <ListItem>Hey</ListItem>
+            <ListItem>USERS</ListItem>
           </List>
         </Flex>
         <Flex w="full" id="chat-input-container">

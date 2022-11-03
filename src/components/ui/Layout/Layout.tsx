@@ -1,6 +1,6 @@
 import { Header } from '@/components/ui/Header'
 import LeftSideMenuContainer from '@/components/ui/SideMenu/LeftSideMenuContainer'
-import { Flex, Grid, GridItem } from '@chakra-ui/react'
+import { Grid, GridItem } from '@chakra-ui/react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 import RightSideMenuContainer from '../SideMenu/RightSideMenuContainer'
@@ -46,27 +46,26 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
         />
       </Head>
 
-      <Flex h="calc(100vh - 3.5rem);" w="100vw">
-        <Header />
-        <Grid
-          top="3.5rem"
-          w="full"
-          border="4px solid orange"
-          gridTemplateColumns="18vw auto 22vw"
-          id="main-body-container"
-          flexWrap="nowrap"
-          position="relative"
-          overflow="hidden"
-          height="100%"
-          width="100%"
-        >
-          <LeftSideMenuContainer />
-          <GridItem as="main" gridColumn={2} p="4">
-            {children}
-          </GridItem>
-          <RightSideMenuContainer />
-        </Grid>
-      </Flex>
+      <Header />
+      <Grid
+        top="3.5rem"
+        w="full"
+        border="4px solid orange"
+        gridTemplateColumns="18vw auto 24rem"
+        id="main-body-container"
+        flexWrap="nowrap"
+        position="relative"
+        overflow="hidden"
+        height="100%"
+        width="100%"
+      >
+        <LeftSideMenuContainer />
+        <GridItem as="main" gridColumn={2} p={2}>
+          {children}
+        </GridItem>
+
+        <RightSideMenuContainer />
+      </Grid>
     </>
   )
 }
