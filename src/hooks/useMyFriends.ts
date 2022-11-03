@@ -1,5 +1,5 @@
+import { useMyFriendsQuery } from '@/generated/graphql'
 import { useMemo } from 'react'
-import { useMyFriendsQuery } from '../generated/graphql'
 
 export const useMyFriends = () => {
   const { data } = useMyFriendsQuery()

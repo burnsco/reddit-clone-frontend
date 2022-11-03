@@ -83,13 +83,6 @@ export default function PostBody({
     return null
   }
 
-  console.log('image info')
-  console.log(image)
-  console.log(imageH)
-  console.log(imageW)
-  console.log('typeof')
-  console.log(typeof image)
-
   const myLoader = ({ src, width, quality }: any) => {
     return `https://res.cloudinary.com/dmztdsduf/${src}?w=${width}&q=${
       quality || 50
@@ -115,7 +108,7 @@ export default function PostBody({
       ) : null}
 
       {text ? (
-        <Text fontSize="md" p="2" noOfLines={6}>
+        <Text fontSize="md" noOfLines={6}>
           {text}
         </Text>
       ) : null}

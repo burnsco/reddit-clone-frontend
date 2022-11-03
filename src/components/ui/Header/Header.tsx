@@ -3,10 +3,8 @@ import { useMeQuery } from '@/generated/graphql'
 import useNewUserNotification from '@/hooks/useNewUserNotify'
 import {
   Badge,
-  Box,
   chakra,
   Flex,
-  IconButton,
   Skeleton,
   Text,
   useColorMode,
@@ -63,19 +61,16 @@ export default function Header() {
         boxShadow={headerShadow}
         width="full"
       >
-        <Flex px="2" w="100%" h="100%" align="center" justify="space-around">
+        <Flex
+          id="container"
+          px="4"
+          border="1px dotted orange"
+          w="100%"
+          h="100%"
+          align="center"
+          justify="space-between"
+        >
           {data?.me ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
-          <Box px="1">
-            <IconButton
-              size="md"
-              fontSize="lg"
-              aria-label={`Switch to ${text} mode`}
-              variant="ghost"
-              color="current"
-              onClick={toggleMode}
-              icon={<SwitchIcon />}
-            />
-          </Box>
         </Flex>
       </chakra.nav>
     </Skeleton>

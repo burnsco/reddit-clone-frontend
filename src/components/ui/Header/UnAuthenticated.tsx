@@ -15,7 +15,9 @@ export default function UnAuthenticatedHeader() {
     >
       <NavbarLogoSection />
       <Spacer />
-      <NavigationMenu />
+      <Flex flexGrow={2} justify="center" border="2px solid red">
+        <NavigationMenu />
+      </Flex>
       <Stack spacing={4} mr={2} direction="row">
         <RegisterDrawer />
         <LoginDrawer />

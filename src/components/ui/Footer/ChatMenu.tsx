@@ -34,6 +34,8 @@ export default function ChatMenu() {
   const [tabIndex, setTabIndex] = useState(0)
   const router = useRouter()
 
+  const categories = ['test', 'going', 'after', 'others']
+
   const chatID = useReactiveVar(selectedChatRoomId)
   const chatName = useReactiveVar(selectedChatRoomName)
 
@@ -72,8 +74,8 @@ export default function ChatMenu() {
           >
             <PopoverHeader>
               <TabList border="none">
-                {data?.categories?.map((item, i) => (
-                  <Tab key={`chat room tab-${item.name}`}>{item.name}</Tab>
+                {categories.map((item, i) => (
+                  <Tab key={`chat room tab-${item}`}>{item}</Tab>
                 ))}
               </TabList>
             </PopoverHeader>

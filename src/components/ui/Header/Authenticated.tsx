@@ -8,6 +8,7 @@ import {
   Box,
   ButtonGroup,
   chakra,
+  Flex,
   HStack,
   IconButton,
   Menu,
@@ -16,13 +17,14 @@ import {
   MenuGroup,
   MenuItem,
   MenuList,
+  useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AiOutlineLogout } from 'react-icons/ai'
-import { FaUserCircle } from 'react-icons/fa'
+import { FaMoon, FaSun, FaUserCircle } from 'react-icons/fa'
 import { MdSettings } from 'react-icons/md'
 import NavigationMenu from './NavigationMenu'
 
@@ -44,7 +46,7 @@ const DynamicAddFriendDrawer = dynamic(
 
 export const NavbarLogoSection = () => (
   <NextChakraLink href="/" as={`/`}>
-    <HStack px="1">
+    <HStack px="1" border="1px dotted white" id="start">
       <HStack
         px="1"
         letterSpacing="wide"
@@ -64,12 +66,71 @@ export const NavbarLogoSection = () => (
   </NextChakraLink>
 )
 
-function HeaderIconsSection() {
+function HeaderUserMenu() {
   const router = useRouter()
   const [loggedInUser] = useLoggedInUser()
   const bg = useColorModeValue('white', '#202020')
 
   const [logout, { client }] = useLogoutMutation()
+
+  return (
+    <Menu isLazy>
+      <IconButton
+        as={MenuButton}
+        variant="ghost"
+        aria-label="Create a Subreddit"
+        icon={
+          <Avatar
+            size="sm"
+            name="Ryan Florence"
+            src={loggedInUser?.avatar || 'https://bit.ly/ryan-florence'}
+          />
+        }
+        size="md"
+      />
+
+      <MenuList m={0} opacity="0.7" bg={bg}>
+        <MenuGroup
+          title={loggedInUser?.username || 'user menu'}
+          color="lightsteelblue"
+        >
+          <MenuDivider />
+          <MenuItem as={Link} href="/user/profile">
+            <FaUserCircle />
+            <Box ml="2">Profile</Box>
+          </MenuItem>
+          <MenuItem as={Link} href="/user/account">
+            <MdSettings />
+            <Box ml="2">Account</Box>
+          </MenuItem>
+          <MenuItem as={Link} href="/user/friends">
+            <MdSettings />
+            <Box ml="2">Friends</Box>
+          </MenuItem>
+          <MenuItem as={Link} href="/user/messagesa">
+            <MdSettings />
+            <Box ml="2">Messages</Box>
+          </MenuItem>
+        </MenuGroup>
+        <MenuDivider />
+        <MenuGroup>
+          <MenuItem
+            onClick={async () => {
+              await logout()
+              await client.resetStore()
+              await router.push('/')
+            }}
+          >
+            <AiOutlineLogout />
+            <Box ml="2">Logout</Box>
+          </MenuItem>
+        </MenuGroup>
+      </MenuList>
+    </Menu>
+  )
+}
+
+function HeaderIconsSection() {
   return (
     <Box border="1px dotted white">
       <ButtonGroup spacing={[2, 4, 8]}>
@@ -78,70 +139,37 @@ function HeaderIconsSection() {
         <DynamicCreateCategoryDrawer />
         <AddFriendPopOver />
       </ButtonGroup>
-
-      <Menu isLazy>
-        <IconButton
-          as={MenuButton}
-          variant="ghost"
-          aria-label="Create a Subreddit"
-          icon={
-            <Avatar
-              size="xs"
-              name="Ryan Florence"
-              src={loggedInUser?.avatar || 'https://bit.ly/ryan-florence'}
-            />
-          }
-          size="md"
-        />
-
-        <MenuList m={0} opacity="0.7" bg={bg}>
-          <MenuGroup
-            title={loggedInUser?.username || 'user menu'}
-            color="lightsteelblue"
-          >
-            <MenuDivider />
-            <MenuItem as={Link} href="/user/profile">
-              <FaUserCircle />
-              <Box ml="2">Profile</Box>
-            </MenuItem>
-            <MenuItem as={Link} href="/user/account">
-              <MdSettings />
-              <Box ml="2">Account</Box>
-            </MenuItem>
-            <MenuItem as={Link} href="/user/friends">
-              <MdSettings />
-              <Box ml="2">Friends</Box>
-            </MenuItem>
-            <MenuItem as={Link} href="/user/messagesa">
-              <MdSettings />
-              <Box ml="2">Messages</Box>
-            </MenuItem>
-          </MenuGroup>
-          <MenuDivider />
-          <MenuGroup>
-            <MenuItem
-              onClick={async () => {
-                await logout()
-                await client.resetStore()
-                await router.push('/')
-              }}
-            >
-              <AiOutlineLogout />
-              <Box ml="2">Logout</Box>
-            </MenuItem>
-          </MenuGroup>
-        </MenuList>
-      </Menu>
     </Box>
   )
 }
 
 export default function AuthenticatedHeader() {
+  const { toggleColorMode: toggleMode } = useColorMode()
+  const text = useColorModeValue('dark', 'light')
+  const SwitchIcon = useColorModeValue(FaMoon, FaSun)
   return (
     <>
       <NavbarLogoSection />
-      <NavigationMenu />
-      <HeaderIconsSection />
+      <Flex flexGrow={2} justify="center" border="2px solid red" id="center">
+        <NavigationMenu />
+      </Flex>
+      <HStack border="2px solid green" id="end">
+        <HeaderIconsSection />
+        <Flex px="2">
+          <HeaderUserMenu />
+          <Box px="1">
+            <IconButton
+              size="md"
+              fontSize="lg"
+              aria-label={`Switch to ${text} mode`}
+              variant="ghost"
+              color="current"
+              onClick={toggleMode}
+              icon={<SwitchIcon />}
+            />
+          </Box>
+        </Flex>
+      </HStack>
     </>
   )
 }
