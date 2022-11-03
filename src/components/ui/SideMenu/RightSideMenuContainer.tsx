@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Code,
   Divider,
@@ -7,7 +6,6 @@ import {
   Input,
   List,
   ListItem,
-  Spacer,
   Stack,
   useColorModeValue,
   VStack,
@@ -21,7 +19,7 @@ function seedMessages(amount: number) {
     messages.push({
       id: faker.datatype.uuid(),
       username: faker.internet.userName(),
-      body: faker.random.words(5),
+      body: faker.random.words(12),
       createdAt: faker.datatype.datetime(),
     })
   }
@@ -29,10 +27,11 @@ function seedMessages(amount: number) {
 }
 
 const messagesAmount = 20
+const newMessagesInterval = 5
 
 export default function RightSideMenuContainer() {
   const [messages, setMessages] = useState(seedMessages(messagesAmount))
-  const bg = useColorModeValue('white', '#202020')
+  const bg = useColorModeValue('white', '#0e0e10')
 
   console.log('MESSAEGS TEST')
   console.log(messages)
@@ -51,33 +50,30 @@ export default function RightSideMenuContainer() {
     <Flex
       id="right-side-container"
       pos="fixed"
-      border="2px solid white"
+      border="2px dashed white"
       w="34rem"
       right={1}
       dir="row"
       h="auto"
-      overflowY="auto"
+      boxSizing="content-box"
       height="auto"
       bg="gray.800"
       maxHeight="calc(100vh - 4.2rem);"
     >
-      <VStack id="chat-display-container" bg={bg} boxShadow="xs">
-        <Flex h="calc(100vh - 4.3rem);">
+      <VStack
+        id="chat-display-container"
+        bg={bg}
+        boxShadow="xs"
+        h="calc(100vh - 4.5rem);"
+      >
+        <Flex border="1px dotted red" overflowY="auto">
           <List mt={2} spacing={4}>
             {messages.map((message: any) => (
               <ListItem key={message.id}>
-                <Stack h="100%" direction="row">
-                  <Avatar
-                    size="xs"
-                    name="Ryan Florence"
-                    src="https://bit.ly/ryan-florence"
-                    mr={3}
-                  />
+                <Stack direction="row">
                   <Code>{message.username}</Code>
                   <Divider orientation="vertical" colorScheme="orange" />
                   <Box>{message.body}</Box>
-                  <Spacer />
-                  <Box>{new Date(message.createdAt).toLocaleTimeString()}</Box>
                 </Stack>
               </ListItem>
             ))}
