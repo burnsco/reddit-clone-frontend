@@ -12,20 +12,22 @@ export default function RightSideMenuContainer() {
 
   return (
     <Flex
+      pos="fixed"
+      border="2px solid red"
+      w="22vw"
+      right={0}
       id="chat-container"
-      border="2px dashed orange"
       dir="row"
       maxHeight="calc(100vh - 4.2rem);"
     >
       <VStack
-        border="2px dotted white"
         id="chat-display-container"
         borderRadius="sm"
         bg={bg}
         minW="340px"
         boxShadow="xs"
       >
-        <Flex border="2px solid red" h="calc(100vh - 4.3rem);" w="full">
+        <Flex h="calc(100vh - 4.3rem);" w="full">
           <List>
             <ListItem>Hey</ListItem>
           </List>

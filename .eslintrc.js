@@ -35,7 +35,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
-
+    'no-constant-condition': 'off',
     'testing-library/no-debug': 'off',
     'react/display-name': 'off',
     'react-hooks/rules-of-hooks': 'error',
