@@ -1,9 +1,9 @@
-import Footer from '@/components/ui/Footer'
 import { Header } from '@/components/ui/Header'
-import SideMenuContainer from '@/components/ui/SideMenu/SideMenuContainer'
-import { Box, Stack } from '@chakra-ui/react'
+import LeftSideMenuContainer from '@/components/ui/SideMenu/LeftSideMenuContainer'
+import { Flex } from '@chakra-ui/react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
+import RightSideMenuContainer from '../SideMenu/RightSideMenuContainer'
 
 const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
   children,
@@ -46,25 +46,28 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
         />
       </Head>
 
-      <>
+      <Flex
+        id="site-container"
+        flexDirection="column"
+        height="100%"
+        position="relative"
+        width="100%"
+      >
         <Header />
-        <Box px={['0em', '1em', '3em', '4em']} py="6em">
-          <Stack isInline spacing={14}>
-            <Box as="main" width="full">
-              {children}
-            </Box>
-            <Box
-              as="aside"
-              minW="25%"
-              maxW="300px"
-              display={['none', 'none', 'block', 'block']}
-            >
-              <SideMenuContainer />
-            </Box>
-          </Stack>
-          <Footer />
-        </Box>
-      </>
+        <Flex
+          border="2px solid red"
+          id="main-body-container"
+          top="4rem"
+          flexWrap="nowrap"
+          position="relative"
+          overflow="hidden"
+          height="100%"
+        >
+          <LeftSideMenuContainer />
+          {children}
+          <RightSideMenuContainer />
+        </Flex>
+      </Flex>
     </>
   )
 }

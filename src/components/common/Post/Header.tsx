@@ -95,10 +95,14 @@ export default function PostHeader({
       } catch (ex) {
         return ex
       }
-      if (response?.data?.addFriendRequest?.friend) {
-        console.log(response)
-        const { friend } = response?.data?.addFriendRequest
-        console.log(friend)
+      if (
+        response &&
+        response.data &&
+        response.data.addFriendRequest &&
+        response.data.addFriendRequest.friend
+      ) {
+        const { friend } = response.data.addFriendRequest
+
         toast({
           id: `user-${friend.username}-added`,
           title: 'Success',

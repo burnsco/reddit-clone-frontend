@@ -55,7 +55,7 @@ export default function Header() {
       <chakra.nav
         pos="fixed"
         zIndex="1000"
-        height="3.5rem"
+        height="4rem"
         maxW="1600px"
         bg={headerBG}
         boxShadow={headerShadow}
