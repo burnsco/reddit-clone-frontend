@@ -1,6 +1,5 @@
 import MessageUser from '@/components/common/MessageUser'
 import { OfflineCircle, OnlineCircle } from '@/components/common/OnlineOffline'
-import ChatMenu from '@/components/ui/Footer/ChatMenu'
 import {
   useAddFriendMutation,
   useMyFriendRequestsQuery,
@@ -220,7 +219,6 @@ export default function Footer() {
 
   const FooterContent = () => (
     <Flex w="100%" h="100%" border="1px dotted white">
-      <ChatMenu />
       <FriendsMenu />
     </Flex>
   )

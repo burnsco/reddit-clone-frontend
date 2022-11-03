@@ -1,5 +1,5 @@
-import ChatInput from '@/components/common/Drawers/Chat/ChatInput'
-import { Message, useMeQuery } from '@/generated/graphql'
+import SideMenuChatInput from '@/components/ui/SideMenu/ChatInput'
+import { Message } from '@/generated/graphql'
 import {
   Box,
   Code,
@@ -7,9 +7,9 @@ import {
   Flex,
   List,
   ListItem,
-  Skeleton,
   Stack,
   useColorModeValue,
+  useDisclosure,
   VStack,
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -19,13 +19,13 @@ export default function RightSideMenuContainer(props: any) {
   const { handleSubscription } = props
   const { data, loading } = props
 
-  const { data: meData } = useMeQuery()
-
   useEffect(() => {
     handleSubscription()
   })
 
   const router = useRouter()
+
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { category } = router.query
 
@@ -41,13 +41,13 @@ export default function RightSideMenuContainer(props: any) {
     scrollToBottom()
   }, [data])
 
-  if (!loading && data && data.messages) {
+  if (data && data.messages && !loading) {
     return (
       <Flex
         id="right-side-container"
         pos="fixed"
         border="2px dashed white"
-        w="340px"
+        w="22rem"
         right={1}
         dir="row"
         h="auto"
@@ -56,43 +56,35 @@ export default function RightSideMenuContainer(props: any) {
         bg="gray.800"
         maxHeight="calc(100vh - 4.2rem);"
       >
-        <Skeleton isLoaded={!loading}>
-          <VStack
-            id="chat-display-container"
-            bg={bg}
-            boxShadow="xs"
-            h="calc(100vh - 4.2rem);"
-          >
-            <Flex border="1px dotted red" h="full" w="full" overflowY="auto">
-              <List mt={2} spacing={4}>
-                {data.messages.map((message: Message) => {
-                  return (
-                    <ListItem key={message.id}>
-                      <Stack direction="row">
-                        <Code>{message.sentBy.username}</Code>
-                        <Divider orientation="vertical" colorScheme="orange" />
-                        <Box>{message.content}</Box>
-                      </Stack>
-                    </ListItem>
-                  )
-                })}
-
-                <div ref={messagesEndRef} />
-              </List>
-            </Flex>
-            {/* <Flex
-          dir="row"
-          w="full"
-          id="chat-input-container"
-          border="2px solid red"
+        <VStack
+          w="22rem"
+          id="chat-display-container"
+          bg={bg}
+          boxShadow="xs"
+          h="calc(100vh - 4.2rem);"
         >
-          <Input size="lg" bg="#464649" />
-          <Button>Hello</Button>
-        </Flex> */}
-            <ChatInput />
-          </VStack>
-        </Skeleton>
+          <Flex border="1px dotted red" h="full" w="full" overflowY="auto">
+            <List mt={2} spacing={4}>
+              {data.messages.map((message: Message) => {
+                return (
+                  <ListItem key={message.id}>
+                    <Stack direction="row">
+                      <Code>{message.sentBy.username}</Code>
+                      <Divider orientation="vertical" colorScheme="orange" />
+                      <Box>{message.content}</Box>
+                    </Stack>
+                  </ListItem>
+                )
+              })}
+
+              <div ref={messagesEndRef} />
+            </List>
+          </Flex>
+
+          <SideMenuChatInput />
+        </VStack>
       </Flex>
     )
   }
+  return null
 }

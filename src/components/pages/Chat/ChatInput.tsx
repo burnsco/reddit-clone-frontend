@@ -23,7 +23,6 @@ export default function ChatInput() {
         data: {
           categoryName: values.categoryName,
           content: values.content,
-          categoryId: selectedCategoryId,
         },
       },
     })

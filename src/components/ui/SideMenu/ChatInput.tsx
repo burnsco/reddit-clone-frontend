@@ -1,47 +1,46 @@
 import ChatField from '@/components/common/Forms/ChatField'
 import { useCreateMessageMutation } from '@/generated/graphql'
-import { selectedChatRoomId } from '@/lib/apolloClient'
+import { selectedChatRoomId, selectedChatRoomName } from '@/lib/apolloClient'
 import { useReactiveVar } from '@apollo/client'
-import { Box, HStack, useColorModeValue, VStack } from '@chakra-ui/react'
+import { HStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import { useRouter } from 'next/router'
 
-export default function ChatInput() {
-  const submitButtonColor = useColorModeValue('purple', 'blue')
-
+export default function SideMenuChatInput() {
   const selectedCategoryId = useReactiveVar(selectedChatRoomId)
+  const chatName = useReactiveVar(selectedChatRoomName)
   const [submitMessage] = useCreateMessageMutation()
+
+  const router = useRouter()
+  const { category } = router.query
 
   const handleSubmitMessage = async (values: any, actions: any) => {
     const response = await submitMessage({
       variables: {
         data: {
-          categoryName: values.categoryName,
+          categoryName: category as string,
           content: values.content,
-          categoryId: selectedCategoryId,
         },
       },
     })
-
+    console.log('handle submit message')
+    console.log(response)
     actions.resetForm()
     return response
   }
 
   return (
-    <Box border="1px dotted blue" p="0">
+    <HStack w="full" border="2px solid white">
       <Formik initialValues={{ content: '' }} onSubmit={handleSubmitMessage}>
         <Form>
-          <VStack h="full" w="full">
-            <HStack w="full">
-              <ChatField
-                label=""
-                id="content"
-                name="content"
-                placeholder="chat here..."
-              />
-            </HStack>
-          </VStack>
+          <ChatField
+            label=""
+            id="content"
+            name="content"
+            placeholder="chat here..."
+          />
         </Form>
       </Formik>
-    </Box>
+    </HStack>
   )
 }
