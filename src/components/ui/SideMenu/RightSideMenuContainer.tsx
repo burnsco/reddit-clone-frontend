@@ -69,7 +69,9 @@ export default function RightSideMenuContainer(props: any) {
                 return (
                   <ListItem key={message.id}>
                     <Stack direction="row">
-                      <Code>{message.sentBy.username}</Code>
+                      <Box>
+                        <Code>{message.sentBy.username}</Code>
+                      </Box>
                       <Divider orientation="vertical" colorScheme="orange" />
                       <Box>{message.content}</Box>
                     </Stack>

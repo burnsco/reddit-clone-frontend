@@ -14,11 +14,17 @@ export default function SideMenuChatInput() {
   const router = useRouter()
   const { category } = router.query
 
+  let categoryName = category
+
+  if (router.asPath === '/') {
+    categoryName = 'general'
+  }
+
   const handleSubmitMessage = async (values: any, actions: any) => {
     const response = await submitMessage({
       variables: {
         data: {
-          categoryName: category as string,
+          categoryName: categoryName as string,
           content: values.content,
         },
       },
