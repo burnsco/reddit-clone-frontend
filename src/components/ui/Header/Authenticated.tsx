@@ -2,7 +2,6 @@ import { NextChakraLink } from '@/components/common'
 import AddFriendPopOver from '@/components/common/AddFriendPopOver'
 import Logo from '@/components/common/Logo'
 import { useLogoutMutation } from '@/generated/graphql'
-import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import {
   Avatar,
   Box,
@@ -64,7 +63,7 @@ export const NavbarLogoSection = () => (
 
 function HeaderUserMenu() {
   const router = useRouter()
-  const [loggedInUser] = useLoggedInUser()
+
   const bg = useColorModeValue('white', '#202020')
 
   const [logout, { client }] = useLogoutMutation()
@@ -79,17 +78,14 @@ function HeaderUserMenu() {
           <Avatar
             size="sm"
             name="Ryan Florence"
-            src={loggedInUser?.avatar || 'https://bit.ly/ryan-florence'}
+            src={'https://bit.ly/ryan-florence'}
           />
         }
         size="md"
       />
 
       <MenuList m={0} opacity="0.7" bg={bg}>
-        <MenuGroup
-          title={loggedInUser?.username || 'user menu'}
-          color="lightsteelblue"
-        >
+        <MenuGroup title={'user menu'} color="lightsteelblue">
           <MenuDivider />
           <MenuItem as={Link} href="/user/profile">
             <FaUserCircle />

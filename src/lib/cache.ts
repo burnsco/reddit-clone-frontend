@@ -1,6 +1,6 @@
 import { InMemoryCache } from '@apollo/client'
 import { concatPagination } from '@apollo/client/utilities'
-import { selectedChatRoomId, selectedChatRoomName } from './apolloClient'
+import { selectedCategoryId, selectedCategoryName } from './apolloClient'
 
 export const cacheOptions = new InMemoryCache({
   typePolicies: {
@@ -51,12 +51,12 @@ export const cacheOptions = new InMemoryCache({
         posts: concatPagination(),
         selectedChatRoomId: {
           read() {
-            return selectedChatRoomId()
+            return selectedCategoryId()
           },
         },
         selecteChatRoomName: {
           read() {
-            return selectedChatRoomName()
+            return selectedCategoryName()
           },
         },
       },
