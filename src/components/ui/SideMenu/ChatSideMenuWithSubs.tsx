@@ -3,23 +3,33 @@ import {
   CategoryChatSubDocument,
   useChatRoomMessagesQuery,
 } from '@/generated/graphql'
-import { selectedChatRoomId } from '@/lib/apolloClient'
-import { useReactiveVar } from '@apollo/client'
 import { Alert } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import { useCurrentCategoryIdQuery } from '../../../generated/graphql'
 
-export default function ChatSideMenuWithSubs() {
+export default function ChatSideMenuWithSubs(props: any) {
   const router = useRouter()
 
   // todo fix this up later, just trying to get a "main page" chat going
   console.log('use router chat menu')
   console.log(router)
 
-  let selectedCategoryId = useReactiveVar(selectedChatRoomId)
+  let selectedCategoryId = router.query.id as string
+
+  const { data } = useCurrentCategoryIdQuery({
+    variables: {
+      name: selectedCategoryId,
+    },
+  })
 
   if (router.asPath === '/') {
     selectedCategoryId = '9d3461c6-3358-42a0-8461-ec272575bc4f'
   }
+
+  selectedCategoryId = data?.category?.id as string
+
+  console.log('SIDE MENU DISPLAY')
+  console.log(selectedCategoryId)
 
   const { subscribeToMore, ...result } = useChatRoomMessagesQuery({
     variables: { categoryId: selectedCategoryId },

@@ -1,9 +1,9 @@
+import { useMeQuery } from '@/generated/graphql'
 import { useMemo } from 'react'
-import { useMeQuery } from '../generated/graphql'
 import { loggedInUserId } from '../lib/apolloClient'
 
 export const useLoggedInUser = () => {
-  const { data } = useMeQuery()
+  const { data, loading } = useMeQuery()
 
   const loggedInUser = useMemo(() => data?.me, [data])
 
@@ -15,5 +15,5 @@ export const useLoggedInUser = () => {
     window.localStorage.setItem('userId', loggedInUser.id)
   }
 
-  return [loggedInUser]
+  return [loggedInUser, loading]
 }

@@ -1,0 +1,6 @@
+query CurrentCategoryId($categoryId: String, $name: String) {
+  category(categoryId: $categoryId, name: $name) {
+    id
+    name
+  }
+}

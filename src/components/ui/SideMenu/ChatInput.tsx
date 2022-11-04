@@ -1,30 +1,21 @@
 import ChatField from '@/components/common/Forms/ChatField'
 import { useCreateMessageMutation } from '@/generated/graphql'
-import { selectedChatRoomId, selectedChatRoomName } from '@/lib/apolloClient'
-import { useReactiveVar } from '@apollo/client'
+import { useCurrentCategoryIdAndName } from '@/hooks/useCurrentLocation'
 import { HStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
-import { useRouter } from 'next/router'
 
 export default function SideMenuChatInput() {
-  const selectedCategoryId = useReactiveVar(selectedChatRoomId)
-  const chatName = useReactiveVar(selectedChatRoomName)
+  const [currCategory, currCatId] = useCurrentCategoryIdAndName()
   const [submitMessage] = useCreateMessageMutation()
 
-  const router = useRouter()
-  const { category } = router.query
-
-  let categoryName = category
-
-  if (router.asPath === '/') {
-    categoryName = 'general'
-  }
+  console.log('SIDE MENU CHAT')
+  console.log(currCategory)
 
   const handleSubmitMessage = async (values: any, actions: any) => {
     const response = await submitMessage({
       variables: {
         data: {
-          categoryName: categoryName as string,
+          categoryName: currCategory as string,
           content: values.content,
         },
       },

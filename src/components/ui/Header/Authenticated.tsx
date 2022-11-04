@@ -28,10 +28,6 @@ import { FaMoon, FaSun, FaUserCircle } from 'react-icons/fa'
 import { MdSettings } from 'react-icons/md'
 import NavigationMenu from './NavigationMenu'
 
-const DynamicChatRoomDrawer = dynamic(
-  () => import('@/components/common/Drawers/Chat')
-)
-
 const DynamicCreateCategoryDrawer = dynamic(
   () => import('@/components/common/Drawers/CreateSubreddit')
 )
@@ -134,7 +130,6 @@ function HeaderIconsSection() {
   return (
     <Box border="1px dotted white">
       <ButtonGroup spacing={[2, 4, 8]}>
-        <DynamicChatRoomDrawer />
         <DynamicCreatePostDrawer />
         <DynamicCreateCategoryDrawer />
         <AddFriendPopOver />

@@ -1,5 +1,5 @@
-query Category($categoryId: ID!) {
-  category(categoryId: $categoryId) {
+query Category($name: String, $categoryId: String) {
+  category(name: $name, categoryId: $categoryId) {
     id
     name
     chatUsers {

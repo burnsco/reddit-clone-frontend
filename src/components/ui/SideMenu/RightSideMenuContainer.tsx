@@ -3,16 +3,13 @@ import { Message } from '@/generated/graphql'
 import {
   Box,
   Code,
-  Divider,
   Flex,
   List,
   ListItem,
   Stack,
   useColorModeValue,
-  useDisclosure,
   VStack,
 } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
 
 export default function RightSideMenuContainer(props: any) {
@@ -22,24 +19,18 @@ export default function RightSideMenuContainer(props: any) {
   useEffect(() => {
     handleSubscription()
   })
-
-  const router = useRouter()
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const { category } = router.query
-
   const bg = useColorModeValue('white', '#0e0e10')
-
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }
-
   useEffect(() => {
     scrollToBottom()
   }, [data])
+
+  console.log('RightSideMenuContainer')
+  console.log(data)
 
   if (data && data.messages && !loading) {
     return (
@@ -47,7 +38,7 @@ export default function RightSideMenuContainer(props: any) {
         id="right-side-container"
         pos="fixed"
         border="2px dashed white"
-        w="22rem"
+        w="21rem"
         right={1}
         dir="row"
         h="auto"
@@ -57,14 +48,14 @@ export default function RightSideMenuContainer(props: any) {
         maxHeight="calc(100vh - 4.2rem);"
       >
         <VStack
-          w="22rem"
+          w="21rem"
           id="chat-display-container"
           bg={bg}
           boxShadow="xs"
           h="calc(100vh - 4.2rem);"
         >
           <Flex border="1px dotted red" h="full" w="full" overflowY="auto">
-            <List mt={2} spacing={4}>
+            <List mt={2} spacing={2}>
               {data.messages.map((message: Message) => {
                 return (
                   <ListItem key={message.id}>
@@ -72,7 +63,7 @@ export default function RightSideMenuContainer(props: any) {
                       <Box>
                         <Code>{message.sentBy.username}</Code>
                       </Box>
-                      <Divider orientation="vertical" colorScheme="orange" />
+
                       <Box>{message.content}</Box>
                     </Stack>
                   </ListItem>
@@ -88,5 +79,5 @@ export default function RightSideMenuContainer(props: any) {
       </Flex>
     )
   }
-  return null
+  return <div>loading...</div>
 }

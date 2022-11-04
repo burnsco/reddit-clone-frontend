@@ -1,5 +1,4 @@
 import { ThemedContainer } from '@/components/common/ThemedContainer'
-import { useMeQuery } from '@/generated/graphql'
 import useNewUserNotification from '@/hooks/useNewUserNotify'
 import {
   Badge,
@@ -7,22 +6,18 @@ import {
   Flex,
   Skeleton,
   Text,
-  useColorMode,
   useColorModeValue,
   useSafeLayoutEffect,
   useToast,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
-import { FaMoon, FaSun } from 'react-icons/fa'
+import { useLoggedInUser } from '../../../hooks/useLoggedInUser'
 import UnAuthenticatedHeader from './UnAuthenticated'
 
 const AuthenticatedHeader = dynamic(() => import('./Authenticated'))
 
 export default function Header() {
-  const { toggleColorMode: toggleMode } = useColorMode()
-  const text = useColorModeValue('dark', 'light')
-  const SwitchIcon = useColorModeValue(FaMoon, FaSun)
-  const { data, loading } = useMeQuery()
+  const [loggedInUser, loading] = useLoggedInUser()
 
   const toast = useToast()
   const newUser = useNewUserNotification()
@@ -70,7 +65,7 @@ export default function Header() {
           align="center"
           justify="space-between"
         >
-          {data?.me ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
+          {loggedInUser ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
         </Flex>
       </chakra.nav>
     </Skeleton>

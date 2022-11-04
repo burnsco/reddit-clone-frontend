@@ -313,6 +313,7 @@ export type Query_CategoryPostsMetaArgs = {
 
 
 export type QueryCategoriesArgs = {
+  categoryId?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Int']>;
   name?: InputMaybe<Scalars['String']>;
   orderBy?: InputMaybe<Scalars['String']>;
@@ -321,7 +322,8 @@ export type QueryCategoriesArgs = {
 
 
 export type QueryCategoryArgs = {
-  categoryId?: InputMaybe<Scalars['ID']>;
+  categoryId?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -590,11 +592,20 @@ export type CategoriesQueryVariables = Exact<{
 export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: string, createdAt: string, updatedAt: string, name: string }> | null };
 
 export type CategoryQueryVariables = Exact<{
-  categoryId: Scalars['ID'];
+  name?: InputMaybe<Scalars['String']>;
+  categoryId?: InputMaybe<Scalars['String']>;
 }>;
 
 
 export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string, chatUsers?: Array<{ __typename?: 'User', id: string, username: string, online: boolean }> | null } | null };
+
+export type CurrentCategoryIdQueryVariables = Exact<{
+  categoryId?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type CurrentCategoryIdQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string } | null };
 
 export type CommentQueryVariables = Exact<{
   postId?: InputMaybe<Scalars['ID']>;
@@ -1428,8 +1439,8 @@ export function refetchCategoriesQuery(variables?: CategoriesQueryVariables) {
       return { query: CategoriesDocument, variables: variables }
     }
 export const CategoryDocument = gql`
-    query Category($categoryId: ID!) {
-  category(categoryId: $categoryId) {
+    query Category($name: String, $categoryId: String) {
+  category(name: $name, categoryId: $categoryId) {
     id
     name
     chatUsers {
@@ -1453,11 +1464,12 @@ export const CategoryDocument = gql`
  * @example
  * const { data, loading, error } = useCategoryQuery({
  *   variables: {
+ *      name: // value for 'name'
  *      categoryId: // value for 'categoryId'
  *   },
  * });
  */
-export function useCategoryQuery(baseOptions: Apollo.QueryHookOptions<CategoryQuery, CategoryQueryVariables>) {
+export function useCategoryQuery(baseOptions?: Apollo.QueryHookOptions<CategoryQuery, CategoryQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return Apollo.useQuery<CategoryQuery, CategoryQueryVariables>(CategoryDocument, options);
       }
@@ -1468,8 +1480,48 @@ export function useCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<C
 export type CategoryQueryHookResult = ReturnType<typeof useCategoryQuery>;
 export type CategoryLazyQueryHookResult = ReturnType<typeof useCategoryLazyQuery>;
 export type CategoryQueryResult = Apollo.QueryResult<CategoryQuery, CategoryQueryVariables>;
-export function refetchCategoryQuery(variables: CategoryQueryVariables) {
+export function refetchCategoryQuery(variables?: CategoryQueryVariables) {
       return { query: CategoryDocument, variables: variables }
+    }
+export const CurrentCategoryIdDocument = gql`
+    query CurrentCategoryId($categoryId: String, $name: String) {
+  category(categoryId: $categoryId, name: $name) {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useCurrentCategoryIdQuery__
+ *
+ * To run a query within a React component, call `useCurrentCategoryIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCurrentCategoryIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCurrentCategoryIdQuery({
+ *   variables: {
+ *      categoryId: // value for 'categoryId'
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useCurrentCategoryIdQuery(baseOptions?: Apollo.QueryHookOptions<CurrentCategoryIdQuery, CurrentCategoryIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CurrentCategoryIdQuery, CurrentCategoryIdQueryVariables>(CurrentCategoryIdDocument, options);
+      }
+export function useCurrentCategoryIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CurrentCategoryIdQuery, CurrentCategoryIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CurrentCategoryIdQuery, CurrentCategoryIdQueryVariables>(CurrentCategoryIdDocument, options);
+        }
+export type CurrentCategoryIdQueryHookResult = ReturnType<typeof useCurrentCategoryIdQuery>;
+export type CurrentCategoryIdLazyQueryHookResult = ReturnType<typeof useCurrentCategoryIdLazyQuery>;
+export type CurrentCategoryIdQueryResult = Apollo.QueryResult<CurrentCategoryIdQuery, CurrentCategoryIdQueryVariables>;
+export function refetchCurrentCategoryIdQuery(variables?: CurrentCategoryIdQueryVariables) {
+      return { query: CurrentCategoryIdDocument, variables: variables }
     }
 export const CommentDocument = gql`
     query Comment($postId: ID) {

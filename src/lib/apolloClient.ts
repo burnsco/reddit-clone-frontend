@@ -14,16 +14,12 @@ import { createClient } from 'graphql-ws'
 import { useMemo } from 'react'
 import { cacheOptions } from './cache'
 
-export const selectedChatRoomId: ReactiveVar<string> = makeVar<string>(
-  '6a1375e9-4ba4-4fca-bb49-fc0b021bbe3a'
-)
 export const loggedInUserId: ReactiveVar<string> = makeVar<string>('')
-export const selectedChatRoomName: ReactiveVar<string> =
-  makeVar<string>('technics')
+export const selectedCategoryId: ReactiveVar<string> = makeVar<string>('')
+export const selectedCategoryName: ReactiveVar<string> = makeVar<string>('')
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
-const WS_URI = `ws://localhost:4000/subscriptions`
 const ssrMode = typeof window === 'undefined'
 
 function createApolloClient() {
@@ -48,9 +44,6 @@ function createApolloClient() {
       cache: cacheOptions,
     })
   }
-
-  console.log('apollo client lib - user id')
-  console.log(loggedInUserId)
 
   const wsLink = new GraphQLWsLink(
     createClient({
