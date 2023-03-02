@@ -47,6 +47,7 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
       </Head>
 
       <Header />
+
       <Grid
         top="3.5rem"
         w="full"

@@ -2,10 +2,10 @@ import RightSideMenuContainer from '@/components/ui/SideMenu/RightSideMenuContai
 import {
   CategoryChatSubDocument,
   useChatRoomMessagesQuery,
+  useCurrentCategoryIdQuery,
 } from '@/generated/graphql'
 import { Alert } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { useCurrentCategoryIdQuery } from '../../../generated/graphql'
 
 export default function ChatSideMenuWithSubs(props: any) {
   const router = useRouter()

@@ -5,7 +5,7 @@ import { PostsDocument, PostsQuery, usePostsQuery } from '@/generated/graphql'
 import { initializeApollo } from '@/lib/apolloClient'
 import { allPostsQueryVars } from '@/types/pagination'
 import { NetworkStatus } from '@apollo/client'
-import { Box, Text, VisuallyHidden, VStack } from '@chakra-ui/react'
+import { Box, VStack, VisuallyHidden } from '@chakra-ui/react'
 
 export async function getStaticProps() {
   const apolloClient = initializeApollo()
@@ -46,16 +46,13 @@ export default function IndexPage() {
   }
 
   function ViewPosts() {
-    if (allPosts.length > 0) {
-      return (
-        <VStack spacing={4}>
-          {allPosts.map((post, index) => (
-            <NewPost key={`post-${post.id}-${index}`} post={post} />
-          ))}
-        </VStack>
-      )
-    }
-    return <Text>No posts here.</Text>
+    return (
+      <VStack spacing={4}>
+        {allPosts.map((post, index) => (
+          <NewPost key={`post-${post.id}-${index}`} post={post} />
+        ))}
+      </VStack>
+    )
   }
 
   if (loading && !loadingMorePosts) {
