@@ -22,7 +22,7 @@ export default function Header() {
   const toast = useToast()
   const newUser = useNewUserNotification()
 
-  const headerBG = useColorModeValue('white', '#202020')
+  const headerBG = useColorModeValue('white', '#18181b')
   const headerShadow = useColorModeValue('md', 'dark-lg')
   const colorScheme = useColorModeValue('green', 'orange')
 

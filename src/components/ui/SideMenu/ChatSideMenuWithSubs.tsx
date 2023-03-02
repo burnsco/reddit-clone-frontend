@@ -7,9 +7,9 @@ import { useCurrentLocation } from '@/hooks/useCurrentLocation'
 import { Alert } from '@chakra-ui/react'
 
 export default function ChatSideMenuWithSubs() {
-  const { currentLocationId } = useCurrentLocation()
+  const { currentLocation } = useCurrentLocation()
   const { subscribeToMore, ...result } = useChatRoomMessagesQuery({
-    variables: { categoryName: 'react' },
+    variables: { categoryName: currentLocation },
   })
 
   if (!result.loading) {
@@ -19,7 +19,7 @@ export default function ChatSideMenuWithSubs() {
         handleSubscription={() =>
           subscribeToMore({
             document: CategoryChatSubDocument,
-            variables: { categoryName: 'react' },
+            variables: { categoryName: currentLocation },
             updateQuery: (prev: any, { subscriptionData }: any) => {
               if (!subscriptionData.data) return prev
               const newFeedItem = subscriptionData.data.newMessage

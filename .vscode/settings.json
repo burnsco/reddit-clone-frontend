@@ -5,5 +5,7 @@
   "editor.formatOnSave": true, // optional
   "editor.formatOnSaveMode": "file", // required to format on save
   "files.autoSave": "onFocusChange",
-  "typescript.tsdk": "node_modules/typescript/lib" // optional but recommended
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "DockerRun.DisableDockerrc": true,
+  "DockerRun.DisableAutoGenerateConfig": true // optional but recommended
 }

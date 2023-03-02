@@ -56,7 +56,7 @@ function CreateCategoryDrawer() {
       </Tooltip>
       <Drawer
         isOpen={isOpen}
-        placement="top"
+        placement="right"
         onClose={onClose}
         finalFocusRef={btnRef}
       >
