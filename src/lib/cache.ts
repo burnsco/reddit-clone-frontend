@@ -18,20 +18,6 @@ export const cacheOptions = new InMemoryCache({
         },
       },
     },
-    Message: {
-      fields: {
-        createdAt: {
-          read(createdAt) {
-            return Number(createdAt)
-          },
-        },
-        updatedAt: {
-          read(updatedAt) {
-            return Number(updatedAt)
-          },
-        },
-      },
-    },
     Comment: {
       fields: {
         createdAt: {

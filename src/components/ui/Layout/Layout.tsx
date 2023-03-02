@@ -65,7 +65,7 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
           {children}
         </GridItem>
 
-        <ChatSideMenuWithSubs categoryName categoryId />
+        <ChatSideMenuWithSubs />
       </Grid>
     </>
   )

@@ -348,7 +348,7 @@ export type QueryCommentsArgs = {
 
 
 export type QueryMessagesArgs = {
-  categoryId: Scalars['ID'];
+  categoryName: Scalars['String'];
 };
 
 
@@ -397,7 +397,7 @@ export type Subscription = {
 
 
 export type SubscriptionNewMessageArgs = {
-  categoryId?: InputMaybe<Scalars['ID']>;
+  categoryName?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -633,11 +633,11 @@ export type CommentsForPostQueryVariables = Exact<{
 export type CommentsForPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, comments?: Array<{ __typename?: 'Comment', id: string, createdAt: string, updatedAt: string, body: string, createdBy: { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean } }> | null } | null };
 
 export type ChatRoomMessagesQueryVariables = Exact<{
-  categoryId: Scalars['ID'];
+  categoryName: Scalars['String'];
 }>;
 
 
-export type ChatRoomMessagesQuery = { __typename?: 'Query', messages?: Array<{ __typename?: 'Message', id: string, createdAt: string, content: string, sentBy: { __typename?: 'User', id: string, username: string }, category: { __typename?: 'Category', id: string, name: string } }> | null };
+export type ChatRoomMessagesQuery = { __typename?: 'Query', messages?: Array<{ __typename?: 'Message', id: string, content: string, sentBy: { __typename?: 'User', id: string, username: string }, category: { __typename?: 'Category', id: string, name: string } }> | null };
 
 export type PostQueryVariables = Exact<{
   postId: Scalars['ID'];
@@ -701,11 +701,11 @@ export type UpdateMetaQueryVariables = Exact<{
 export type UpdateMetaQuery = { __typename?: 'Query', _allPostsMeta: { __typename?: '_QueryMeta', count?: number | null }, _categoryPostsMeta: { __typename?: '_QueryMeta', count?: number | null } };
 
 export type CategoryChatSubSubscriptionVariables = Exact<{
-  categoryId: Scalars['ID'];
+  categoryName: Scalars['String'];
 }>;
 
 
-export type CategoryChatSubSubscription = { __typename?: 'Subscription', newMessage: { __typename?: 'Message', id: string, createdAt: string, content: string, sentBy: { __typename?: 'User', id: string, username: string }, category: { __typename?: 'Category', id: string, name: string } } };
+export type CategoryChatSubSubscription = { __typename?: 'Subscription', newMessage: { __typename?: 'Message', id: string, content: string, sentBy: { __typename?: 'User', id: string, username: string }, category: { __typename?: 'Category', id: string, name: string } } };
 
 export type NewUserSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
@@ -1657,10 +1657,9 @@ export function refetchCommentsForPostQuery(variables: CommentsForPostQueryVaria
       return { query: CommentsForPostDocument, variables: variables }
     }
 export const ChatRoomMessagesDocument = gql`
-    query ChatRoomMessages($categoryId: ID!) {
-  messages(categoryId: $categoryId) {
+    query ChatRoomMessages($categoryName: String!) {
+  messages(categoryName: $categoryName) {
     id
-    createdAt
     content
     sentBy {
       id
@@ -1686,7 +1685,7 @@ export const ChatRoomMessagesDocument = gql`
  * @example
  * const { data, loading, error } = useChatRoomMessagesQuery({
  *   variables: {
- *      categoryId: // value for 'categoryId'
+ *      categoryName: // value for 'categoryName'
  *   },
  * });
  */
@@ -2167,10 +2166,9 @@ export function refetchUpdateMetaQuery(variables?: UpdateMetaQueryVariables) {
       return { query: UpdateMetaDocument, variables: variables }
     }
 export const CategoryChatSubDocument = gql`
-    subscription CategoryChatSub($categoryId: ID!) {
-  newMessage(categoryId: $categoryId) {
+    subscription CategoryChatSub($categoryName: String!) {
+  newMessage(categoryName: $categoryName) {
     id
-    createdAt
     content
     sentBy {
       id
@@ -2196,7 +2194,7 @@ export const CategoryChatSubDocument = gql`
  * @example
  * const { data, loading, error } = useCategoryChatSubSubscription({
  *   variables: {
- *      categoryId: // value for 'categoryId'
+ *      categoryName: // value for 'categoryName'
  *   },
  * });
  */

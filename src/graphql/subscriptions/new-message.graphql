@@ -1,7 +1,6 @@
-subscription CategoryChatSub($categoryId: ID!) {
-  newMessage(categoryId: $categoryId) {
+subscription CategoryChatSub($categoryName: String!) {
+  newMessage(categoryName: $categoryName) {
     id
-    createdAt
     content
     sentBy {
       id

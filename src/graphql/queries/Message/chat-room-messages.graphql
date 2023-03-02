@@ -1,7 +1,6 @@
-query ChatRoomMessages($categoryId: ID!) {
-  messages(categoryId: $categoryId) {
+query ChatRoomMessages($categoryName: String!) {
+  messages(categoryName: $categoryName) {
     id
-    createdAt
     content
     sentBy {
       id
