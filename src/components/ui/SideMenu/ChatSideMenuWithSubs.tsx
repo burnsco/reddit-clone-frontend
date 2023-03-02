@@ -2,7 +2,6 @@ import RightSideMenuContainer from '@/components/ui/SideMenu/RightSideMenuContai
 import {
   CategoryChatSubDocument,
   useChatRoomMessagesQuery,
-  useCurrentCategoryIdQuery,
 } from '@/generated/graphql'
 import { Alert } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
@@ -14,19 +13,11 @@ export default function ChatSideMenuWithSubs(props: any) {
   console.log('use router chat menu')
   console.log(router)
 
-  let selectedCategoryId = router.query.id as string
-
-  const { data } = useCurrentCategoryIdQuery({
-    variables: {
-      name: selectedCategoryId,
-    },
-  })
+  let selectedCategoryId = router.query.category as string
 
   if (router.asPath === '/') {
-    selectedCategoryId = '9d3461c6-3358-42a0-8461-ec272575bc4f'
+    selectedCategoryId = 'edf64136-0e90-4014-b4d2-b83b54707a1c'
   }
-
-  selectedCategoryId = data?.category?.id as string
 
   console.log('SIDE MENU DISPLAY')
   console.log(selectedCategoryId)
@@ -35,7 +26,13 @@ export default function ChatSideMenuWithSubs(props: any) {
     variables: { categoryId: selectedCategoryId },
   })
 
-  if (subscribeToMore !== undefined) {
+  console.log('SUBSCRIBE TO MORE')
+  console.log(subscribeToMore)
+
+  console.log('CHAT RIGHT SIDE BEFORE THE ACTUAL CONTAINER')
+  console.log(result)
+
+  if (!result.loading) {
     return (
       <RightSideMenuContainer
         {...result}

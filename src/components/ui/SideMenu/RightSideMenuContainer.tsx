@@ -16,6 +16,9 @@ export default function RightSideMenuContainer(props: any) {
   const { handleSubscription } = props
   const { data, loading } = props
 
+  console.log('INSIDE THE RIGHT SIDE MENU CONTAINER')
+  console.log(props)
+
   useEffect(() => {
     handleSubscription()
   })
@@ -32,7 +35,7 @@ export default function RightSideMenuContainer(props: any) {
   console.log('RightSideMenuContainer')
   console.log(data)
 
-  if (data && data.messages && !loading) {
+  if (!loading && data && data.messages) {
     return (
       <Flex
         id="right-side-container"

@@ -1,21 +1,16 @@
 import ChatField from '@/components/common/Forms/ChatField'
 import { useCreateMessageMutation } from '@/generated/graphql'
-import { useCurrentCategoryIdAndName } from '@/hooks/useCurrentLocation'
 import { HStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 
 export default function SideMenuChatInput() {
-  const [currCategory, currCatId] = useCurrentCategoryIdAndName()
   const [submitMessage] = useCreateMessageMutation()
-
-  console.log('SIDE MENU CHAT')
-  console.log(currCategory)
 
   const handleSubmitMessage = async (values: any, actions: any) => {
     const response = await submitMessage({
       variables: {
         data: {
-          categoryName: currCategory as string,
+          categoryName: 'react',
           content: values.content,
         },
       },

@@ -1,4 +1,5 @@
 import { ThemedContainer } from '@/components/common/ThemedContainer'
+import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import useNewUserNotification from '@/hooks/useNewUserNotify'
 import {
   Badge,
@@ -11,7 +12,6 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
-import { useLoggedInUser } from '../../../hooks/useLoggedInUser'
 import UnAuthenticatedHeader from './UnAuthenticated'
 
 const AuthenticatedHeader = dynamic(() => import('./Authenticated'))
@@ -28,7 +28,6 @@ export default function Header() {
 
   useSafeLayoutEffect(() => {
     if (newUser) {
-      console.log(newUser)
       toast({
         position: 'bottom-left',
         render: () => (
