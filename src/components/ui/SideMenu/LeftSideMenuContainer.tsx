@@ -12,7 +12,6 @@ export default function LeftSideMenuContainer() {
 
   return (
     <Flex
-      w="15rem"
       border="2px solid white"
       id="left-side-container"
       dir="row"

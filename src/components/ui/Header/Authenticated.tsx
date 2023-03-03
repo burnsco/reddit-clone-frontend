@@ -41,7 +41,7 @@ const DynamicAddFriendDrawer = dynamic(
 
 export const NavbarLogoSection = () => (
   <NextChakraLink href="/" as={`/`}>
-    <HStack px="1" border="1px dotted white" id="start">
+    <HStack px="1" id="start">
       <HStack
         px="1"
         letterSpacing="wide"
@@ -84,8 +84,8 @@ function HeaderUserMenu() {
         size="md"
       />
 
-      <MenuList m={0} opacity="0.7" bg={bg}>
-        <MenuGroup title={'user menu'} color="lightsteelblue">
+      <MenuList m={0} opacity="0.7">
+        <MenuGroup title={'user menu'}>
           <MenuDivider />
           <MenuItem as={Link} href="/user/profile">
             <FaUserCircle />
@@ -124,13 +124,11 @@ function HeaderUserMenu() {
 
 function HeaderIconsSection() {
   return (
-    <Box border="1px dotted white">
-      <ButtonGroup spacing={[2, 4, 8]}>
-        <DynamicCreatePostDrawer />
-        <DynamicCreateCategoryDrawer />
-        <AddFriendPopOver />
-      </ButtonGroup>
-    </Box>
+    <ButtonGroup spacing={[2, 4, 8]}>
+      <DynamicCreatePostDrawer />
+      <DynamicCreateCategoryDrawer />
+      <AddFriendPopOver />
+    </ButtonGroup>
   )
 }
 
@@ -141,10 +139,10 @@ export default function AuthenticatedHeader() {
   return (
     <>
       <NavbarLogoSection />
-      <Flex flexGrow={2} justify="center" border="2px solid red" id="center">
+      <Flex flexGrow={2} justify="center" id="center">
         <NavigationMenu />
       </Flex>
-      <HStack border="2px solid green" id="end">
+      <HStack id="end">
         <HeaderIconsSection />
         <Flex px="2">
           <HeaderUserMenu />

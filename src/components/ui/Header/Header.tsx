@@ -5,7 +5,7 @@ import {
   Badge,
   chakra,
   Flex,
-  Skeleton,
+  GridItem,
   Text,
   useColorModeValue,
   useSafeLayoutEffect,
@@ -45,7 +45,12 @@ export default function Header() {
   }, [newUser])
 
   return (
-    <Skeleton isLoaded={!loading}>
+    <GridItem
+      gridRowStart={1}
+      gridColumnStart={1}
+      gridRowEnd={2}
+      gridColumnEnd={7}
+    >
       <chakra.nav
         pos="fixed"
         zIndex="1000"
@@ -58,15 +63,18 @@ export default function Header() {
         <Flex
           id="container"
           px="4"
-          border="1px dotted orange"
           w="100%"
           h="100%"
           align="center"
           justify="space-between"
         >
-          {loggedInUser ? <AuthenticatedHeader /> : <UnAuthenticatedHeader />}
+          {!loading && loggedInUser ? (
+            <AuthenticatedHeader />
+          ) : (
+            <UnAuthenticatedHeader />
+          )}
         </Flex>
       </chakra.nav>
-    </Skeleton>
+    </GridItem>
   )
 }

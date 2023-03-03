@@ -1,5 +1,6 @@
 import { Header } from '@/components/ui/Header'
 import ChatSideMenuWithSubs from '@/components/ui/SideMenu/ChatSideMenuWithSubs'
+import LeftSideMenuContainer from '@/components/ui/SideMenu/LeftSideMenuContainer'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
@@ -48,10 +49,8 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
       <Header />
 
       <Grid
-        top="3.5rem"
+        top="4em"
         w="full"
-        border="4px solid orange"
-        gridTemplateColumns="18vw auto 24rem"
         id="main-body-container"
         flexWrap="nowrap"
         position="relative"
@@ -60,8 +59,18 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
         width="100%"
       >
         <GridItem
+          maxHeight="calc(100vh - 4.2rem);"
+          w="100%"
+          overflowY="scroll"
+          as="aside"
+        >
+          <LeftSideMenuContainer />
+        </GridItem>
+
+        <GridItem
           p={2}
-          maxH="88vh"
+          maxH="92vh"
+          w="100%"
           border="1px solid red"
           overflowY="scroll"
           as="main"
