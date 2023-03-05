@@ -5,7 +5,6 @@ import {
   Badge,
   chakra,
   Flex,
-  GridItem,
   Text,
   useColorModeValue,
   useSafeLayoutEffect,
@@ -45,36 +44,29 @@ export default function Header() {
   }, [newUser])
 
   return (
-    <GridItem
-      gridRowStart={1}
-      gridColumnStart={1}
-      gridRowEnd={2}
-      gridColumnEnd={7}
+    <chakra.nav
+      pos="fixed"
+      zIndex="1000"
+      height="4rem"
+      maxW="1600px"
+      bg={headerBG}
+      boxShadow={headerShadow}
+      width="full"
     >
-      <chakra.nav
-        pos="fixed"
-        zIndex="1000"
-        height="4rem"
-        maxW="1600px"
-        bg={headerBG}
-        boxShadow={headerShadow}
-        width="full"
+      <Flex
+        id="container"
+        px="4"
+        w="100%"
+        h="100%"
+        align="center"
+        justify="space-between"
       >
-        <Flex
-          id="container"
-          px="4"
-          w="100%"
-          h="100%"
-          align="center"
-          justify="space-between"
-        >
-          {!loading && loggedInUser ? (
-            <AuthenticatedHeader />
-          ) : (
-            <UnAuthenticatedHeader />
-          )}
-        </Flex>
-      </chakra.nav>
-    </GridItem>
+        {!loading && loggedInUser ? (
+          <AuthenticatedHeader />
+        ) : (
+          <UnAuthenticatedHeader />
+        )}
+      </Flex>
+    </chakra.nav>
   )
 }
