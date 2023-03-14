@@ -13,9 +13,9 @@ export default function CommentsPageWithData() {
 
   if (data && data.post && data.post.comments) {
     const { comments } = data.post
-    const arePosts = comments.length > 0
+    const areComments = comments.length > 0
 
-    if (arePosts) {
+    if (areComments) {
       return (
         <Skeleton isLoaded={!loading}>
           <Stack>

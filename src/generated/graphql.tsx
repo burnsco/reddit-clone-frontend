@@ -390,9 +390,16 @@ export type RequestToAddFriendInput = {
 
 export type Subscription = {
   __typename?: 'Subscription';
+  newComment: Comment;
   newMessage: Message;
+  newPost: Post;
   newPrivateMessage: PrivateMessage;
   newUser: User;
+};
+
+
+export type SubscriptionNewCommentArgs = {
+  postId: Scalars['ID'];
 };
 
 
