@@ -54,7 +54,7 @@ export default function Header() {
       width="full"
     >
       <Flex
-        id="container"
+        id="header-container"
         px="4"
         w="100%"
         h="100%"
