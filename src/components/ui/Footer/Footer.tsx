@@ -10,10 +10,9 @@ import {
   Avatar,
   Badge,
   Button,
-  chakra,
   Flex,
-  Heading,
   HStack,
+  Heading,
   Menu,
   MenuButton,
   MenuDivider,
@@ -21,6 +20,7 @@ import {
   MenuItem,
   MenuList,
   Skeleton,
+  chakra,
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react'
@@ -180,12 +180,7 @@ export default function Footer() {
     <Skeleton isLoaded={!loadingRequests}>
       {requests?.me?.friendRequests ? (
         <Menu>
-          <MenuButton
-            size="md"
-            onClick={() => refetchRequests()}
-            as={Button}
-            rightIcon={!loading ? '?' : <ImSpinner />}
-          >
+          <MenuButton size="md" onClick={() => refetchRequests()} as={Button}>
             <HStack>
               <FriendRequestsCount />
               <chakra.span display={{ base: 'none', sm: 'none', md: 'flex' }}>

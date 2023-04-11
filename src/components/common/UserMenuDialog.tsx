@@ -90,7 +90,7 @@ export default function UserMenuDialog(username: string) {
 
   return (
     <Menu>
-      <ListItem ml={2} size="xs" variant="outline" as={MenuButton}>
+      <ListItem ml={2} as={MenuButton}>
         {username}
         {loading ? <ImSpinner /> : null}
       </ListItem>
