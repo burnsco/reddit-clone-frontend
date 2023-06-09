@@ -5,19 +5,21 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
+  ID: { input: string | number; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
 };
 
 export type AcceptOrRejectFriendInput = {
-  accept: Scalars['Boolean'];
-  username: Scalars['String'];
+  accept: Scalars['Boolean']['input'];
+  username: Scalars['String']['input'];
 };
 
 export type AddUserMutationResponse = {
@@ -29,16 +31,16 @@ export type AddUserMutationResponse = {
 
 export type Category = {
   __typename?: 'Category';
-  avatar?: Maybe<Scalars['String']>;
+  avatar?: Maybe<Scalars['String']['output']>;
   chatUsers?: Maybe<Array<User>>;
-  createdAt: Scalars['String'];
-  id: Scalars['String'];
-  name: Scalars['String'];
-  updatedAt: Scalars['String'];
+  createdAt: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
 };
 
 export type CategoryInput = {
-  name: Scalars['String'];
+  name: Scalars['String']['input'];
 };
 
 export type CategoryMutationResponse = {
@@ -49,17 +51,17 @@ export type CategoryMutationResponse = {
 
 export type Comment = {
   __typename?: 'Comment';
-  body: Scalars['String'];
-  createdAt: Scalars['String'];
+  body: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
   createdBy: User;
-  id: Scalars['String'];
+  id: Scalars['String']['output'];
   post: Post;
-  updatedAt: Scalars['String'];
+  updatedAt: Scalars['String']['output'];
 };
 
 export type CommentInput = {
-  body: Scalars['String'];
-  postId: Scalars['ID'];
+  body: Scalars['String']['input'];
+  postId: Scalars['ID']['input'];
 };
 
 export type CommentMutationResponse = {
@@ -70,59 +72,59 @@ export type CommentMutationResponse = {
 };
 
 export type CreatePostInput = {
-  categoryId: Scalars['String'];
-  categoryName: Scalars['String'];
-  image?: InputMaybe<Scalars['String']>;
-  imageH?: InputMaybe<Scalars['Int']>;
-  imageW?: InputMaybe<Scalars['Int']>;
-  link?: InputMaybe<Scalars['String']>;
-  text?: InputMaybe<Scalars['String']>;
-  title: Scalars['String'];
+  categoryId: Scalars['String']['input'];
+  categoryName: Scalars['String']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
+  imageH?: InputMaybe<Scalars['Int']['input']>;
+  imageW?: InputMaybe<Scalars['Int']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  text?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
 };
 
 export type EditPostInput = {
-  categoryId: Scalars['ID'];
-  image?: InputMaybe<Scalars['String']>;
-  imageH?: InputMaybe<Scalars['String']>;
-  imageW?: InputMaybe<Scalars['String']>;
-  link?: InputMaybe<Scalars['String']>;
-  postId: Scalars['ID'];
-  text?: InputMaybe<Scalars['String']>;
-  title: Scalars['String'];
+  categoryId: Scalars['ID']['input'];
+  image?: InputMaybe<Scalars['String']['input']>;
+  imageH?: InputMaybe<Scalars['String']['input']>;
+  imageW?: InputMaybe<Scalars['String']['input']>;
+  link?: InputMaybe<Scalars['String']['input']>;
+  postId: Scalars['ID']['input'];
+  text?: InputMaybe<Scalars['String']['input']>;
+  title: Scalars['String']['input'];
 };
 
 export type EditUserInput = {
-  about?: InputMaybe<Scalars['String']>;
-  avatar?: InputMaybe<Scalars['String']>;
-  email?: InputMaybe<Scalars['String']>;
-  password?: InputMaybe<Scalars['String']>;
-  username?: InputMaybe<Scalars['String']>;
+  about?: InputMaybe<Scalars['String']['input']>;
+  avatar?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  password?: InputMaybe<Scalars['String']['input']>;
+  username?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type FieldError = {
   __typename?: 'FieldError';
-  field: Scalars['String'];
-  message: Scalars['String'];
+  field: Scalars['String']['output'];
+  message: Scalars['String']['output'];
 };
 
 export type LoginInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
 export type Message = {
   __typename?: 'Message';
   category: Category;
-  content: Scalars['String'];
-  createdAt: Scalars['String'];
-  id: Scalars['String'];
+  content: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
+  id: Scalars['String']['output'];
   sentBy: User;
-  updatedAt: Scalars['String'];
+  updatedAt: Scalars['String']['output'];
 };
 
 export type MessageInput = {
-  categoryName: Scalars['String'];
-  content: Scalars['String'];
+  categoryName: Scalars['String']['input'];
+  content: Scalars['String']['input'];
 };
 
 export type Mutation = {
@@ -132,19 +134,19 @@ export type Mutation = {
   changePassword: UserMutationResponse;
   createCategory: CategoryMutationResponse;
   createComment: CommentMutationResponse;
-  createMessage: Scalars['Boolean'];
+  createMessage: Scalars['Boolean']['output'];
   createPost: PostMutationResponse;
   deletePost: PostMutationResponse;
   editComment: CommentMutationResponse;
   editPost: PostMutationResponse;
   editUser: UserMutationResponse;
-  forgotPassword: Scalars['Boolean'];
+  forgotPassword: Scalars['Boolean']['output'];
   joinChatRoom: UserLeaveJoinSubResponse;
   leaveChatRoom: UserLeaveJoinSubResponse;
   login: UserMutationResponse;
   logout: UserLogoutMutationResponse;
   register: UserMutationResponse;
-  sendPrivateMessage: Scalars['Boolean'];
+  sendPrivateMessage: Scalars['Boolean']['output'];
   vote: VoteMutationResponse;
 };
 
@@ -160,8 +162,8 @@ export type MutationAddFriendRequestArgs = {
 
 
 export type MutationChangePasswordArgs = {
-  newPassword: Scalars['String'];
-  token: Scalars['String'];
+  newPassword: Scalars['String']['input'];
+  token: Scalars['String']['input'];
 };
 
 
@@ -186,12 +188,12 @@ export type MutationCreatePostArgs = {
 
 
 export type MutationDeletePostArgs = {
-  category?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  postId?: InputMaybe<Scalars['ID']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -211,7 +213,7 @@ export type MutationEditUserArgs = {
 
 
 export type MutationForgotPasswordArgs = {
-  email: Scalars['String'];
+  email: Scalars['String']['input'];
 };
 
 
@@ -249,17 +251,17 @@ export type Post = {
   author: User;
   category: Category;
   comments?: Maybe<Array<Comment>>;
-  createdAt: Scalars['String'];
-  id: Scalars['String'];
-  image?: Maybe<Scalars['String']>;
-  imageH?: Maybe<Scalars['Int']>;
-  imageW?: Maybe<Scalars['Int']>;
-  link?: Maybe<Scalars['String']>;
-  text?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
+  createdAt: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  image?: Maybe<Scalars['String']['output']>;
+  imageH?: Maybe<Scalars['Int']['output']>;
+  imageW?: Maybe<Scalars['Int']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
   totalComments?: Maybe<_QueryMeta>;
   totalVotes?: Maybe<_QueryMeta>;
-  updatedAt: Scalars['String'];
+  updatedAt: Scalars['String']['output'];
   votes?: Maybe<Array<Vote>>;
 };
 
@@ -271,17 +273,17 @@ export type PostMutationResponse = {
 
 export type PrivateMessage = {
   __typename?: 'PrivateMessage';
-  body: Scalars['String'];
-  createdAt: Scalars['String'];
-  id: Scalars['String'];
+  body: Scalars['String']['output'];
+  createdAt: Scalars['String']['output'];
+  id: Scalars['String']['output'];
   sentBy: User;
   sentTo: User;
-  updatedAt: Scalars['String'];
+  updatedAt: Scalars['String']['output'];
 };
 
 export type PrivateMessageInput = {
-  body: Scalars['String'];
-  userId: Scalars['ID'];
+  body: Scalars['String']['input'];
+  userId: Scalars['ID']['input'];
 };
 
 export type Query = {
@@ -303,72 +305,72 @@ export type Query = {
 
 
 export type Query_CategoryPostsMetaArgs = {
-  category?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  postId?: InputMaybe<Scalars['ID']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryCategoriesArgs = {
-  categoryId?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryCategoryArgs = {
-  categoryId?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type QueryCommentArgs = {
-  category?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  postId?: InputMaybe<Scalars['ID']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryCommentsArgs = {
-  category?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  postId?: InputMaybe<Scalars['ID']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryMessagesArgs = {
-  categoryName: Scalars['String'];
+  categoryName: Scalars['String']['input'];
 };
 
 
 export type QueryPostArgs = {
-  category?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  postId?: InputMaybe<Scalars['ID']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
 export type QueryPostsArgs = {
-  category?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  postId?: InputMaybe<Scalars['ID']>;
-  skip?: InputMaybe<Scalars['Int']>;
+  category?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -377,15 +379,15 @@ export type QueryUserArgs = {
 };
 
 export type RegisterInput = {
-  about?: InputMaybe<Scalars['String']>;
-  avatar?: InputMaybe<Scalars['String']>;
-  email: Scalars['String'];
-  password: Scalars['String'];
-  username: Scalars['String'];
+  about?: InputMaybe<Scalars['String']['input']>;
+  avatar?: InputMaybe<Scalars['String']['input']>;
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  username: Scalars['String']['input'];
 };
 
 export type RequestToAddFriendInput = {
-  username: Scalars['String'];
+  username: Scalars['String']['input'];
 };
 
 export type Subscription = {
@@ -399,33 +401,33 @@ export type Subscription = {
 
 
 export type SubscriptionNewCommentArgs = {
-  postId: Scalars['ID'];
+  postId: Scalars['ID']['input'];
 };
 
 
 export type SubscriptionNewMessageArgs = {
-  categoryName?: InputMaybe<Scalars['String']>;
+  categoryName?: InputMaybe<Scalars['String']['input']>;
 };
 
 
 export type SubscriptionNewPrivateMessageArgs = {
-  userId: Scalars['ID'];
+  userId: Scalars['ID']['input'];
 };
 
 export type User = {
   __typename?: 'User';
-  about?: Maybe<Scalars['String']>;
-  avatar?: Maybe<Scalars['String']>;
+  about?: Maybe<Scalars['String']['output']>;
+  avatar?: Maybe<Scalars['String']['output']>;
   chatRooms: Array<Category>;
-  createdAt: Scalars['String'];
-  email: Scalars['String'];
+  createdAt: Scalars['String']['output'];
+  email: Scalars['String']['output'];
   friendRequests: Array<User>;
   friends: Array<User>;
-  id: Scalars['String'];
-  online: Scalars['Boolean'];
+  id: Scalars['String']['output'];
+  online: Scalars['Boolean']['output'];
   privateMessages: Array<PrivateMessage>;
-  updatedAt: Scalars['String'];
-  username: Scalars['String'];
+  updatedAt: Scalars['String']['output'];
+  username: Scalars['String']['output'];
 };
 
 export type UserLeaveJoinSubResponse = {
@@ -437,8 +439,8 @@ export type UserLeaveJoinSubResponse = {
 
 export type UserLogoutMutationResponse = {
   __typename?: 'UserLogoutMutationResponse';
-  message?: Maybe<Scalars['String']>;
-  success?: Maybe<Scalars['String']>;
+  message?: Maybe<Scalars['String']['output']>;
+  success?: Maybe<Scalars['String']['output']>;
 };
 
 export type UserMutationResponse = {
@@ -451,15 +453,15 @@ export type UserMutationResponse = {
 export type Vote = {
   __typename?: 'Vote';
   castBy: User;
-  createdAt: Scalars['String'];
-  id: Scalars['String'];
-  updatedAt: Scalars['String'];
-  value: Scalars['Int'];
+  createdAt: Scalars['String']['output'];
+  id: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  value: Scalars['Int']['output'];
 };
 
 export type VoteInput = {
-  postId: Scalars['ID'];
-  value: Scalars['Int'];
+  postId: Scalars['ID']['input'];
+  value: Scalars['Int']['input'];
 };
 
 export type VoteMutationResponse = {
@@ -471,8 +473,8 @@ export type VoteMutationResponse = {
 
 export type _QueryMeta = {
   __typename?: '_QueryMeta';
-  count?: Maybe<Scalars['Int']>;
-  score?: Maybe<Scalars['Int']>;
+  count?: Maybe<Scalars['Int']['output']>;
+  score?: Maybe<Scalars['Int']['output']>;
 };
 
 export type CategoryDetailsFragment = { __typename?: 'Category', id: string, createdAt: string, updatedAt: string, name: string };
@@ -521,7 +523,7 @@ export type CreatePostMutationVariables = Exact<{
 export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'PostMutationResponse', post?: { __typename?: 'Post', id: string, createdAt: string, updatedAt: string, title: string, imageH?: number | null, imageW?: number | null, text?: string | null, image?: string | null, link?: string | null, comments?: Array<{ __typename?: 'Comment', id: string, createdAt: string, updatedAt: string, body: string, createdBy: { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean } }> | null, author: { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean }, category: { __typename?: 'Category', id: string, createdAt: string, updatedAt: string, name: string }, totalComments?: { __typename?: '_QueryMeta', count?: number | null } | null, totalVotes?: { __typename?: '_QueryMeta', score?: number | null, count?: number | null } | null } | null } };
 
 export type DeletePostMutationVariables = Exact<{
-  postId?: InputMaybe<Scalars['ID']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
@@ -589,75 +591,75 @@ export type CreateVoteMutationVariables = Exact<{
 export type CreateVoteMutation = { __typename?: 'Mutation', vote: { __typename?: 'VoteMutationResponse', vote?: { __typename?: 'Vote', value: number, id: string } | null, post?: { __typename?: 'Post', id: string, totalVotes?: { __typename?: '_QueryMeta', count?: number | null, score?: number | null } | null } | null } };
 
 export type CategoriesQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  name?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 export type CategoriesQuery = { __typename?: 'Query', categories?: Array<{ __typename?: 'Category', id: string, createdAt: string, updatedAt: string, name: string }> | null };
 
 export type CategoryQueryVariables = Exact<{
-  name?: InputMaybe<Scalars['String']>;
-  categoryId?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  categoryId?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 export type CategoryQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string, chatUsers?: Array<{ __typename?: 'User', id: string, username: string, online: boolean }> | null } | null };
 
 export type CurrentCategoryIdQueryVariables = Exact<{
-  categoryId?: InputMaybe<Scalars['String']>;
-  name?: InputMaybe<Scalars['String']>;
+  categoryId?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 export type CurrentCategoryIdQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string } | null };
 
 export type CommentQueryVariables = Exact<{
-  postId?: InputMaybe<Scalars['ID']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
 export type CommentQuery = { __typename?: 'Query', comment: { __typename?: 'Comment', id: string, createdAt: string, updatedAt: string, body: string, createdBy: { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean } } };
 
 export type CommentsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  postId?: InputMaybe<Scalars['ID']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  postId?: InputMaybe<Scalars['ID']['input']>;
 }>;
 
 
 export type CommentsQuery = { __typename?: 'Query', comments?: Array<{ __typename?: 'Comment', id: string, createdAt: string, updatedAt: string, body: string, createdBy: { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean } }> | null };
 
 export type CommentsForPostQueryVariables = Exact<{
-  postId: Scalars['ID'];
-  orderBy?: InputMaybe<Scalars['String']>;
+  postId: Scalars['ID']['input'];
+  orderBy?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 export type CommentsForPostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, comments?: Array<{ __typename?: 'Comment', id: string, createdAt: string, updatedAt: string, body: string, createdBy: { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean } }> | null } | null };
 
 export type ChatRoomMessagesQueryVariables = Exact<{
-  categoryName: Scalars['String'];
+  categoryName: Scalars['String']['input'];
 }>;
 
 
 export type ChatRoomMessagesQuery = { __typename?: 'Query', messages?: Array<{ __typename?: 'Message', id: string, content: string, sentBy: { __typename?: 'User', id: string, username: string }, category: { __typename?: 'Category', id: string, name: string } }> | null };
 
 export type PostQueryVariables = Exact<{
-  postId: Scalars['ID'];
+  postId: Scalars['ID']['input'];
 }>;
 
 
 export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, createdAt: string, updatedAt: string, title: string, imageH?: number | null, imageW?: number | null, text?: string | null, image?: string | null, link?: string | null, category: { __typename?: 'Category', id: string, createdAt: string, updatedAt: string, name: string }, author: { __typename?: 'User', id: string, createdAt: string, updatedAt: string, username: string, online: boolean }, comments?: Array<{ __typename?: 'Comment', id: string, createdAt: string, updatedAt: string, body: string }> | null, totalComments?: { __typename?: '_QueryMeta', count?: number | null } | null, totalVotes?: { __typename?: '_QueryMeta', score?: number | null, count?: number | null } | null } | null };
 
 export type PostsQueryVariables = Exact<{
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Scalars['String']>;
-  skip?: InputMaybe<Scalars['Int']>;
-  category?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  orderBy?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
@@ -701,14 +703,14 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 export type UsersQuery = { __typename?: 'Query', users?: Array<{ __typename?: 'User', id: string, username: string, online: boolean, email: string, about?: string | null }> | null };
 
 export type UpdateMetaQueryVariables = Exact<{
-  category?: InputMaybe<Scalars['String']>;
+  category?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
 export type UpdateMetaQuery = { __typename?: 'Query', _allPostsMeta: { __typename?: '_QueryMeta', count?: number | null }, _categoryPostsMeta: { __typename?: '_QueryMeta', count?: number | null } };
 
 export type CategoryChatSubSubscriptionVariables = Exact<{
-  categoryName: Scalars['String'];
+  categoryName: Scalars['String']['input'];
 }>;
 
 
@@ -720,7 +722,7 @@ export type NewUserSubscriptionVariables = Exact<{ [key: string]: never; }>;
 export type NewUserSubscription = { __typename?: 'Subscription', newUser: { __typename?: 'User', id: string, username: string, email: string } };
 
 export type NewPrivateMessageSubscriptionVariables = Exact<{
-  userId: Scalars['ID'];
+  userId: Scalars['ID']['input'];
 }>;
 
 
