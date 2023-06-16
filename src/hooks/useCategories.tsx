@@ -1,19 +1,19 @@
 import { useMemo } from 'react'
-import { useMeQuery } from '../generated/graphql'
-import { loggedInUserId } from '../lib/apolloClient'
+import { useNumberOfCategoriesQuery } from '../generated/graphql'
 
-export const useLoggedInUser = () => {
-  const { data } = useMeQuery()
+export const useNumberOfCategories = () => {
+  const { data } = useNumberOfCategoriesQuery()
 
-  const loggedInUser = useMemo(() => data?.me, [data])
+  const numberOfCategories = useMemo(
+    () => data && data.numberOfCategories && data.numberOfCategories.count,
+    [data]
+  )
 
-  console.log('loggedInUserHook')
-  console.log(loggedInUser)
+  console.log('numberOfCategoriesHook')
+  console.log(numberOfCategories)
 
-  if (loggedInUser) {
-    loggedInUserId(loggedInUser.id)
-    window.localStorage.setItem('userId', loggedInUser.id)
-  }
+  if (numberOfCategories !== undefined && numberOfCategories !== null)
+    return numberOfCategories
 
-  return [loggedInUser]
+  return null
 }

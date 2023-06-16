@@ -2,6 +2,7 @@ import { NextChakraLink } from '@/components/common'
 import AddFriendPopOver from '@/components/common/AddFriendPopOver'
 import Logo from '@/components/common/Logo'
 import { useLogoutMutation } from '@/generated/graphql'
+import { useNumberOfCategories } from '@/hooks/useCategories'
 import {
   Avatar,
   Box,
@@ -123,9 +124,17 @@ function HeaderUserMenu() {
 }
 
 function HeaderIconsSection() {
+  const cats = useNumberOfCategories()
+
+  // silly, but when first running the site there will be 0 categories, therefor no way to make posts
+  function showCreatePost() {
+    if (cats === null || cats === 0) return null
+    else return <DynamicCreatePostDrawer />
+  }
+
   return (
     <ButtonGroup spacing={[2, 4, 8]}>
-      <DynamicCreatePostDrawer />
+      {showCreatePost()}
       <DynamicCreateCategoryDrawer />
       <AddFriendPopOver />
     </ButtonGroup>

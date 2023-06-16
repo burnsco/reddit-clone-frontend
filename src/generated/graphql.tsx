@@ -296,6 +296,7 @@ export type Query = {
   comments?: Maybe<Array<Comment>>;
   me?: Maybe<User>;
   messages?: Maybe<Array<Message>>;
+  numberOfCategories: _QueryMeta;
   post?: Maybe<Post>;
   posts?: Maybe<Array<Post>>;
   privateMessage?: Maybe<PrivateMessage>;
@@ -615,6 +616,11 @@ export type CurrentCategoryIdQueryVariables = Exact<{
 
 
 export type CurrentCategoryIdQuery = { __typename?: 'Query', category?: { __typename?: 'Category', id: string, name: string } | null };
+
+export type NumberOfCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NumberOfCategoriesQuery = { __typename?: 'Query', numberOfCategories: { __typename?: '_QueryMeta', count?: number | null } };
 
 export type CommentQueryVariables = Exact<{
   postId?: InputMaybe<Scalars['ID']['input']>;
@@ -1531,6 +1537,43 @@ export type CurrentCategoryIdLazyQueryHookResult = ReturnType<typeof useCurrentC
 export type CurrentCategoryIdQueryResult = Apollo.QueryResult<CurrentCategoryIdQuery, CurrentCategoryIdQueryVariables>;
 export function refetchCurrentCategoryIdQuery(variables?: CurrentCategoryIdQueryVariables) {
       return { query: CurrentCategoryIdDocument, variables: variables }
+    }
+export const NumberOfCategoriesDocument = gql`
+    query NumberOfCategories {
+  numberOfCategories {
+    count
+  }
+}
+    `;
+
+/**
+ * __useNumberOfCategoriesQuery__
+ *
+ * To run a query within a React component, call `useNumberOfCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNumberOfCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNumberOfCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useNumberOfCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<NumberOfCategoriesQuery, NumberOfCategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NumberOfCategoriesQuery, NumberOfCategoriesQueryVariables>(NumberOfCategoriesDocument, options);
+      }
+export function useNumberOfCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NumberOfCategoriesQuery, NumberOfCategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NumberOfCategoriesQuery, NumberOfCategoriesQueryVariables>(NumberOfCategoriesDocument, options);
+        }
+export type NumberOfCategoriesQueryHookResult = ReturnType<typeof useNumberOfCategoriesQuery>;
+export type NumberOfCategoriesLazyQueryHookResult = ReturnType<typeof useNumberOfCategoriesLazyQuery>;
+export type NumberOfCategoriesQueryResult = Apollo.QueryResult<NumberOfCategoriesQuery, NumberOfCategoriesQueryVariables>;
+export function refetchNumberOfCategoriesQuery(variables?: NumberOfCategoriesQueryVariables) {
+      return { query: NumberOfCategoriesDocument, variables: variables }
     }
 export const CommentDocument = gql`
     query Comment($postId: ID) {
