@@ -7,6 +7,9 @@ export const useLoggedInUser = () => {
 
   const loggedInUser = useMemo(() => data?.me, [data])
 
+  console.log('loggedInUserHook')
+  console.log(loggedInUser)
+
   if (loggedInUser) {
     loggedInUserId(loggedInUser.id)
     window.localStorage.setItem('userId', loggedInUser.id)
