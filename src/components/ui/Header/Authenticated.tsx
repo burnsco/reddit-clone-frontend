@@ -36,9 +36,9 @@ const DynamicCreatePostDrawer = dynamic(
   () => import('@/components/common/Drawers/CreatePost')
 )
 
-const DynamicAddFriendDrawer = dynamic(
-  () => import('@/components/common/Drawers/AddFriend')
-)
+// const DynamicAddFriendDrawer = dynamic(
+//   () => import('@/components/common/Drawers/AddFriend')
+// )
 
 export const NavbarLogoSection = () => (
   <NextChakraLink href="/" as={`/`}>
