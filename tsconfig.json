@@ -40,15 +40,5 @@
     "bundles",
     "coverage"
   ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/lib/jest-next-dynamic/index.js",
-    "src/__tests__/SideMenu.test.tsx",
-    "src/__tests__/Register.test.tsx",
-    "src/__tests__/PostList.test.tsx",
-    "src/__tests__/Header.test.tsx",
-    "src/__tests__/Post[id].test.tsx"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

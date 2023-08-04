@@ -2,7 +2,6 @@ import { Header } from '@/components/ui/Header'
 import ChatSideMenuWithSubs from '@/components/ui/SideMenu/ChatSideMenuWithSubs'
 import { Box, Flex } from '@chakra-ui/react'
 import Head from 'next/head'
-import PropTypes from 'prop-types'
 
 const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
   children,
@@ -72,10 +71,6 @@ const Layout: React.FC<{ children: React.ReactNode; title: string }> = ({
       </Flex>
     </>
   )
-}
-
-Layout.propTypes = {
-  title: PropTypes.string.isRequired,
 }
 
 export default Layout
