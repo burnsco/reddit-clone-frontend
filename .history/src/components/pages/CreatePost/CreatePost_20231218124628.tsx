@@ -81,6 +81,7 @@ export default function CreatePost() {
             <Form>
               <Stack spacing={5}>
                 <ChakraSelect
+                  placeholder="Choose a community"
                   aria-label="Choose a community"
                   onMouseOver={() => getSubreddits()}
                   id="categoryId"

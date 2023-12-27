@@ -12,6 +12,7 @@ import {
   Box,
   Button,
   Center,
+  chakra,
   Container,
   Drawer,
   DrawerBody,
@@ -29,12 +30,11 @@ import {
   TabPanels,
   Tabs,
   Tooltip,
-  VStack,
-  VisuallyHidden,
-  chakra,
   useColorModeValue,
   useDisclosure,
   useToast,
+  VisuallyHidden,
+  VStack,
 } from '@chakra-ui/react'
 import { Form, Formik, FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
@@ -198,6 +198,7 @@ export default function CreatePostDrawer() {
                   <DrawerBody>
                     <Stack spacing={5}>
                       <ChakraSelect
+                        placeholder="Choose a community"
                         aria-label="Choose a community"
                         id="categoryId"
                         name="categoryId"
