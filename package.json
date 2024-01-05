@@ -35,7 +35,7 @@
     "babel-plugin-superjson-next": "^0.4.5",
     "deepmerge": "^4.3.1",
     "formik": "^2.4.5",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.17.9",
     "graphql": "^16.8.1",
     "graphql-ws": "^5.14.3",
     "lodash": "^4.17.21",
