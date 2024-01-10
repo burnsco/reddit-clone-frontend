@@ -2,6 +2,7 @@ dist
 node_modules
 coverage
 generated
+.history
 .next
 **/node_modules/*
 **/out/*

@@ -55,8 +55,8 @@ const ProfilePage = () => {
                     data: {
                       username: values.username,
                       about: values.about,
-                      email: values.about,
-                      avatar: imageUrl,
+                      email: values.email,
+                      avatar: values.avatar,
                     },
                   },
                 })
@@ -70,6 +70,9 @@ const ProfilePage = () => {
                 </Box>
                 <Box my="4">
                   <ChakraField id="username" name="username" label="Username" />
+                </Box>
+                <Box my="4">
+                  <ChakraField id="email" name="email" label="Email" />
                 </Box>
                 <Box my="4">
                   <ChakraField id="avatar" name="avatar" label="Avatar" />

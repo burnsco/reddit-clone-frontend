@@ -39,6 +39,7 @@ function createApolloClient() {
 
   if (ssrMode) {
     return new ApolloClient({
+      connectToDevTools: true,
       ssrMode,
       link: httpLink,
       cache: cacheOptions,

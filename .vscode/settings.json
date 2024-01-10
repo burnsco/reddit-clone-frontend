@@ -8,5 +8,8 @@
   "files.autoSave": "onFocusChange",
   "typescript.tsdk": "node_modules/typescript/lib",
   "DockerRun.DisableDockerrc": true,
-  "DockerRun.DisableAutoGenerateConfig": true // optional but recommended
+  "DockerRun.DisableAutoGenerateConfig": true,
+  "[graphql]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  } // optional but recommended
 }

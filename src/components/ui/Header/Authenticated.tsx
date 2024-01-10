@@ -3,11 +3,11 @@ import AddFriendPopOver from '@/components/common/AddFriendPopOver'
 import Logo from '@/components/common/Logo'
 import { useLogoutMutation } from '@/generated/graphql'
 import { useNumberOfCategories } from '@/hooks/useCategories'
+import { useLoggedInUser } from '@/hooks/useLoggedInUser'
 import {
   Avatar,
   Box,
   ButtonGroup,
-  chakra,
   Flex,
   HStack,
   IconButton,
@@ -17,6 +17,7 @@ import {
   MenuGroup,
   MenuItem,
   MenuList,
+  chakra,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react'
@@ -63,6 +64,7 @@ export const NavbarLogoSection = () => (
 )
 
 function HeaderUserMenu() {
+  const [loggedInUser] = useLoggedInUser()
   const router = useRouter()
 
   const bg = useColorModeValue('white', '#202020')
@@ -79,7 +81,9 @@ function HeaderUserMenu() {
           <Avatar
             size="sm"
             name="Ryan Florence"
-            src={'https://bit.ly/ryan-florence'}
+            src={`${
+              loggedInUser ? loggedInUser.avatar : 'https://i.pravatar.cc/300'
+            }`}
           />
         }
         size="md"

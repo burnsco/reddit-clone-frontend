@@ -25,6 +25,9 @@ export default function Header() {
   const headerShadow = useColorModeValue('md', 'dark-lg')
   const colorScheme = useColorModeValue('green', 'orange')
 
+  console.log(`Logged IN USER`)
+  console.log(loggedInUser)
+
   useSafeLayoutEffect(() => {
     if (newUser) {
       toast({

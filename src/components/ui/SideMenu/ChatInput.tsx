@@ -28,6 +28,7 @@ export default function SideMenuChatInput() {
       <Formik initialValues={{ content: '' }} onSubmit={handleSubmitMessage}>
         <Form>
           <ChatField
+            autoComplete="off"
             label=""
             id="content"
             name="content"

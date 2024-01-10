@@ -3,5 +3,6 @@
 **/.next/*
 **/generated/*
 src/generated
+.history
 src/generated/*
 .next
