@@ -14,7 +14,7 @@ import { FaHome } from 'react-icons/fa'
 
 export default function NavigationMenu() {
   const router = useRouter()
-  const { loading, data } = useCategoriesQuery()
+  const { loading, data, error, refetch } = useCategoriesQuery()
   const bg = useColorModeValue('white', '#202020')
 
   const renderPath = () => {
@@ -29,11 +29,16 @@ export default function NavigationMenu() {
     }
     return 'Home'
   }
+
+  if (error) {
+    throw new Error('Error Fetching Categories')
+  }
   const NavigationDisplay = () => (
     <Menu closeOnSelect={true} matchWidth>
       {({ isOpen }) => (
         <>
           <MenuButton
+            onMouseOver={() => refetch()}
             as={Button}
             mr={4}
             flex="0 1 328px"
